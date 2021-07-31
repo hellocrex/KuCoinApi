@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PoissonSoft.KucoinApi.Transport
+namespace PoissonSoft.KuСoinApi.Transport
 {
     internal class Throttler
     {

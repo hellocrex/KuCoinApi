@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PoissonSoft.KucoinApi.Transport.Rest
+namespace PoissonSoft.KuСoinApi.Trade
 {
-    public class RestApi
+    internal class RespVoid
     {
-
     }
 }
