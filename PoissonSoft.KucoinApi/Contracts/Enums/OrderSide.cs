@@ -15,13 +15,13 @@ namespace PoissonSoft.KuСoinApi.Contracts.Enums
         /// <summary>
         /// BUY
         /// </summary>
-        [EnumMember(Value = "BUY")]
+        [EnumMember(Value = "buy")]
         Buy,
 
         /// <summary>
         /// SELL
         /// </summary>
-        [EnumMember(Value = "SELL")]
+        [EnumMember(Value = "sell")]
         Sell,
     }
 }

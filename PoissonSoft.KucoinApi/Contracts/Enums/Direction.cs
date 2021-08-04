@@ -5,19 +5,18 @@ using System.Text;
 
 namespace PoissonSoft.KuСoinApi.Contracts.Enums
 {
-    public enum TradeType
+    public enum Direction
     {
+        /// <summary>
+        /// Receive
+        /// </summary>
+        [EnumMember(Value = "in")]
+        In,
 
         /// <summary>
-        /// Spot ‎‎Trade
+        /// Send
         /// </summary>
-        [EnumMember(Value = "TRADE")]
-        Trade,
-
-        /// <summary>
-        /// Margin Trade
-        /// </summary>
-        [EnumMember(Value = "MARGIN_TRADE")]
-        Margin
+        [EnumMember(Value = "out")]
+        Out
     }
 }

@@ -5,15 +5,18 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using NLog;
 using PoissonSoft.KuСoinApi.Contracts.Exceptions;
+using PoissonSoft.KuСoinApi.Contracts.MarketData.Request;
 using PoissonSoft.KuСoinApi.Contracts.Serialization;
 using PoissonSoft.KuСoinApi.Trade;
 using PoissonSoft.KuСoinApi.Utils;
@@ -68,7 +71,7 @@ namespace PoissonSoft.KuСoinApi.Transport.Rest
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             if (useApiKey)
             {
-                httpClient.DefaultRequestHeaders.Add("KC-API-KEY", credentials.ApiKey);
+                //httpClient.DefaultRequestHeaders.Add("KC-API-KEY", credentials.ApiKey);
             }
 
             
@@ -118,32 +121,37 @@ namespace PoissonSoft.KuСoinApi.Transport.Rest
             {
                 string queryString;
                 string url;
+
                 if (requestParameters.Method == HttpMethod.Post || requestParameters.Method == HttpMethod.Put)
                 {
                     string body = null;
-                    var contentData = new {currency = "BTC"};
-                    body = JsonConvert.SerializeObject(contentData);
-                    SignHttpWebRequest(requestParameters.Method.ToString(), requestParameters.UrlPath, body);
+
+                    body = JsonConvert.SerializeObject(requestParameters.Parameters);
+
+                    // var contentData = new { type = "main", currency = "ETH" };
+                   // var contentData = new { currency = "ETH" };
+                    //body = JsonConvert.SerializeObject(contentData);
+
+                    //SignHttpWebRequest(requestParameters.Method.ToString(), requestParameters.UrlPath, body);
 
                     /////
-                    queryString = BuildQueryString(requestParameters.Parameters) ?? string.Empty;
-                    if (!requestParameters.PassAllParametersInQueryString || queryString == string.Empty)
-                    {
-                        url = requestParameters.UrlPath;
-                    }
-                    else
-                    {
-                        url = $"{requestParameters.UrlPath}?{queryString}";
-                    }
+                    //queryString = BuildQueryString(requestParameters.Parameters) ?? string.Empty;
+                    //if (!requestParameters.PassAllParametersInQueryString || queryString == string.Empty)
+                    //{
+                    //    url = requestParameters.UrlPath;
+                    //}
+                    //else
+                    //{
+                    //    url = $"{requestParameters.UrlPath}?{queryString}";
+                    //}
 
-                    //var myContent = JsonConvert.SerializeObject(requestParameters.UrlPath);
-                    //var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
-                    //var byteContent = new ByteArrayContent(buffer);
-                    // queryString = body;
-                    //https://api.kucoin.com/api/v1/orders
-                    //using (var content =
-                    //    new StringContent(requestParameters.PassAllParametersInQueryString ? string.Empty : body,
-                    //        Encoding.UTF8))
+                    //url =
+                    //    $"{requestParameters.UrlPath}{(string.IsNullOrEmpty(queryString) ? string.Empty : $"?{queryString}")}";
+
+                    url = $"{requestParameters.UrlPath}{body}";
+
+                    SignHttpWebRequest(requestParameters.Method.ToString(), url);
+
                     using (var content =
                         new StringContent(body, Encoding.UTF8, "application/json"))
                     {
@@ -160,16 +168,31 @@ namespace PoissonSoft.KuСoinApi.Transport.Rest
                 }
                 else if (requestParameters.Method == HttpMethod.Get || requestParameters.Method == HttpMethod.Delete)
                 {
+                    string body = "";
 
-                    string body = null;
-                    var contentData = new { symbol = "BTC-USDT" };
-                    body = JsonConvert.SerializeObject(contentData);
-                    SignHttpWebRequest(requestParameters.Method.ToString(), requestParameters.UrlPath, body);
+                    if (RequestParameters.SpecialBuildUrl)
+                    {
+                        body = requestParameters.Parameters["UrlString"] ?? string.Empty;
+                        RequestParameters.SpecialBuildUrl = false;
+                    }
 
-                    queryString = BuildQueryString(requestParameters.Parameters);
-                    url =
-                        $"{requestParameters.UrlPath}{(string.IsNullOrEmpty(queryString) ? string.Empty : $"?{queryString}")}";
+                    if (body != string.Empty)
+                    {
+                        url = $"{requestParameters.UrlPath}{($"/{body}")}";
+                    }
+                    else
+                    {
+                        body = JsonConvert.SerializeObject(requestParameters.Parameters);
+                        //body = null;
+                        queryString = BuildQueryString(requestParameters.Parameters);
+                        url =
+                            $"{requestParameters.UrlPath}{(string.IsNullOrEmpty(queryString) ? string.Empty : $"?{queryString}")}";
+                    }
 
+
+                    SignHttpWebRequest(requestParameters.Method.ToString(), url);
+
+                  //  url = $"{requestParameters.UrlPath}{($"/{body}")}";
                     using (var result = requestParameters.Method == HttpMethod.Get
                         ? httpClient.GetAsync(url).Result
                         : httpClient.DeleteAsync(url).Result)
@@ -222,14 +245,18 @@ namespace PoissonSoft.KuСoinApi.Transport.Rest
             //return JsonConvert.DeserializeObject<TResp>(strResp, serializerSettings);
         }
        
-        private void SignHttpWebRequest(string method, string urlPath, string body)
+        private void SignHttpWebRequest(string method, string urlPath)//, string body)
         {
             var nonce = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            var msg = Encoding.UTF8.GetBytes($"{nonce}{method}/api/v1/{urlPath}{body ?? string.Empty}");
-           // byte[] bkey = Encoding.UTF8.GetBytes(Credentials.SecretKey);
+            string m = $"{nonce}{method}/api/v1/{urlPath}";
+            var msg = Encoding.UTF8.GetBytes($"{nonce}{method}/api/v1/{urlPath}");//{body ?? string.Empty}");
+           // var msg = Encoding.UTF8.GetBytes($"{nonce}{method}/api/v1/{urlPath}{body ?? string.Empty}");
 
+            httpClient.DefaultRequestHeaders.Clear();
+            httpClient.DefaultRequestHeaders.Add("KC-API-KEY", Credentials.ApiKey);
             httpClient.DefaultRequestHeaders.Add("KC-API-SIGN", Convert.ToBase64String(new HMACSHA256(secretKey).ComputeHash(msg)));
             httpClient.DefaultRequestHeaders.Add("KC-API-TIMESTAMP", nonce.ToString());
+            //httpClient.DefaultRequestHeaders.Add("KC-API-PASSPHRASE", Convert.ToBase64String(new HMACSHA256(secretKey).ComputeHash(Encoding.UTF8.GetBytes(Credentials.PassPhrase))));
             httpClient.DefaultRequestHeaders.Add("KC-API-PASSPHRASE", Credentials.PassPhrase);
             httpClient.DefaultRequestHeaders.Add("KC-API-VERSION", 2.ToString());
         }
@@ -266,6 +293,11 @@ namespace PoissonSoft.KuСoinApi.Transport.Rest
         /// HTTP-метод
         /// </summary>
         public HttpMethod Method { get; }
+
+        /// <summary>
+        /// Особое построение строки запроса
+        /// </summary>
+        public static bool SpecialBuildUrl { get; set; }
 
         /// <summary>
         /// Путь к ресурсу (без базового адреса эндпоинта)
@@ -307,14 +339,22 @@ namespace PoissonSoft.KuСoinApi.Transport.Rest
         private static readonly JsonSerializerSettings jsonSerializerSettings = new JsonSerializerSettings
         {
             NullValueHandling = NullValueHandling.Ignore,
-            FloatParseHandling = FloatParseHandling.Decimal
+            FloatParseHandling = FloatParseHandling.Decimal,
+            Formatting = Formatting.Indented
         };
         public static Dictionary<string, string> GenerateParametersFromObject(object obj)
         {
             if (obj == null) return null;
             try
             {
+                if (obj is Url)
+                    SpecialBuildUrl = true;
+
+                jsonSerializerSettings.Converters.Add
+                    (new Newtonsoft.Json.Converters.StringEnumConverter());
+
                 var jObject = JObject.Parse(JsonConvert.SerializeObject(obj, jsonSerializerSettings));
+
                 return jObject.Children()
                     .Cast<JProperty>()
                     .Where(x => x.Value.Type != JTokenType.Null)

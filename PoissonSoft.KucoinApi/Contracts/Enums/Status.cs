@@ -5,19 +5,18 @@ using System.Text;
 
 namespace PoissonSoft.KuСoinApi.Contracts.Enums
 {
-    public enum TradeType
+    public enum Status
     {
+        /// <summary>
+        /// Main
+        /// </summary>
+        [EnumMember(Value = "active")]
+        Active,
 
         /// <summary>
-        /// Spot ‎‎Trade
+        /// Main
         /// </summary>
-        [EnumMember(Value = "TRADE")]
-        Trade,
-
-        /// <summary>
-        /// Margin Trade
-        /// </summary>
-        [EnumMember(Value = "MARGIN_TRADE")]
-        Margin
+        [EnumMember(Value = "done")]
+        Done
     }
 }

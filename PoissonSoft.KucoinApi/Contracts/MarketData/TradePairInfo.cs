@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
+using System.Text;
 using Newtonsoft.Json;
 
 namespace PoissonSoft.KuСoinApi.Contracts.MarketData
@@ -7,7 +8,7 @@ namespace PoissonSoft.KuСoinApi.Contracts.MarketData
     /// <summary>
     /// Общие данные по бирже
     /// </summary>
-    public class TickerInfo : ICloneable
+    public class TradePairInfo
     {
         /// <summary>
         /// Код http ответа
@@ -16,19 +17,9 @@ namespace PoissonSoft.KuСoinApi.Contracts.MarketData
         public int SystemCode { get; set; }
 
         /// <summary>
-        /// Серверное время
+        /// Код http ответа
         /// </summary>
         [JsonProperty("data")]
-        public Data Data { get; set; }
-
-        /// <inheritdoc />
-        public object Clone()
-        {
-            return new TickerInfo
-            {
-                SystemCode = SystemCode,
-               // Data = Data?.Select(x => (Data)x.Clone()).ToArray()
-            };
-        }
+        public MarketData Data { get; set; }
     }
 }

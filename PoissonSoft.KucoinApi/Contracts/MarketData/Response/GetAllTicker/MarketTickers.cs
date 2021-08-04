@@ -3,13 +3,13 @@ using Newtonsoft.Json;
 
 namespace PoissonSoft.KuСoinApi.Contracts.MarketData
 {
-    public class Data
+    public class MarketTickers
     {
         /// <summary>
         /// timestamp
         /// </summary>
         [JsonProperty("time")]
-        public string Time { get; set; }
+        public long Time { get; set; }
 
         /// <summary>
         /// Информация по ticker'у за 24ч

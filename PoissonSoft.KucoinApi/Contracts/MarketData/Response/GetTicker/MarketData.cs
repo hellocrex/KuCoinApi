@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace PoissonSoft.KuСoinApi.Contracts.MarketData
 {
@@ -11,19 +8,19 @@ namespace PoissonSoft.KuСoinApi.Contracts.MarketData
         /// Последовательность‎
         /// </summary>
         [JsonProperty("sequence")]
-        public string Sequence { get; set; }
+        public long Sequence { get; set; }
 
         /// <summary>
         /// ‎Лучшая цена ask‎
         /// </summary>
         [JsonProperty("bestAsk")]
-        public string BestAsk { get; set; }
+        public float BestAsk { get; set; }
 
         /// <summary>
         /// Размер последней сделки‎
         /// </summary>
         [JsonProperty("size")]
-        public string Size { get; set; }
+        public decimal Size { get; set; }
 
         /// <summary>
         /// Цена последней торговли‎
@@ -35,24 +32,24 @@ namespace PoissonSoft.KuСoinApi.Contracts.MarketData
         /// ‎Лучший размер ставки‎
         /// </summary>
         [JsonProperty("bestBidSize")]
-        public string BestBidSize { get; set; }
+        public float BestBidSize { get; set; }
 
         /// <summary>
         /// Лучшая цена предложения‎
         /// </summary>
         [JsonProperty("bestBid")]
-        public string BestBid { get; set; }
+        public float BestBid { get; set; }
 
         /// <summary>
         /// Лучший размер ask‎
         /// </summary>
         [JsonProperty("bestAskSize")]
-        public string BestAskSize { get; set; }
+        public decimal BestAskSize { get; set; }
 
         /// <summary>
         /// timestamp
         /// </summary>
         [JsonProperty("time")]
-        public string Time { get; set; }
+        public long Time { get; set; }
     }
 }

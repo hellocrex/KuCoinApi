@@ -31,11 +31,12 @@ namespace KuСoinApi.Example
             var actions = new Dictionary<ConsoleKey, string>()
             {
                 [ConsoleKey.A] = "User API NOT IMPL",
+                [ConsoleKey.D] = "User.Deposit",
 
                 [ConsoleKey.T] = "Trade API",
                 [ConsoleKey.C] = "Market Data",
 
-                [ConsoleKey.D] = "Spot Account API",
+                [ConsoleKey.S] = "Spot Account API",
                 [ConsoleKey.E] = "Spot Data Stream",
                 [ConsoleKey.F] = "Spot Data Collector",
 
@@ -54,9 +55,15 @@ namespace KuСoinApi.Example
                     while (ShowMarketDataPage()) { }
                     return true;
 
+                case ConsoleKey.D:
+                    while (ShowDepositPage()) { }
+                    return true;
+
                 case ConsoleKey.T:
                     while (ShowTradeApiPage()) { }
                     return true;
+
+                
 
 
                 case ConsoleKey.Escape:

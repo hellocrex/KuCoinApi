@@ -42,7 +42,7 @@ namespace PoissonSoft.KuСoinApi.Contracts.Trade
         /// ‎[Необязательно]‎‎ предотвращение самоторговли, ‎‎CN,‎‎ ‎‎CO,‎‎ ‎‎CB‎‎ или ‎‎DC‎
         /// </summary>
         [JsonProperty("stp")]
-        public string STP { get; set; }
+        public STP STP { get; set; }
 
         /// <summary>
         /// [Необязательно]‎‎ Вид торговли: ‎‎TRADE (Spot‎‎Trade), ‎‎MARGIN_TRADE‎‎ (Margin Trade). По умолчанию используется ‎‎значение TRADE.‎‎
