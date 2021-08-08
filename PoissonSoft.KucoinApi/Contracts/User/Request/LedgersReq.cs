@@ -6,7 +6,7 @@ using PoissonSoft.KuСoinApi.Contracts.Enums;
 
 namespace PoissonSoft.KuСoinApi.Contracts.User.Request
 {
-    public class Ledgers
+    public class LedgersReq
     {
         /// <summary>
         /// [Optional] Account type: main, trade, margin or pool
@@ -30,12 +30,12 @@ namespace PoissonSoft.KuСoinApi.Contracts.User.Request
         /// [Optional] Account type: main, trade, margin or pool
         /// </summary>
         [JsonProperty("startAt")]
-        public long startAt { get; set; }
+        public long StartAt { get; set; }
 
         /// <summary>
         /// [Optional] Account type: main, trade, margin or pool
         /// </summary>
         [JsonProperty("endAt")]
-        public long endAt { get; set; }
+        public long EndAt { get; set; }
     }
 }

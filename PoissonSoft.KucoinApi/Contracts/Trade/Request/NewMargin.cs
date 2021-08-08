@@ -3,7 +3,7 @@ using PoissonSoft.KuСoinApi.Contracts.Enums;
 
 namespace PoissonSoft.KuСoinApi.Contracts.Trade.Request
 {
-    public class MarginReq
+    public class NewMargin : OrderParameters
     {
         /// <summary>
         /// Unique order id created by users to identify their orders, e.g. UUID.

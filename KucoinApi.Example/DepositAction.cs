@@ -99,19 +99,34 @@ namespace KuСoinApi.Example
                 case ConsoleKey.L: // Get Deposit List
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.GetDepositList(
-                            new CurrencyReq
-                            {
-                                Symbol = InputHelper.GetString("Ticker: ")
-                            });
-                        Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
+                        DepositList data;
+                        for (int i = 0; i < 10; i++)
+                        {
+                            
+                            Console.WriteLine($"{i}_{DateTimeOffset.UtcNow}");
+                            data = apiClient.UserApi.GetDepositList(
+                                new CurrencyReq
+                                {
+                                    Symbol = "BTC"//InputHelper.GetString("Currency: ")
+                                });
+                           // Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
+                        }
+                        //var data1 = apiClient.UserApi.GetDepositList(
+                        //    new CurrencyReq
+                        //    {
+                        //        Symbol = "BTC"//InputHelper.GetString("Currency: ")
+                        //    });
+                        //Console.WriteLine(JsonConvert.SerializeObject(data1, Formatting.Indented));
                     });
                     return true;
 
-                case ConsoleKey.H: // Get Deposit List
+                case ConsoleKey.H: // Get V1 Historical Deposits List
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.GetV1HistoricalDepositsList(new CurrencyReq());
+                        var data = apiClient.UserApi.GetV1HistoricalDepositsList(new DepositReq
+                        {
+                            Currency = InputHelper.GetString("Currency: ")
+                        });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });
                     return true;
@@ -120,13 +135,13 @@ namespace KuСoinApi.Example
                 case ConsoleKey.E: // List Accounts
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.GetAccountLedgers(new Ledgers
+                        var data = apiClient.UserApi.GetAccountLedgers(new LedgersReq
                         {
                             Currency = InputHelper.GetString("Ticker: "),
                             Direction = InputHelper.GetEnum<Direction>("Direction: "),
                             BusinesType = InputHelper.GetEnum<BusinessType>("Business type: "),
-                            startAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - 100000,
-                            endAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
+                            StartAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - 100000,
+                            EndAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
                         });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });

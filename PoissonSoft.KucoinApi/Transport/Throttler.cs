@@ -6,5 +6,6 @@ namespace PoissonSoft.KuСoinApi.Transport
 {
     internal class Throttler
     {
+
     }
 }

@@ -51,7 +51,7 @@ namespace PoissonSoft.KuСoinApi.Contracts.Trade.Request
         public STP STP { get; set; }
 
         /// <summary>
-        /// [Optional] active or done(done as default), Only list orders with a specific status
+        /// [Optional] Either loss or entry. Requires stopPrice to be defined
         /// </summary>
         [JsonProperty("stop")]
         public string Stop { get; set; }

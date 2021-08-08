@@ -9,19 +9,19 @@ namespace PoissonSoft.KuСoinApi.Trade
 {
     public interface ITradeApi
     {
-        NewOrderRequest NewOrder(NewOrderRequest request, bool isHighPriority);
+        OrderIdResp NewOrder(NewOrderRequest request, bool isHighPriority);
         FillsList ListFills(FillsReq request);
         OrdersList RecentOrders();
-        Deposit ListOrders(OrderReq request);
+        PageOrdersList ListOrders(OrderReq request);
         FillsList RecentFills();
         OrderList GetOrder(Url request);
         OrderList GetSingleActiveOrderByClientOid(Url request);
-        NewOrderRequest NewMarginOrder(MarginReq request);
+        NewOrderRequest NewMarginOrder(NewMargin request);
         NewOrderRequest PlaceBulkOrders(BulkOrder request);
         NewOrderRequest CancelAnOrder(Url request);
         NewOrderRequest CancelSingleOrderByClientOid(Url request);
         CancelAllOrders CancelAllOrders(CancelOrders request);
-        Deposit GetHistoricalOrdersList(HistoricalOrderReq request);
+        HistoricalOrder GetHistoricalOrdersList(HistoricalOrderReq request);
         NewOrderRequest PlaceNewStopOrder(NewStopOrder request);
         NewOrderRequest CancelStopOrder(Url request);
         NewOrderRequest CancelStopOrders(CancelStopOrder request);

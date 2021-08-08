@@ -6,7 +6,7 @@ using PoissonSoft.KuСoinApi.Contracts.Enums;
 
 namespace PoissonSoft.KuСoinApi.Contracts.User.Response
 {
-    public class DeprecatedLedgers
+    public class Ledgers
     {
         /// <summary>
         /// Coin (optional)

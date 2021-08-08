@@ -6,6 +6,7 @@ using PoissonSoft.CommonUtils.ConsoleUtils;
 using PoissonSoft.KuСoinApi.Contracts.Enums;
 using PoissonSoft.KuСoinApi.Contracts.MarketData;
 using PoissonSoft.KuСoinApi.Contracts.MarketData.Request;
+using PoissonSoft.KuСoinApi.Contracts.Trade.Request;
 using PoissonSoft.KuСoinApi.Contracts.User;
 using PoissonSoft.KuСoinApi.Contracts.User.Account.Request;
 using PoissonSoft.KuСoinApi.Contracts.User.Request;
@@ -30,6 +31,7 @@ namespace KuСoinApi.Example
                 [ConsoleKey.J] = "Transfer between Master user and Sub-user",
                 [ConsoleKey.K] = "Inner Transfer",
                 [ConsoleKey.L] = "Basic user fee",
+                [ConsoleKey.M] = "Actual fee rate of the trading pair",
 
                 [ConsoleKey.Escape] = "Go back"
             };
@@ -66,7 +68,7 @@ namespace KuСoinApi.Example
                     {
                         var data = apiClient.UserApi.GetListAccounts(new AccountC
                         {
-                           // Currency = InputHelper.GetString("Currency: "),
+                            Currency = InputHelper.GetString("Currency: "),
                             AccountType = InputHelper.GetEnum<AccountType>("AccountType")
                         });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
@@ -115,7 +117,7 @@ namespace KuСoinApi.Example
                 case ConsoleKey.E: // List Accounts
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.GetAccountLedgersDeprecated(new LedgersDeprecated
+                        var data = apiClient.UserApi.GetAccountLedgersDeprecated(new LedgersDeprecatedReq
                         {
                             AccountId = InputHelper.GetString("AccountId: "),
                             //Direction = InputHelper.GetEnum<Direction>("Direction: "),
@@ -128,11 +130,12 @@ namespace KuСoinApi.Example
                 case ConsoleKey.F: // List Accounts
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.GetAccountLedgers(new Ledgers
+                        var data = apiClient.UserApi.GetAccountLedgers(new LedgersReq
                         {
                             Currency = InputHelper.GetString("Currency: "),
-                            Direction = InputHelper.GetEnum<Direction>("Direction: "),
-                            BusinesType = InputHelper.GetEnum<BusinessType>("Business type: ")
+                            StartAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - DateTimeOffset.UtcNow.AddDays(-1).ToUnixTimeMilliseconds()
+                            //Direction = InputHelper.GetEnum<Direction>("Direction: "),
+                            //BusinesType = InputHelper.GetEnum<BusinessType>("Business type: ")
                         });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });
@@ -173,6 +176,17 @@ namespace KuСoinApi.Example
                     SafeCall(() =>
                     {
                         var data = apiClient.UserApi.GetBasicUserFee();
+                        Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
+                    });
+                    return true;
+
+                case ConsoleKey.M: // Get the Aggregated Balance of all Sub-Accounts
+                    SafeCall(() =>
+                    {
+                        var data = apiClient.UserApi.ActualFeeRateTradingPair(new TradePairs
+                        {
+                            Symbols = InputHelper.GetString("Trading pair (optional, you can inquire fee rates of 10 trading pairs each time at most): ")
+                        });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });
                     return true;

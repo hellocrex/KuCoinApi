@@ -6,10 +6,10 @@ using PoissonSoft.KuСoinApi.Contracts.Enums;
 
 namespace PoissonSoft.KuСoinApi.Contracts.User.Request
 {
-    public class LedgersDeprecated
+    public class LedgersDeprecatedReq
     {
         /// <summary>
-        /// [Optional] Account type: main, trade, margin or pool
+        /// ID of the account
         /// </summary>
         [JsonProperty("accountId")]
         public string AccountId { get; set; }
@@ -38,5 +38,4 @@ namespace PoissonSoft.KuСoinApi.Contracts.User.Request
         [JsonProperty("endAt")]
         public long endAt { get; set; }
     }
-
 }

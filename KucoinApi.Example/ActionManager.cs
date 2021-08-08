@@ -30,15 +30,11 @@ namespace KuСoinApi.Example
             Console.Clear();
             var actions = new Dictionary<ConsoleKey, string>()
             {
-                [ConsoleKey.A] = "User API NOT IMPL",
+                [ConsoleKey.A] = "User API",
                 [ConsoleKey.D] = "User.Deposit",
 
                 [ConsoleKey.T] = "Trade API",
                 [ConsoleKey.C] = "Market Data",
-
-                [ConsoleKey.S] = "Spot Account API",
-                [ConsoleKey.E] = "Spot Data Stream",
-                [ConsoleKey.F] = "Spot Data Collector",
 
                 [ConsoleKey.Escape] = "Go back (exit)",
             };

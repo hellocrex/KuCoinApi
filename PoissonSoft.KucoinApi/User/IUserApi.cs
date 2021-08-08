@@ -5,6 +5,7 @@ using PoissonSoft.KuСoinApi.Contracts;
 using PoissonSoft.KuСoinApi.Contracts.MarketData;
 using PoissonSoft.KuСoinApi.Contracts.MarketData.Request;
 using PoissonSoft.KuСoinApi.Contracts.MarketData.Response;
+using PoissonSoft.KuСoinApi.Contracts.Trade.Request;
 using PoissonSoft.KuСoinApi.Contracts.User;
 using PoissonSoft.KuСoinApi.Contracts.User.Account.Request;
 using PoissonSoft.KuСoinApi.Contracts.User.Request;
@@ -23,20 +24,21 @@ namespace PoissonSoft.KuСoinApi.User
         DepositInfo[] DepositHistory(DepositHistoryRequest request);
 
         AccountsList GetListAccounts(AccountC request);
-        CurrencyList UserInfo();
+        SubAccountsList UserInfo();
         Account CreateAccount(AccountC request);
-        DeprecatedLedgers GetAccountLedgersDeprecated(LedgersDeprecated request);
-        Account GetAccountLedgers(Ledgers request);
+        Ledgers GetAccountLedgersDeprecated(LedgersDeprecatedReq request);
+        Ledgers GetAccountLedgers(LedgersReq request);
         SubAccount GetAccountBalanceOfSubAccount(Url request);
         SubAccount GetAggregatedBalanceOfAllSubAccounts();
         Transferable GetTransferable(AccountC request);
-        Deposit CreateDepositAddressV1(CurrencyReq request);
-        Deposit GetDepositAddressV2(CurrencyReq request);
-        Deposit GetDepositAddress(CurrencyReq request);
-        Deposit GetDepositList(CurrencyReq request);
-        Deposit GetV1HistoricalDepositsList(CurrencyReq request);
+        DepositAddress CreateDepositAddressV1(CurrencyReq request);
+        DepositAddress GetDepositAddressV2(CurrencyReq request);
+        AddressList GetDepositAddress(CurrencyReq request);
+        DepositList GetDepositList(CurrencyReq request);
+        HistoricalList GetV1HistoricalDepositsList(DepositReq request);
         AccountList GetAccount(Url request);
-        Deposit GetBasicUserFee();
+        FeeInfo GetBasicUserFee();
+        FeeList ActualFeeRateTradingPair(TradePairs request);
 
     }
 

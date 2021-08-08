@@ -12,7 +12,7 @@ namespace PoissonSoft.KuСoinApi.Contracts.User.Request
         /// [Optional] Account type: main, trade, margin or pool
         /// </summary>
         [JsonProperty("currency")]
-        public string Ticker { get; set; }
+        public string Currency { get; set; }
 
         /// <summary>
         /// [Optional] Account type: main, trade, margin or pool

@@ -119,7 +119,6 @@ namespace PoissonSoft.KuСoinApi.Transport.Rest
             string strResp = "";
             try
             {
-                string queryString;
                 string url;
 
                 if (requestParameters.Method == HttpMethod.Post || requestParameters.Method == HttpMethod.Put)
@@ -127,27 +126,7 @@ namespace PoissonSoft.KuСoinApi.Transport.Rest
                     string body = null;
 
                     body = JsonConvert.SerializeObject(requestParameters.Parameters);
-
-                    // var contentData = new { type = "main", currency = "ETH" };
-                   // var contentData = new { currency = "ETH" };
-                    //body = JsonConvert.SerializeObject(contentData);
-
-                    //SignHttpWebRequest(requestParameters.Method.ToString(), requestParameters.UrlPath, body);
-
-                    /////
-                    //queryString = BuildQueryString(requestParameters.Parameters) ?? string.Empty;
-                    //if (!requestParameters.PassAllParametersInQueryString || queryString == string.Empty)
-                    //{
-                    //    url = requestParameters.UrlPath;
-                    //}
-                    //else
-                    //{
-                    //    url = $"{requestParameters.UrlPath}?{queryString}";
-                    //}
-
-                    //url =
-                    //    $"{requestParameters.UrlPath}{(string.IsNullOrEmpty(queryString) ? string.Empty : $"?{queryString}")}";
-
+                    
                     url = $"{requestParameters.UrlPath}{body}";
 
                     SignHttpWebRequest(requestParameters.Method.ToString(), url);
@@ -182,22 +161,25 @@ namespace PoissonSoft.KuСoinApi.Transport.Rest
                     }
                     else
                     {
-                        body = JsonConvert.SerializeObject(requestParameters.Parameters);
-                        //body = null;
-                        queryString = BuildQueryString(requestParameters.Parameters);
+                        // body = JsonConvert.SerializeObject(requestParameters.Parameters);
+                        var queryString = BuildQueryString(requestParameters.Parameters);
                         url =
                             $"{requestParameters.UrlPath}{(string.IsNullOrEmpty(queryString) ? string.Empty : $"?{queryString}")}";
                     }
 
-
                     SignHttpWebRequest(requestParameters.Method.ToString(), url);
-
-                  //  url = $"{requestParameters.UrlPath}{($"/{body}")}";
+                    
                     using (var result = requestParameters.Method == HttpMethod.Get
                         ? httpClient.GetAsync(url).Result
                         : httpClient.DeleteAsync(url).Result)
                     {
                         strResp = result.Content.ReadAsStringAsync().Result;
+
+                        // превышение лимита количества вызовов метода
+                        if (result.StatusCode != HttpStatusCode.OK)
+                        {
+                            checkResponse(result, strResp);
+                        }
                         checkResponse(result, strResp);
                     }
                 }
@@ -245,18 +227,16 @@ namespace PoissonSoft.KuСoinApi.Transport.Rest
             //return JsonConvert.DeserializeObject<TResp>(strResp, serializerSettings);
         }
        
-        private void SignHttpWebRequest(string method, string urlPath)//, string body)
+        private void SignHttpWebRequest(string method, string urlPath)
         {
             var nonce = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             string m = $"{nonce}{method}/api/v1/{urlPath}";
-            var msg = Encoding.UTF8.GetBytes($"{nonce}{method}/api/v1/{urlPath}");//{body ?? string.Empty}");
-           // var msg = Encoding.UTF8.GetBytes($"{nonce}{method}/api/v1/{urlPath}{body ?? string.Empty}");
+            var msg = Encoding.UTF8.GetBytes($"{nonce}{method}/api/v1/{urlPath}");
 
             httpClient.DefaultRequestHeaders.Clear();
             httpClient.DefaultRequestHeaders.Add("KC-API-KEY", Credentials.ApiKey);
             httpClient.DefaultRequestHeaders.Add("KC-API-SIGN", Convert.ToBase64String(new HMACSHA256(secretKey).ComputeHash(msg)));
             httpClient.DefaultRequestHeaders.Add("KC-API-TIMESTAMP", nonce.ToString());
-            //httpClient.DefaultRequestHeaders.Add("KC-API-PASSPHRASE", Convert.ToBase64String(new HMACSHA256(secretKey).ComputeHash(Encoding.UTF8.GetBytes(Credentials.PassPhrase))));
             httpClient.DefaultRequestHeaders.Add("KC-API-PASSPHRASE", Credentials.PassPhrase);
             httpClient.DefaultRequestHeaders.Add("KC-API-VERSION", 2.ToString());
         }
@@ -265,16 +245,12 @@ namespace PoissonSoft.KuСoinApi.Transport.Rest
         {
             var mainParams = paramDic?.Any() != true
                 ? string.Empty
-                : string.Join("&", paramDic.Select(x => $"{x.Key}={HttpUtility.UrlEncode(x.Value)}"));
+                //: string.Join("&", paramDic.Select(x => $"{x.Key}={HttpUtility.UrlEncode(x.Value)}"));
+                : string.Join("&", paramDic.Select(x => $"{x.Key}={x.Value}"));
 
-            if (!useSignature) return mainParams;
-            
+            //if (!useSignature) return mainParams;
+
             return mainParams;
-
-            //var queryString = string.Join("&", mainParams,
-            //    $"timestamp={DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()}");
-
-            //return string.Join("&", queryString, $"signature={Sign(queryString)}");
         }
 
         private string Sign(string queryString)

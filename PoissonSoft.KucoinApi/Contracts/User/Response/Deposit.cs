@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using PoissonSoft.KuСoinApi.Contracts.Enums;
 
 namespace PoissonSoft.KuСoinApi.Contracts.User.Response
 {
@@ -20,15 +21,57 @@ namespace PoissonSoft.KuСoinApi.Contracts.User.Response
         public string Memo { get; set; }
 
         /// <summary>
-        /// The chain name of currency
+        /// Deposit amount
         /// </summary>
-        [JsonProperty("chain")]
-        public string Chain { get; set; }
+        [JsonProperty("amount")]
+        public decimal Amount { get; set; }
 
         /// <summary>
-        /// The token contract address
+        /// Fees charged for deposit
         /// </summary>
-        [JsonProperty("contractAddress")]
-        public string ContractAddress { get; set; }
+        [JsonProperty("fee")]
+        public float Fee { get; set; }
+
+        /// <summary>
+        /// Currency
+        /// </summary>
+        [JsonProperty("currency")]
+        public string Currency { get; set; }
+
+        /// <summary>
+        /// Internal deposit or not
+        /// </summary>
+        [JsonProperty("isInner")]
+        public bool isInner { get; set; }
+
+        /// <summary>
+        /// Wallet Txid
+        /// </summary>
+        [JsonProperty("walletTxId")]
+        public string walletTxId { get; set; }
+
+        /// <summary>
+        /// Status
+        /// </summary>
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        /// <summary>
+        /// Remark
+        /// </summary>
+        [JsonProperty("remark")]
+        public string Remark { get; set; }
+
+        /// <summary>
+        /// Creation time of the database record
+        /// </summary>
+        [JsonProperty("createdAt")]
+        public long CreatedAt { get; set; }
+
+        /// <summary>
+        /// Update time of the database record
+        /// </summary>
+        [JsonProperty("updatedAt")]
+        public long UpdatedAt { get; set; }
     }
 }

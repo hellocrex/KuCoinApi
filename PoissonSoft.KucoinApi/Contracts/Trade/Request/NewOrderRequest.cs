@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 using PoissonSoft.KuСoinApi.Contracts.Enums;
+using PoissonSoft.KuСoinApi.Contracts.Trade.Request;
 
-namespace PoissonSoft.KuСoinApi.Contracts.Trade
+namespace PoissonSoft.KuСoinApi.Contracts.Trade.Request
 {
-    public class NewOrderRequest
+    public class NewOrderRequest : OrderParameters
     {
         /// <summary>
         /// ‎Уникальный идентификатор заказа, созданный пользователями для идентификации заказов, например, UUID‎

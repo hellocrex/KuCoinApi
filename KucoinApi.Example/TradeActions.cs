@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 using PoissonSoft.CommonUtils.ConsoleUtils;
 using PoissonSoft.KuСoinApi.Contracts;
@@ -59,7 +60,8 @@ namespace KuСoinApi.Example
                                 Type = InputHelper.GetEnum<OrderType>("Type"),
                                 TradeType = InputHelper.GetEnum<TradeType>("Trade type"),
                                 STP = InputHelper.GetEnum<STP>("STP: "),
-                                Comment = "Test order"
+                                Price = InputHelper.GetString("Price per base currency: "),
+                                size = InputHelper.GetString("Amount of base currency to buy or sell: ")
 
                             },
                             true
@@ -72,13 +74,15 @@ namespace KuСoinApi.Example
                     SafeCall(() =>
                     {
                         var order = apiClient.TradeApi.NewMarginOrder(
-                            new MarginReq
+                            new NewMargin
                             {
                                 ClientOid = Guid.NewGuid().ToString(),
                                 Symbol = InputHelper.GetString("Trade instrument symbol: "),
                                 Side = InputHelper.GetEnum<OrderSide>("Side"),
                                 Type = InputHelper.GetEnum<OrderType>("Type"),
-                                STP = InputHelper.GetEnum<STP>("STP: ")
+                                STP = InputHelper.GetEnum<STP>("STP: "),
+                                Price = InputHelper.GetString("Price per base currency: "),
+                                size = InputHelper.GetString("Amount of base currency to buy or sell: ")
                             }
                         );
                         Console.WriteLine(JsonConvert.SerializeObject(order, Formatting.Indented));
@@ -95,7 +99,6 @@ namespace KuСoinApi.Example
                                 Symbol = InputHelper.GetString("Trade instrument symbol: "),
                                 Side = InputHelper.GetEnum<OrderSide>("Side"),
                                 Type = InputHelper.GetEnum<OrderType>("Type"),
-                                TradeType = InputHelper.GetEnum<TradeType>("Type"),
                                 Price = InputHelper.GetString("Price"),
                                 Size = InputHelper.GetString("Size"),
                                 STP = InputHelper.GetEnum<STP>("STP: ")
@@ -152,7 +155,7 @@ namespace KuСoinApi.Example
                             new OrderReq
                             {
                                 StatusOrder = InputHelper.GetEnum<Status>("active or done: "),
-                                Symbol = InputHelper.GetString("Symbol: "),
+                                //Symbol = InputHelper.GetString("Symbol: "),
                                 Side = InputHelper.GetEnum<OrderSide>("")
                             });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
@@ -166,7 +169,9 @@ namespace KuСoinApi.Example
                             new HistoricalOrderReq()
                             {
                                 Symbol = InputHelper.GetString("Symbol: "),
-                                Side = InputHelper.GetEnum<OrderSide>("")
+                                Side = InputHelper.GetEnum<OrderSide>(""),
+                                PageSize = Convert.ToInt32(InputHelper.GetString("PageSize: ")),
+                                StartTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - DateTimeOffset.UtcNow.AddDays(-5).ToUnixTimeMilliseconds()
                             });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });

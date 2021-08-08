@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using NLog;
 using PoissonSoft.KuСoinApi.Contracts;
+using PoissonSoft.KuСoinApi.Contracts.Enums;
 using PoissonSoft.KuСoinApi.Contracts.MarketData.Request;
 using PoissonSoft.KuСoinApi.Contracts.Trade;
 using PoissonSoft.KuСoinApi.Contracts.Trade.Request;
@@ -22,13 +23,14 @@ namespace PoissonSoft.KuСoinApi.Trade
 
             this.apiClient = apiClient;// ?? throw new ArgumentNullException(nameof(apiClient));
             client = new RestClient(logger, "https://openapi-sandbox.kucoin.com/api/v1",
+               // client = new RestClient(logger, "https://api.kucoin.com/api/v1",
                 new[] { EndpointSecurityType.Trade }, credentials);
             //,this.apiClient.Throttler);
         }
         
-        public NewOrderRequest NewOrder(NewOrderRequest request, bool isHighPriority)
+        public OrderIdResp NewOrder(NewOrderRequest request, bool isHighPriority)
         {
-            return client.MakeRequest<NewOrderRequest>(new RequestParameters(HttpMethod.Post, "orders", 1)
+            return client.MakeRequest<OrderIdResp>(new RequestParameters(HttpMethod.Post, "orders", 1)
             {
                 IsHighPriority = isHighPriority,
                 IsOrderRequest = true,
@@ -37,7 +39,7 @@ namespace PoissonSoft.KuСoinApi.Trade
             });
         }
 
-        public NewOrderRequest NewMarginOrder(MarginReq request)
+        public NewOrderRequest NewMarginOrder(NewMargin request)
         {
             return client.MakeRequest<NewOrderRequest>(new RequestParameters(HttpMethod.Post, "margin/order", 1)
             {
@@ -87,18 +89,18 @@ namespace PoissonSoft.KuСoinApi.Trade
             });
         }
 
-        public Deposit ListOrders(OrderReq request)
+        public PageOrdersList ListOrders(OrderReq request)
         {
-            return client.MakeRequest<Deposit>(
+            return client.MakeRequest<PageOrdersList>(
                 new RequestParameters(HttpMethod.Get, "orders", 1)
                 {
                     Parameters = RequestParameters.GenerateParametersFromObject(request)
                 });
         }
         
-        public Deposit GetHistoricalOrdersList(HistoricalOrderReq request)
+        public HistoricalOrder GetHistoricalOrdersList(HistoricalOrderReq request)
         {
-            return client.MakeRequest<Deposit>(
+            return client.MakeRequest<HistoricalOrder>(
                 new RequestParameters(HttpMethod.Get, "hist-orders", 1)
                 {
                     Parameters = RequestParameters.GenerateParametersFromObject(request)
