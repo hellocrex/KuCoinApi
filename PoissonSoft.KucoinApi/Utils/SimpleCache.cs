@@ -1,7 +1,7 @@
 ﻿using System;
 using NLog;
 
-namespace PoissonSoft.KuСoinApi.Utils
+namespace PoissonSoft.KuCoinApi.Utils
 {
     internal class SimpleCache<T> where T : ICloneable
     {

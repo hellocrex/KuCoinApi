@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PoissonSoft.KuСoinApi.Contracts.Exceptions
+namespace PoissonSoft.KuCoinApi.Contracts.Exceptions
 {
     /// <summary>
     /// Исключение при взаимодействии с endpoint

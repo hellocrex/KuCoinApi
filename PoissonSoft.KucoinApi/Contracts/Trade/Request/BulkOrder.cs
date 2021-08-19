@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
-using PoissonSoft.KuСoinApi.Contracts.Enums;
+using PoissonSoft.KuCoinApi.Contracts.Enums;
 
-namespace PoissonSoft.KuСoinApi.Contracts.Trade.Request
+namespace PoissonSoft.KuCoinApi.Contracts.Trade.Request
 {
     public class BulkOrder
     {
@@ -78,7 +78,7 @@ namespace PoissonSoft.KuСoinApi.Contracts.Trade.Request
         /// [Optional] active or done(done as default), Only list orders with a specific status
         /// </summary>
         [JsonProperty("timeInForce")]
-        public Status TimeInForce { get; set; }
+        public TimeInForce TimeInForce { get; set; }
 
         /// <summary>
         /// [Optional] cancel after n seconds, requires timeInForce to be GTT

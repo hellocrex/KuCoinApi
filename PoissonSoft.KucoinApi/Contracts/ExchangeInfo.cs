@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using Newtonsoft.Json;
-using PoissonSoft.KuСoinApi.Contracts;
+using PoissonSoft.KuCoinApi.Contracts;
 
-namespace PoissonSoft.KuСoinApi.Contracts
+namespace PoissonSoft.KuCoinApi.Contracts
 {
     /// <summary>
     /// Общие данные по бирже

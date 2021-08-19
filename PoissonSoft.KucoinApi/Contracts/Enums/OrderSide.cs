@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace PoissonSoft.KuСoinApi.Contracts.Enums
+namespace PoissonSoft.KuCoinApi.Contracts.Enums
 {
     /// <summary>
     /// Направление сделки

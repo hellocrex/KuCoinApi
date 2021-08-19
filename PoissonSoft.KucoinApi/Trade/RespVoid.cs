@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PoissonSoft.KuСoinApi.Trade
+namespace PoissonSoft.KuCoinApi.Trade
 {
     internal class RespVoid
     {

@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using PoissonSoft.KuСoinApi.Contracts;
-using PoissonSoft.KuСoinApi.Contracts.MarketData;
-using PoissonSoft.KuСoinApi.Contracts.MarketData.Request;
-using PoissonSoft.KuСoinApi.Contracts.MarketData.Response;
-using PoissonSoft.KuСoinApi.Contracts.Trade.Request;
-using PoissonSoft.KuСoinApi.Contracts.User;
-using PoissonSoft.KuСoinApi.Contracts.User.Account.Request;
-using PoissonSoft.KuСoinApi.Contracts.User.Request;
-using PoissonSoft.KuСoinApi.Contracts.User.Response;
+using PoissonSoft.KuCoinApi.Contracts;
+using PoissonSoft.KuCoinApi.Contracts.MarketData;
+using PoissonSoft.KuCoinApi.Contracts.MarketData.Request;
+using PoissonSoft.KuCoinApi.Contracts.MarketData.Response;
+using PoissonSoft.KuCoinApi.Contracts.Trade.Request;
+using PoissonSoft.KuCoinApi.Contracts.User;
+using PoissonSoft.KuCoinApi.Contracts.User.Account.Request;
+using PoissonSoft.KuCoinApi.Contracts.User.Request;
+using PoissonSoft.KuCoinApi.Contracts.User.Response;
 
-namespace PoissonSoft.KuСoinApi.User
+namespace PoissonSoft.KuCoinApi.User
 {
     public interface IUserApi
     {
-        KuСoinInfo[] AllCoinsInformation(int cacheValidityIntervalSec = 10 * 60);
+        KuCoinInfo[] AllCoinsInformation(int cacheValidityIntervalSec = 10 * 60);
 
         /// <summary>
         /// Fetch deposit history.
@@ -39,6 +39,11 @@ namespace PoissonSoft.KuСoinApi.User
         AccountList GetAccount(Url request);
         FeeInfo GetBasicUserFee();
         FeeList ActualFeeRateTradingPair(TradePairs request);
+        WithdrawListInfo GetWithdrawalsList(DepositReq request);
+        WithdrawQuotaInfo GetWithdrawalQuotas(WithdrawQuota request);
+        HistoricalWithdrawListInfo GetV1HistoricalWithdrawList(HistoricalWithdrawList request);
+        FeeList ApplyWithdraw(WithdrawReq request);
+        FeeList CancelWithdrawal(Url request);
 
     }
 

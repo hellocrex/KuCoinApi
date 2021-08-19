@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
-using PoissonSoft.KuСoinApi.Contracts.User.Account.Response;
+using PoissonSoft.KuCoinApi.Contracts.User.Account.Response;
 
-namespace PoissonSoft.KuСoinApi.Contracts.User
+namespace PoissonSoft.KuCoinApi.Contracts.User
 {
     public class AccountList
     {

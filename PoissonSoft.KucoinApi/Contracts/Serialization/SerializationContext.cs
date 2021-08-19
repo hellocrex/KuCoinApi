@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using NLog;
 
-namespace PoissonSoft.KuСoinApi.Contracts.Serialization
+namespace PoissonSoft.KuCoinApi.Contracts.Serialization
 {
     internal class SerializationContext
     {

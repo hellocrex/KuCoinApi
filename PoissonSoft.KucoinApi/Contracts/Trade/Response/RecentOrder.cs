@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace PoissonSoft.KuСoinApi.Contracts.Trade.Response
+namespace PoissonSoft.KuCoinApi.Contracts.Trade.Response
 {
     /// <summary>
     /// Запрос возвращает 1000 выставленных ордеров за последние 24ч.

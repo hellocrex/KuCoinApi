@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
-using PoissonSoft.KuСoinApi.Contracts.Enums;
+using PoissonSoft.KuCoinApi.Contracts.Enums;
 
-namespace PoissonSoft.KuСoinApi.Contracts.MarketData.Request
+namespace PoissonSoft.KuCoinApi.Contracts.MarketData.Request
 {
     public class Candle
     {

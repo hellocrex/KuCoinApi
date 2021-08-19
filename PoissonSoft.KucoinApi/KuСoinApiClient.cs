@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.Text;
 using NLog;
-using PoissonSoft.KuСoinApi.User;
-using PoissonSoft.KuСoinApi;
-using PoissonSoft.KuСoinApi.MarkerData;
-using PoissonSoft.KuСoinApi.Trade;
-using PoissonSoft.KuСoinApi.Transport;
+using PoissonSoft.KuCoinApi.User;
+using PoissonSoft.KuCoinApi;
+using PoissonSoft.KuCoinApi.MarkerData;
+using PoissonSoft.KuCoinApi.PublicWebSocket;
+using PoissonSoft.KuCoinApi.Trade;
+using PoissonSoft.KuCoinApi.Transport;
 
-namespace PoissonSoft.KuСoinApi
+namespace PoissonSoft.KuCoinApi
 {
-    public sealed class KuСoinApiClient
+    public sealed class KuCoinApiClient
     {
-        private readonly KuСoinApiClientCredentials credentials;
+        private readonly KuCoinApiClientCredentials credentials;
 
         internal ILogger Logger { get; }
 
@@ -21,14 +22,17 @@ namespace PoissonSoft.KuСoinApi
         /// </summary>
         /// <param name="credentials"></param>
         /// <param name="logger"></param>
-        public KuСoinApiClient(KuСoinApiClientCredentials credentials, ILogger logger)
+        public KuCoinApiClient(KuCoinApiClientCredentials credentials, ILogger logger)
         {
             Logger = logger;
             this.credentials = credentials;
+            Throttler = new Throttler(this);
 
             userApi = new UserApi(this, credentials, logger);
             marketDataApi = new MarketDataApi(this, credentials, logger);
             tradeApi = new TradeApi(this, credentials, logger);
+
+            webSocketPublicChannel = new PublicChannel(this, credentials);
         }
 
         public bool IsDebug { get; set; } = false;
@@ -49,6 +53,12 @@ namespace PoissonSoft.KuСoinApi
         /// </summary>
         public ITradeApi TradeApi => tradeApi;
         private readonly TradeApi tradeApi;
+        
+        /// <summary>
+        /// WebSocketFeed
+        /// </summary>
+        public IPublicChannel PublicChannel => webSocketPublicChannel;
+        private readonly PublicChannel webSocketPublicChannel;
     }
 
 }

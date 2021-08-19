@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace PoissonSoft.KuСoinApi.Contracts.Enums
+namespace PoissonSoft.KuCoinApi.Contracts.Enums
 {
     public enum TradeType
     {
+        /// <summary>
+        /// Неизвестный (ошибочный) тип
+        /// </summary>
+        Unknown,
 
         /// <summary>
         /// Spot ‎‎Trade

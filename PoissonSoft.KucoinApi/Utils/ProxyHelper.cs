@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Net;
 
-namespace PoissonSoft.KuСoinApi.Utils
+namespace PoissonSoft.KuCoinApi.Utils
 {
     internal static class ProxyHelper
     {
-        public static IWebProxy CreateProxy(KuСoinApiClientCredentials credentials)
+        public static IWebProxy CreateProxy(KuCoinApiClientCredentials credentials)
         {
             if (string.IsNullOrWhiteSpace(credentials.ProxyAddress)) return null;
             var res = new WebProxy

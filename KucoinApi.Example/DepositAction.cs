@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using PoissonSoft.CommonUtils.ConsoleUtils;
-using PoissonSoft.KuСoinApi.Contracts.Enums;
-using PoissonSoft.KuСoinApi.Contracts.MarketData.Request;
-using PoissonSoft.KuСoinApi.Contracts.User;
-using PoissonSoft.KuСoinApi.Contracts.User.Account.Request;
-using PoissonSoft.KuСoinApi.Contracts.User.Request;
+using PoissonSoft.KuCoinApi.Contracts.Enums;
+using PoissonSoft.KuCoinApi.Contracts.MarketData.Request;
+using PoissonSoft.KuCoinApi.Contracts.User;
+using PoissonSoft.KuCoinApi.Contracts.User.Account.Request;
+using PoissonSoft.KuCoinApi.Contracts.User.Request;
 
-namespace KuСoinApi.Example
+namespace KuCoinApi.Example
 {
     internal partial class ActionManager
     {
@@ -17,11 +18,16 @@ namespace KuСoinApi.Example
         {
             var actions = new Dictionary<ConsoleKey, string>()
             {
-                [ConsoleKey.C] = "Create Deposit Address V1",
-                [ConsoleKey.D] = "Get Deposit Address V2",
-                [ConsoleKey.S] = "Get Deposit Address",
-                [ConsoleKey.L] = "Get Deposit List",
-                [ConsoleKey.H] = "Get V1 Historical Deposits List",
+                [ConsoleKey.A] = "Create Deposit Address V1",
+                [ConsoleKey.B] = "Get Deposit Address V2",
+                [ConsoleKey.C] = "Get Deposit Address",
+                [ConsoleKey.D] = "Get Deposit List",
+                [ConsoleKey.E] = "Get V1 Historical Deposits List",
+                [ConsoleKey.F] = "Get Withdrawals List",
+                [ConsoleKey.G] = "Get V1 Historical Withdrawals List",
+                [ConsoleKey.H] = "Get Withdrawal Quotas",
+                [ConsoleKey.I] = "Apply Withdraw",
+                [ConsoleKey.J] = "Cancel Withdrawal",
 
                 [ConsoleKey.Escape] = "Go back"
             };
@@ -31,7 +37,7 @@ namespace KuСoinApi.Example
 
             switch (selectedAction)
             {
-                case ConsoleKey.B: // All Coins' Information
+                case ConsoleKey.X: // All Coins' Information
                     SafeCall(() =>
                     {
                         var data = apiClient.UserApi.AllCoinsInformation();
@@ -40,7 +46,7 @@ namespace KuСoinApi.Example
                     });
                     return true;
 
-                case ConsoleKey.C: // Create an Account
+                case ConsoleKey.A: // Create an Account
                     SafeCall(() =>
                     {
                         var data = apiClient.UserApi.CreateDepositAddressV1(new CurrencyReq
@@ -52,7 +58,7 @@ namespace KuСoinApi.Example
                     });
                     return true;
 
-                case ConsoleKey.D: // Create an Account
+                case ConsoleKey.B: // Create an Account
                     SafeCall(() =>
                     {
                         var data = apiClient.UserApi.GetDepositAddressV2(new CurrencyReq
@@ -64,7 +70,7 @@ namespace KuСoinApi.Example
                     });
                     return true;
 
-                case ConsoleKey.S: // Create an Account
+                case ConsoleKey.C: // Create an Account
                     SafeCall(() =>
                     {
                         var data = apiClient.UserApi.GetDepositAddress(new CurrencyReq
@@ -96,31 +102,35 @@ namespace KuСoinApi.Example
                 //    });
                 //    return true;
 
-                case ConsoleKey.L: // Get Deposit List
+                case ConsoleKey.D: // Get Deposit List
                     SafeCall(() =>
                     {
                         DepositList data;
-                        for (int i = 0; i < 10; i++)
+                        for (int i = 0; i < 20; i++)
                         {
-                            
+
                             Console.WriteLine($"{i}_{DateTimeOffset.UtcNow}");
                             data = apiClient.UserApi.GetDepositList(
                                 new CurrencyReq
                                 {
                                     Symbol = "BTC"//InputHelper.GetString("Currency: ")
                                 });
-                           // Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
+                            // Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                         }
+
+                        // нормальный вариант
                         //var data1 = apiClient.UserApi.GetDepositList(
                         //    new CurrencyReq
                         //    {
                         //        Symbol = "BTC"//InputHelper.GetString("Currency: ")
                         //    });
                         //Console.WriteLine(JsonConvert.SerializeObject(data1, Formatting.Indented));
+
+
                     });
                     return true;
 
-                case ConsoleKey.H: // Get V1 Historical Deposits List
+                case ConsoleKey.E: // Get V1 Historical Deposits List
                     SafeCall(() =>
                     {
                         var data = apiClient.UserApi.GetV1HistoricalDepositsList(new DepositReq
@@ -131,8 +141,67 @@ namespace KuСoinApi.Example
                     });
                     return true;
 
-              
-                case ConsoleKey.E: // List Accounts
+                case ConsoleKey.F: // Get Withdrawals List
+                    SafeCall(() =>
+                    {
+                        var data = apiClient.UserApi.GetWithdrawalsList(new DepositReq
+                        {
+                            Currency = InputHelper.GetString("Currency: ")
+                        });
+                        Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
+                    });
+                    return true;
+
+                case ConsoleKey.G: // Get V1 Historical Withdrawals List
+                    SafeCall(() =>
+                    {
+                        var data = apiClient.UserApi.GetV1HistoricalWithdrawList(new HistoricalWithdrawList
+                        {
+                            Currency = InputHelper.GetString("Currency: "),
+                            CurrentPage = Convert.ToInt32(InputHelper.GetString("The current page: ")),
+                            PageSize= Convert.ToInt32(InputHelper.GetString("Number of entries per page: "))
+                        });
+                        Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
+                    });
+                    return true;
+
+                case ConsoleKey.H: // Get Withdrawal Quotas
+                    SafeCall(() =>
+                    {
+                        var data = apiClient.UserApi.GetWithdrawalQuotas(new WithdrawQuota
+                        {
+                            Currency = InputHelper.GetString("Currency: ")
+                        });
+                        Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
+                    });
+                    return true;
+
+                case ConsoleKey.I: // Apply Withdraw
+                    SafeCall(() =>
+                    {
+                        var data = apiClient.UserApi.ApplyWithdraw(new WithdrawReq
+                        {
+                            Currency = InputHelper.GetString("Currency: "),
+                            Address = InputHelper.GetString("Withdrawal address: "),
+                            Amount = InputHelper.GetString("Withdrawal amount: ")
+                        });
+                        Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
+                    });
+                    return true;
+
+                case ConsoleKey.J: // Cancel Withdrawal
+                    SafeCall(() =>
+                    {
+                        var data = apiClient.UserApi.CancelWithdrawal(new Url
+                        {
+                            UrlString = InputHelper.GetString("Path parameter, a unique ID for a withdrawal order: ")
+                        });
+                        Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
+                    });
+                    return true;
+
+
+                case ConsoleKey.Z: // List Accounts
                     SafeCall(() =>
                     {
                         var data = apiClient.UserApi.GetAccountLedgers(new LedgersReq
@@ -166,6 +235,7 @@ namespace KuСoinApi.Example
                     }
                     return true;
             }
+            
         }
     }
 }

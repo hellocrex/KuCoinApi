@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace PoissonSoft.KuСoinApi.Contracts.MarketData
+namespace PoissonSoft.KuCoinApi.Contracts.MarketData
 {
     public class MarketData
     {

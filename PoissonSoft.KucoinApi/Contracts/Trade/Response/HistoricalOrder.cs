@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
-using PoissonSoft.KuСoinApi.Contracts.Enums;
+using PoissonSoft.KuCoinApi.Contracts.Enums;
 
-namespace PoissonSoft.KuСoinApi.Contracts.Trade.Response
+namespace PoissonSoft.KuCoinApi.Contracts.Trade.Response
 {
     public class HistoricalOrder
     {

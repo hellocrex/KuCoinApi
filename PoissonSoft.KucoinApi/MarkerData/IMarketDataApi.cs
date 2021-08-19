@@ -1,10 +1,10 @@
-﻿using PoissonSoft.KuСoinApi.Contracts;
-using PoissonSoft.KuСoinApi.Contracts.MarketData;
-using PoissonSoft.KuСoinApi.Contracts.MarketData.Request;
-using PoissonSoft.KuСoinApi.Contracts.MarketData.Response;
-using PoissonSoft.KuСoinApi.Contracts.MarketData.Response.GetMarketList;
+﻿using PoissonSoft.KuCoinApi.Contracts;
+using PoissonSoft.KuCoinApi.Contracts.MarketData;
+using PoissonSoft.KuCoinApi.Contracts.MarketData.Request;
+using PoissonSoft.KuCoinApi.Contracts.MarketData.Response;
+using PoissonSoft.KuCoinApi.Contracts.MarketData.Response.GetMarketList;
 
-namespace PoissonSoft.KuСoinApi.MarkerData
+namespace PoissonSoft.KuCoinApi.MarkerData
 {
     public interface IMarketDataApi
     {
@@ -25,7 +25,8 @@ namespace PoissonSoft.KuСoinApi.MarkerData
         CurrencyList GetCurrencies();
         CurrencyDetail GetCurrencyDetail(Url request);
         FiatPriceList GetFiatPrice(FiatPrice request);
-        FiatPriceList GetPartOrderBook(TradePair request, byte count);
-        FiatPriceList GetFullOrderBook(TradePair request);
+        OrderBook GetPartOrderBook(TradePair request, byte count);
+        OrderBook GetFullOrderBook(TradePair request);
+        OrderBook GetFullOrderBookDeprecated(TradePair request);
     }
 }

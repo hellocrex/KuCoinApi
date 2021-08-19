@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace PoissonSoft.KuСoinApi.Contracts.Trade.Request
+namespace PoissonSoft.KuCoinApi.Contracts.Trade.Request
 {
     public class TradePairs
     {

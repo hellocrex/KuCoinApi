@@ -7,6 +7,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PoissonSoft.CommonUtils\Src\PoissonSoft.CommonUtils\PoissonSoft.CommonUtils.csproj" />
-    <ProjectReference Include="..\PoissonSoft.KucoinApi\PoissonSoft.KuСoinApi.csproj" />
+    <ProjectReference Include="..\PoissonSoft.KucoinApi\PoissonSoft.KuCoinApi.csproj" />
   </ItemGroup>
 </Project>

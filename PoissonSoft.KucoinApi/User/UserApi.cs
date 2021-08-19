@@ -3,39 +3,38 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using NLog;
-using PoissonSoft.KuСoinApi.Contracts;
-using PoissonSoft.KuСoinApi.Contracts.MarketData;
-using PoissonSoft.KuСoinApi.Contracts.MarketData.Request;
-using PoissonSoft.KuСoinApi.Contracts.MarketData.Response;
-using PoissonSoft.KuСoinApi.Contracts.Trade.Request;
-using PoissonSoft.KuСoinApi.Contracts.User;
-using PoissonSoft.KuСoinApi.Contracts.User.Account.Request;
-using PoissonSoft.KuСoinApi.Contracts.User.Request;
-using PoissonSoft.KuСoinApi.Contracts.User.Response;
-using PoissonSoft.KuСoinApi.Transport;
-using PoissonSoft.KuСoinApi.Transport.Rest;
-using PoissonSoft.KuСoinApi.Utils;
+using PoissonSoft.KuCoinApi.Contracts;
+using PoissonSoft.KuCoinApi.Contracts.MarketData;
+using PoissonSoft.KuCoinApi.Contracts.MarketData.Request;
+using PoissonSoft.KuCoinApi.Contracts.MarketData.Response;
+using PoissonSoft.KuCoinApi.Contracts.Trade.Request;
+using PoissonSoft.KuCoinApi.Contracts.User;
+using PoissonSoft.KuCoinApi.Contracts.User.Account.Request;
+using PoissonSoft.KuCoinApi.Contracts.User.Request;
+using PoissonSoft.KuCoinApi.Contracts.User.Response;
+using PoissonSoft.KuCoinApi.Transport;
+using PoissonSoft.KuCoinApi.Transport.Rest;
+using PoissonSoft.KuCoinApi.Utils;
 
-namespace PoissonSoft.KuСoinApi.User
+namespace PoissonSoft.KuCoinApi.User
 {
     internal sealed class UserApi: IUserApi
     {
         private readonly RestClient sApiClient;
 
-        public UserApi(KuСoinApiClient apiClient, KuСoinApiClientCredentials credentials, ILogger logger)
+        public UserApi(KuCoinApiClient apiClient, KuCoinApiClientCredentials credentials, ILogger logger)
         {
             if (apiClient == null) throw new ArgumentNullException(nameof(apiClient));
-            sApiClient = new RestClient(logger, "https://openapi-sandbox.kucoin.com/api/v1",
-              //  sApiClient = new RestClient(logger, "https://api.kucoin.com/api/v1",
-                new[] {EndpointSecurityType.Trade}, credentials);
-               // apiClient.Throttler);
+            //sApiClient = new RestClient(logger, "https://openapi-sandbox.kucoin.com/api/v1",
+            sApiClient = new RestClient(logger, "https://api.kucoin.com/api/v1",
+                new[] {EndpointSecurityType.Trade}, credentials, apiClient.Throttler);
 
             //coinsInfoCache = new SimpleCache<BinanceCoinInfo[]>(LoadCoinsInformation, logger, "CoinsInfoCache",
             //    data => data.Select(x => (BinanceCoinInfo)x.Clone()).ToArray());
         }
 
-        private readonly SimpleCache<KuСoinInfo[]> coinsInfoCache;
-        public KuСoinInfo[] AllCoinsInformation(int cacheValidityIntervalSec = 600)
+        private readonly SimpleCache<KuCoinInfo[]> coinsInfoCache;
+        public KuCoinInfo[] AllCoinsInformation(int cacheValidityIntervalSec = 600)
         {
             return coinsInfoCache.GetValue(TimeSpan.FromSeconds(cacheValidityIntervalSec));
         }
@@ -53,6 +52,8 @@ namespace PoissonSoft.KuСoinApi.User
             return sApiClient.MakeRequest<SubAccountsList>(new RequestParameters(HttpMethod.Get, "sub/user", 1));
         }
 
+        // Не хватает пары методов
+        #region Account
         public Account CreateAccount(AccountC request)
         {
             return sApiClient.MakeRequest<Account>(
@@ -92,7 +93,7 @@ namespace PoissonSoft.KuСoinApi.User
         public Ledgers GetAccountLedgers(Contracts.User.Request.LedgersReq request)
         {
             return sApiClient.MakeRequest<Ledgers>(
-                new RequestParameters(HttpMethod.Get, "accounts/ledgers", 1)
+                new RequestParameters(HttpMethod.Get, "accounts/ledgers", 18 / 3)
                 {
                     Parameters = RequestParameters.GenerateParametersFromObject(request)
                 });
@@ -115,11 +116,16 @@ namespace PoissonSoft.KuСoinApi.User
         public Transferable GetTransferable(AccountC request)
         {
             return sApiClient.MakeRequest<Transferable>(
-                new RequestParameters(HttpMethod.Get, "sub-accounts", 1)
+                new RequestParameters(HttpMethod.Get, "sub-accounts", 3 / 3)
                 {
                     Parameters = RequestParameters.GenerateParametersFromObject(request)
                 });
         }
+        
+        #endregion
+
+
+        #region Deposit
 
         public DepositAddress CreateDepositAddressV1(CurrencyReq request)
         {
@@ -150,9 +156,8 @@ namespace PoissonSoft.KuСoinApi.User
 
         public DepositList GetDepositList(CurrencyReq request)
         {
-            //return sApiClient.MakeRequest<Deposit>(new RequestParameters(HttpMethod.Get, "deposits", 1));
             return sApiClient.MakeRequest<DepositList>(
-                new RequestParameters(HttpMethod.Get, "deposits", 1)
+                new RequestParameters(HttpMethod.Get, "deposits", 6 / 3)
                 {
                     Parameters = RequestParameters.GenerateParametersFromObject(request)
                 });
@@ -160,13 +165,63 @@ namespace PoissonSoft.KuСoinApi.User
 
         public HistoricalList GetV1HistoricalDepositsList(DepositReq request)
         {
-            return sApiClient.MakeRequest<HistoricalList>(new RequestParameters(HttpMethod.Get, "hist-deposits", 1));
-            //return sApiClient.MakeRequest<Deposit>(
-            //    new RequestParameters(HttpMethod.Get, "v1/deposit-addresses", 1)
-            //    {
-            //        Parameters = RequestParameters.GenerateParametersFromObject(request)
-            //    });
+            return sApiClient.MakeRequest<HistoricalList>(
+                new RequestParameters(HttpMethod.Get, "hist - deposits", 6 / 3)
+                {
+                    Parameters = RequestParameters.GenerateParametersFromObject(request)
+                });
         }
+
+
+        #endregion
+
+        #region Withdrawals
+        public WithdrawListInfo GetWithdrawalsList(DepositReq request)
+        {
+            return sApiClient.MakeRequest<WithdrawListInfo>(
+                new RequestParameters(HttpMethod.Get, "withdrawals", 6 / 3)
+                {
+                    Parameters = RequestParameters.GenerateParametersFromObject(request)
+                });
+        }
+
+        public HistoricalWithdrawListInfo GetV1HistoricalWithdrawList(HistoricalWithdrawList request)
+        {
+            return sApiClient.MakeRequest<HistoricalWithdrawListInfo>(
+                new RequestParameters(HttpMethod.Get, "hist-withdrawals", 6 / 3)
+                {
+                    Parameters = RequestParameters.GenerateParametersFromObject(request)
+                });
+        }
+
+        public WithdrawQuotaInfo GetWithdrawalQuotas(WithdrawQuota request)
+        {
+            return sApiClient.MakeRequest<WithdrawQuotaInfo>(
+                new RequestParameters(HttpMethod.Get, "withdrawals/quotas", 1)
+                {
+                    Parameters = RequestParameters.GenerateParametersFromObject(request)
+                });
+        }
+
+        public FeeList ApplyWithdraw(WithdrawReq request)
+        {
+            return sApiClient.MakeRequest<FeeList>(
+                new RequestParameters(HttpMethod.Post, "withdrawals", 1)
+                {
+                    Parameters = RequestParameters.GenerateParametersFromObject(request)
+                });
+        }
+
+        public FeeList CancelWithdrawal(Url request)
+        {
+            return sApiClient.MakeRequest<FeeList>(
+                new RequestParameters(HttpMethod.Delete, "withdrawals", 1)
+                {
+                    Parameters = RequestParameters.GenerateParametersFromObject(request)
+                });
+        }
+
+        #endregion
 
         public FeeInfo GetBasicUserFee()
         {
@@ -181,6 +236,7 @@ namespace PoissonSoft.KuСoinApi.User
                     Parameters = RequestParameters.GenerateParametersFromObject(request)
                 });
         }
+
 
     }
 }

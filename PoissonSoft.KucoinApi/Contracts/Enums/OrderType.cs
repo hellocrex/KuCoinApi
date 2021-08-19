@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace PoissonSoft.KuСoinApi.Contracts.Enums
+namespace PoissonSoft.KuCoinApi.Contracts.Enums
 {
     public enum OrderType
     {
+        /// <summary>
+        /// Неизвестный (ошибочный) тип
+        /// </summary>
+        Unknown,
+
         /// <summary>
         /// Limit Order
         /// </summary>
@@ -18,6 +23,12 @@ namespace PoissonSoft.KuСoinApi.Contracts.Enums
         /// </summary>
         [EnumMember(Value = "market")]
         Market,
+
+        /// <summary>
+        /// Market Order
+        /// </summary>
+        [EnumMember(Value = "stop ")]
+        Stop,
 
         /// <summary>
         /// Market Order

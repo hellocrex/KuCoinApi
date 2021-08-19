@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace PoissonSoft.KuСoinApi
+namespace PoissonSoft.KuCoinApi
 {
-    public class KuСoinApiClientCredentials
+    public class KuCoinApiClientCredentials
     {
         /// <summary>
         /// Api key

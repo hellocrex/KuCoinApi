@@ -1,4 +1,4 @@
-﻿namespace PoissonSoft.KuСoinApi.Transport
+﻿namespace PoissonSoft.KuCoinApi.Transport
 {
     /// <summary>
     /// Тип безопасности

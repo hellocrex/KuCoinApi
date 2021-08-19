@@ -1,8 +1,8 @@
 ﻿using System;
 using Newtonsoft.Json;
-using PoissonSoft.KuСoinApi.Contracts.Serialization;
+using PoissonSoft.KuCoinApi.Contracts.Serialization;
 
-namespace PoissonSoft.KuСoinApi.Contracts
+namespace PoissonSoft.KuCoinApi.Contracts
 {
     /// <summary>
     /// Cписок доступных валютных пар для торговли

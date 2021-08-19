@@ -2,12 +2,12 @@
 using System.Linq;
 using Newtonsoft.Json;
 
-namespace PoissonSoft.KuСoinApi.Contracts.User
+namespace PoissonSoft.KuCoinApi.Contracts.User
 {
     /// <summary>
     /// Coin Information
     /// </summary>
-    public class KuСoinInfo : ICloneable
+    public class KuCoinInfo : ICloneable
     {
         /// <summary>
         /// "coin": "BTC",
@@ -103,7 +103,7 @@ namespace PoissonSoft.KuСoinApi.Contracts.User
         /// <inheritdoc />
         public object Clone()
         {
-            return new KuСoinInfo
+            return new KuCoinInfo
             {
                 CoinTicker = CoinTicker,
                 DepositAllEnable = DepositAllEnable,

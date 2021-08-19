@@ -2,7 +2,7 @@
 using System.Linq;
 using Newtonsoft.Json;
 
-namespace PoissonSoft.KuСoinApi.Contracts.MarketData
+namespace PoissonSoft.KuCoinApi.Contracts.MarketData
 {
     /// <summary>
     /// Общие данные по бирже

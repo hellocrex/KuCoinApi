@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
-using PoissonSoft.KuСoinApi.Contracts.Trade.Response;
+using PoissonSoft.KuCoinApi.Contracts.Trade.Response;
 
-namespace PoissonSoft.KuСoinApi.Contracts.Trade
+namespace PoissonSoft.KuCoinApi.Contracts.Trade
 {
     public class FillsList
     {
@@ -18,6 +18,6 @@ namespace PoissonSoft.KuСoinApi.Contracts.Trade
         /// data
         /// </summary>
         [JsonProperty("data")]
-        public Fills[] Data { get; set; }
+        public FillsPage Data { get; set; }
     }
 }

@@ -4,13 +4,13 @@ using System.IO;
 using System.Text;
 using PoissonSoft.CommonUtils.ConsoleUtils;
 using PoissonSoft.CommonUtils.Security;
-using PoissonSoft.KuСoinApi;
+using PoissonSoft.KuCoinApi;
 
-namespace KuСoinApi.Example
+namespace KuCoinApi.Example
 {
     internal class NppCryptProvider : ICredentialsProvider
     {
-        public KuСoinApiClientCredentials GetCredentials()
+        public KuCoinApiClientCredentials GetCredentials()
         {
             // ReSharper disable once StringLiteralTypo
             const string DEFAULT_FILE_NAME = "credentials.nppcrypt";
@@ -26,7 +26,7 @@ namespace KuСoinApi.Example
             var lines = fileContent.Split(new[] {"\r\n", "\r", "\n"}, StringSplitOptions.None);
             if (lines.Length < 2) 
                 throw new Exception($"Too few ({lines.Length}) lines in the file (min 2 lines expected)");
-            var credentials = new KuСoinApiClientCredentials
+            var credentials = new KuCoinApiClientCredentials
             {
                 ApiKey = lines[0].Trim(),
                 SecretKey = lines[1].Trim(),

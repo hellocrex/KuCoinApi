@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
-using PoissonSoft.KuСoinApi.Contracts.Enums;
+using PoissonSoft.KuCoinApi.Contracts.Enums;
 
-namespace PoissonSoft.KuСoinApi.Contracts.User.Account.Response
+namespace PoissonSoft.KuCoinApi.Contracts.User.Account.Response
 {
     public class AccountInfo
     {

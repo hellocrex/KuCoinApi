@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
-using PoissonSoft.KuСoinApi.Contracts.Enums;
+using PoissonSoft.KuCoinApi.Contracts.Enums;
 
-namespace PoissonSoft.KuСoinApi.Contracts.Trade.Request
+namespace PoissonSoft.KuCoinApi.Contracts.Trade.Request
 {
     public class NewMargin : OrderParameters
     {

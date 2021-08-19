@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
-using PoissonSoft.KuСoinApi.Contracts.Enums;
-using PoissonSoft.KuСoinApi.Contracts.Trade.Request;
+using PoissonSoft.KuCoinApi.Contracts.Enums;
+using PoissonSoft.KuCoinApi.Contracts.Trade.Request;
 
-namespace PoissonSoft.KuСoinApi.Contracts.Trade.Request
+namespace PoissonSoft.KuCoinApi.Contracts.Trade.Request
 {
     public class NewOrderRequest : OrderParameters
     {

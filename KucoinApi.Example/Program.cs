@@ -1,8 +1,8 @@
 ﻿using System;
 using NLog;
-using PoissonSoft.KuСoinApi;
+using PoissonSoft.KuCoinApi;
 
-namespace KuСoinApi.Example
+namespace KuCoinApi.Example
 {
     class Program
     {
@@ -10,7 +10,7 @@ namespace KuСoinApi.Example
         static void Main(string[] args)
         {
             ICredentialsProvider credentialsProvider = new NppCryptProvider();
-            KuСoinApiClientCredentials credentials;
+            KuCoinApiClientCredentials credentials;
             try
             {
                 credentials = credentialsProvider.GetCredentials();
@@ -21,7 +21,7 @@ namespace KuСoinApi.Example
                 return;
             }
             
-            var apiClient = new KuСoinApiClient(credentials, logger) { IsDebug = true };
+            var apiClient = new KuCoinApiClient(credentials, logger) { IsDebug = true };
 
             new ActionManager(apiClient).Run();
         }

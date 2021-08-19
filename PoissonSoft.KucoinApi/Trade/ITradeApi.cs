@@ -1,11 +1,11 @@
-﻿using PoissonSoft.KuСoinApi.Contracts.MarketData.Request;
-using PoissonSoft.KuСoinApi.Contracts.Trade;
-using PoissonSoft.KuСoinApi.Contracts.Trade.Request;
-using PoissonSoft.KuСoinApi.Contracts.Trade.Response;
-using PoissonSoft.KuСoinApi.Contracts.User.Response;
-using OrdersList = PoissonSoft.KuСoinApi.Contracts.Trade.OrdersList;
+﻿using PoissonSoft.KuCoinApi.Contracts.MarketData.Request;
+using PoissonSoft.KuCoinApi.Contracts.Trade;
+using PoissonSoft.KuCoinApi.Contracts.Trade.Request;
+using PoissonSoft.KuCoinApi.Contracts.Trade.Response;
+using PoissonSoft.KuCoinApi.Contracts.User.Response;
+using OrdersList = PoissonSoft.KuCoinApi.Contracts.Trade.OrdersList;
 
-namespace PoissonSoft.KuСoinApi.Trade
+namespace PoissonSoft.KuCoinApi.Trade
 {
     public interface ITradeApi
     {
@@ -18,7 +18,7 @@ namespace PoissonSoft.KuСoinApi.Trade
         OrderList GetSingleActiveOrderByClientOid(Url request);
         NewOrderRequest NewMarginOrder(NewMargin request);
         NewOrderRequest PlaceBulkOrders(BulkOrder request);
-        NewOrderRequest CancelAnOrder(Url request);
+        NewOrderRequest CancelOrder(Url request);
         NewOrderRequest CancelSingleOrderByClientOid(Url request);
         CancelAllOrders CancelAllOrders(CancelOrders request);
         HistoricalOrder GetHistoricalOrdersList(HistoricalOrderReq request);

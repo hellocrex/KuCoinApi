@@ -15,13 +15,13 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using NLog;
-using PoissonSoft.KuСoinApi.Contracts.Exceptions;
-using PoissonSoft.KuСoinApi.Contracts.MarketData.Request;
-using PoissonSoft.KuСoinApi.Contracts.Serialization;
-using PoissonSoft.KuСoinApi.Trade;
-using PoissonSoft.KuСoinApi.Utils;
+using PoissonSoft.KuCoinApi.Contracts.Exceptions;
+using PoissonSoft.KuCoinApi.Contracts.MarketData.Request;
+using PoissonSoft.KuCoinApi.Contracts.Serialization;
+using PoissonSoft.KuCoinApi.Trade;
+using PoissonSoft.KuCoinApi.Utils;
 
-namespace PoissonSoft.KuСoinApi.Transport.Rest
+namespace PoissonSoft.KuCoinApi.Transport.Rest
 {
     internal sealed class RestClient
     {
@@ -32,14 +32,56 @@ namespace PoissonSoft.KuСoinApi.Transport.Rest
         private readonly HttpClient httpClient;
         private readonly bool useSignature;
         private readonly byte[] secretKey;
-        private readonly KuСoinApiClientCredentials Credentials;
+        private readonly KuCoinApiClientCredentials Credentials;
 
         private readonly JsonSerializerSettings serializerSettings;
 
-        public RestClient(ILogger logger, string baseEndpoint, EndpointSecurityType[] securityTypes, KuСoinApiClientCredentials credentials)//, Throttler throttler)
+
+        public RestClient(ILogger logger, string baseEndpoint, EndpointSecurityType[] securityTypes, KuCoinApiClientCredentials credentials)//, Throttler throttler)
         {
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            //this.throttler = throttler ?? throw new ArgumentNullException(nameof(throttler));
+            this.throttler = throttler ?? throw new ArgumentNullException(nameof(throttler));
+
+            var useApiKey = securityTypes?.Any(x => x != EndpointSecurityType.None) ?? false;
+            useSignature = securityTypes?.Any(x =>
+                x == EndpointSecurityType.Trade || x == EndpointSecurityType.Margin ||
+                x == EndpointSecurityType.UserData) ?? false;
+            secretKey = Encoding.UTF8.GetBytes(credentials.SecretKey);
+            Credentials = credentials;
+            userFriendlyName = $"{nameof(RestClient)} ({baseEndpoint})";
+
+            serializerSettings = new JsonSerializerSettings
+            {
+                Context = new StreamingContext(StreamingContextStates.All,
+                    new SerializationContext { Logger = logger })
+            };
+
+            var httpClientHandler = new HttpClientHandler
+            {
+                AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip,
+                Proxy = ProxyHelper.CreateProxy(credentials)
+            };
+
+            baseEndpoint = baseEndpoint.Trim();
+            if (!baseEndpoint.EndsWith("/")) baseEndpoint += '/';
+            httpClient = new HttpClient(httpClientHandler, true)
+            {
+                Timeout = TimeSpan.FromSeconds(20),
+                BaseAddress = new Uri(baseEndpoint),
+            };
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            if (useApiKey)
+            {
+                //httpClient.DefaultRequestHeaders.Add("KC-API-KEY", credentials.ApiKey);
+            }
+
+
+        }
+
+        public RestClient(ILogger logger, string baseEndpoint, EndpointSecurityType[] securityTypes, KuCoinApiClientCredentials credentials, Throttler throttler)
+        {
+            this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.throttler = throttler ?? throw new ArgumentNullException(nameof(throttler));
 
             var useApiKey = securityTypes?.Any(x => x != EndpointSecurityType.None) ?? false;
             useSignature = securityTypes?.Any(x =>
@@ -84,12 +126,13 @@ namespace PoissonSoft.KuСoinApi.Transport.Rest
         /// <returns></returns>
         public TResp MakeRequest<TResp>(RequestParameters requestParameters)
         {
-            //throttler.ThrottleRest(requestParameters.RequestWeight, requestParameters.IsHighPriority, requestParameters.IsOrderRequest);
+            if (requestParameters.RequestWeight > 0)
+                throttler.ThrottleRest(requestParameters.RequestWeight, requestParameters.IsHighPriority, requestParameters.IsOrderRequest);
 
 
             void checkResponse(HttpResponseMessage resp, string body)
             {
-                //throttler.ApplyRestResponseHeaders(resp.Headers);
+                throttler.ApplyRestResponseHeaders(resp.Headers);
 
                 if (resp.StatusCode == HttpStatusCode.OK) return;
 
@@ -161,8 +204,7 @@ namespace PoissonSoft.KuСoinApi.Transport.Rest
                     }
                     else
                     {
-                        // body = JsonConvert.SerializeObject(requestParameters.Parameters);
-                        var queryString = BuildQueryString(requestParameters.Parameters);
+                        string queryString = BuildQueryString(requestParameters.Parameters);
                         url =
                             $"{requestParameters.UrlPath}{(string.IsNullOrEmpty(queryString) ? string.Empty : $"?{queryString}")}";
                     }
@@ -230,7 +272,6 @@ namespace PoissonSoft.KuСoinApi.Transport.Rest
         private void SignHttpWebRequest(string method, string urlPath)
         {
             var nonce = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            string m = $"{nonce}{method}/api/v1/{urlPath}";
             var msg = Encoding.UTF8.GetBytes($"{nonce}{method}/api/v1/{urlPath}");
 
             httpClient.DefaultRequestHeaders.Clear();

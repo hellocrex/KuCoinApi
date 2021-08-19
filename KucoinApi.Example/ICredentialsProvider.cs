@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using PoissonSoft.KuСoinApi;
+using PoissonSoft.KuCoinApi;
 
-namespace KuСoinApi.Example
+namespace KuCoinApi.Example
 {
     interface ICredentialsProvider
     {
-        KuСoinApiClientCredentials GetCredentials();
+        KuCoinApiClientCredentials GetCredentials();
     }
 }

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
-using PoissonSoft.KuСoinApi.Contracts.Enums;
+using PoissonSoft.KuCoinApi.Contracts.Enums;
 
-namespace PoissonSoft.KuСoinApi.Contracts.Trade.Request
+namespace PoissonSoft.KuCoinApi.Contracts.Trade.Request
 {
     /// <summary>
     /// Параметры необходимые для запроса позволяющего получить текущий список ордеров.
@@ -17,7 +17,7 @@ namespace PoissonSoft.KuСoinApi.Contracts.Trade.Request
         /// [Optional] active or done(done as default), Only list orders with a specific status
         /// </summary>
         [JsonProperty("status")]
-        public Status StatusOrder { get; set; }
+        public StatusOrder StatusOrder { get; set; }
 
         /// <summary>
         /// [Optional] Only list orders for a specific symbol

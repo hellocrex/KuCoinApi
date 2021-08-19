@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
-using PoissonSoft.KuСoinApi.Contracts.MarketData.Response;
+using PoissonSoft.KuCoinApi.Contracts.MarketData.Response;
 
-namespace PoissonSoft.KuСoinApi.Contracts.MarketData
+namespace PoissonSoft.KuCoinApi.Contracts.MarketData
 {
     public class TradeHistory
     {

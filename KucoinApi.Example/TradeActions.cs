@@ -4,14 +4,14 @@ using System.Text;
 using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 using PoissonSoft.CommonUtils.ConsoleUtils;
-using PoissonSoft.KuСoinApi.Contracts;
-using PoissonSoft.KuСoinApi.Contracts.Enums;
-using PoissonSoft.KuСoinApi.Contracts.MarketData.Request;
-using PoissonSoft.KuСoinApi.Contracts.Trade;
-using PoissonSoft.KuСoinApi.Contracts.Trade.Request;
-using PoissonSoft.KuСoinApi.Contracts.Trade.Response;
+using PoissonSoft.KuCoinApi.Contracts;
+using PoissonSoft.KuCoinApi.Contracts.Enums;
+using PoissonSoft.KuCoinApi.Contracts.MarketData.Request;
+using PoissonSoft.KuCoinApi.Contracts.Trade;
+using PoissonSoft.KuCoinApi.Contracts.Trade.Request;
+using PoissonSoft.KuCoinApi.Contracts.Trade.Response;
 
-namespace KuСoinApi.Example
+namespace KuCoinApi.Example
 {
     internal partial class ActionManager
     {
@@ -111,7 +111,7 @@ namespace KuСoinApi.Example
                 case ConsoleKey.D: // Orders | Place a new order
                     SafeCall(() =>
                     {
-                        var order = apiClient.TradeApi.CancelAnOrder(
+                        var order = apiClient.TradeApi.CancelOrder(
                             new Url
                             {
                                 UrlString = Guid.NewGuid().ToString()
@@ -154,7 +154,7 @@ namespace KuСoinApi.Example
                         var data = apiClient.TradeApi.ListOrders(
                             new OrderReq
                             {
-                                StatusOrder = InputHelper.GetEnum<Status>("active or done: "),
+                                StatusOrder = InputHelper.GetEnum<StatusOrder>("active or done: "),
                                 //Symbol = InputHelper.GetString("Symbol: "),
                                 Side = InputHelper.GetEnum<OrderSide>("")
                             });
@@ -183,7 +183,10 @@ namespace KuСoinApi.Example
                         var data = apiClient.TradeApi.ListFills(
                             new FillsReq
                             {
-                                TradeType = InputHelper.GetEnum<TradeType>("The type of trading : TRADE（Spot Trading）, MARGIN_TRADE (Margin Trading): ")
+                                TradeType = InputHelper.GetEnum<TradeType>("The type of trading : TRADE（Spot Trading）, MARGIN_TRADE (Margin Trading): "),
+                                Symbol = InputHelper.GetString("Symbol: "),
+                               // Type = InputHelper.GetEnum<OrderType>(""),
+                                Side = InputHelper.GetEnum<OrderSide>("")
                             });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });
@@ -288,7 +291,7 @@ namespace KuСoinApi.Example
                         var data = apiClient.TradeApi.ListStopOrders(
                             new ListStopOrder
                             {
-                                StatusOrder = InputHelper.GetEnum<Status>("active or done: "),
+                                StatusOrder = InputHelper.GetEnum<StatusOrder>("active or done: "),
                                 Symbol = InputHelper.GetString("Symbol: "),
                                 Side = InputHelper.GetEnum<OrderSide>(""),
                                 CurrentPage = Convert.ToInt32(InputHelper.GetString("Current page: "))

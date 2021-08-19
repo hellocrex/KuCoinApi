@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 using PoissonSoft.CommonUtils.ConsoleUtils;
-using PoissonSoft.KuСoinApi.Contracts.Enums;
-using PoissonSoft.KuСoinApi.Contracts.MarketData;
-using PoissonSoft.KuСoinApi.Contracts.MarketData.Request;
-using PoissonSoft.KuСoinApi.Contracts.Trade.Request;
-using PoissonSoft.KuСoinApi.Contracts.User;
-using PoissonSoft.KuСoinApi.Contracts.User.Account.Request;
-using PoissonSoft.KuСoinApi.Contracts.User.Request;
+using PoissonSoft.KuCoinApi.Contracts.Enums;
+using PoissonSoft.KuCoinApi.Contracts.MarketData;
+using PoissonSoft.KuCoinApi.Contracts.MarketData.Request;
+using PoissonSoft.KuCoinApi.Contracts.Trade.Request;
+using PoissonSoft.KuCoinApi.Contracts.User;
+using PoissonSoft.KuCoinApi.Contracts.User.Account.Request;
+using PoissonSoft.KuCoinApi.Contracts.User.Request;
 
-namespace KuСoinApi.Example
+namespace KuCoinApi.Example
 {
     internal partial class ActionManager
     {
@@ -37,7 +37,6 @@ namespace KuСoinApi.Example
             };
 
             var selectedAction = InputHelper.GetUserAction("Select action:", actions);
-
 
             switch (selectedAction)
             {

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
-using PoissonSoft.KuСoinApi.Contracts.Trade.Response;
+using PoissonSoft.KuCoinApi.Contracts.Trade.Response;
 
-namespace PoissonSoft.KuСoinApi.Contracts.Trade
+namespace PoissonSoft.KuCoinApi.Contracts.Trade
 {
     public class OrderList
     {

@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 using PoissonSoft.CommonUtils.ConsoleUtils;
-using PoissonSoft.KuСoinApi;
+using PoissonSoft.KuCoinApi;
 
-namespace KuСoinApi.Example
+namespace KuCoinApi.Example
 {
     internal partial class ActionManager
     {
-        private readonly KuСoinApiClient apiClient;
+        private readonly KuCoinApiClient apiClient;
 
-        public ActionManager(KuСoinApiClient apiClient)
+        public ActionManager(KuCoinApiClient apiClient)
         {
             this.apiClient = apiClient;
         }
@@ -31,10 +31,11 @@ namespace KuСoinApi.Example
             var actions = new Dictionary<ConsoleKey, string>()
             {
                 [ConsoleKey.A] = "User API",
-                [ConsoleKey.D] = "User.Deposit",
+                [ConsoleKey.B] = "User.Deposit/Withdrawals",
 
-                [ConsoleKey.T] = "Trade API",
-                [ConsoleKey.C] = "Market Data",
+                [ConsoleKey.C] = "Trade API",
+                [ConsoleKey.D] = "Market Data",
+                [ConsoleKey.E] = "Market Data Stream",
 
                 [ConsoleKey.Escape] = "Go back (exit)",
             };
@@ -47,19 +48,22 @@ namespace KuСoinApi.Example
                     while (ShowUserApiPage()) { }
                     return true;
 
-                case ConsoleKey.C:
-                    while (ShowMarketDataPage()) { }
-                    return true;
-
-                case ConsoleKey.D:
+                case ConsoleKey.B:
                     while (ShowDepositPage()) { }
                     return true;
 
-                case ConsoleKey.T:
+                case ConsoleKey.C:
                     while (ShowTradeApiPage()) { }
                     return true;
 
-                
+                case ConsoleKey.D:
+                    while (ShowMarketDataPage()) { }
+                    return true;
+
+                case ConsoleKey.E:
+                    while (ShowMarketDataStreamPage()) { }
+                    return true;
+
 
 
                 case ConsoleKey.Escape:
