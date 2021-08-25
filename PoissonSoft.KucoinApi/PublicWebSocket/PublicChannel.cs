@@ -9,11 +9,11 @@ using Humanizer;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PoissonSoft.BinanceApi.MarketDataStreams;
-using PoissonSoft.BinanceApi.Transport;
 using PoissonSoft.BinanceApi.Utils;
 using PoissonSoft.KuCoinApi.Contracts.Enums;
 using PoissonSoft.KuCoinApi.Contracts.PublicWebSocket;
 using PoissonSoft.KuCoinApi.Contracts.WebSocketStream;
+using PoissonSoft.KuCoinApi.Transport;
 using PoissonSoft.KuCoinApi.Transport.Ws;
 
 

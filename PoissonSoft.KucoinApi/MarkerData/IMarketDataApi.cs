@@ -23,7 +23,7 @@ namespace PoissonSoft.KuCoinApi.MarkerData
         TradeHistory GetTradeHistories(TradePair request);
         CandleData GetKlines(Candle request);
         CurrencyList GetCurrencies();
-        CurrencyDetail GetCurrencyDetail(Url request);
+        CurrencyDetail GetCurrencyDetail(SpecialBuildQuery request);
         FiatPriceList GetFiatPrice(FiatPrice request);
         OrderBook GetPartOrderBook(TradePair request, byte count);
         OrderBook GetFullOrderBook(TradePair request);

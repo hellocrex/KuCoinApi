@@ -153,7 +153,7 @@ namespace PoissonSoft.KuCoinApi.Transport.Rest
                     //throw new RequestRateLimitBreakingException(msg);
                 }
 
-                msg = $"{userFriendlyName}. На запрос {requestParameters.UrlPath} от сервера получен код ответа" +
+                msg = $"{userFriendlyName}. На запрос {requestParameters.SpecialPath} от сервера получен код ответа" +
                       $" {(int)resp.StatusCode} ({resp.StatusCode})\nТело ответа:\n{body}";
                 logger.Error(msg);
                 throw new EndpointCommunicationException(msg);
@@ -170,7 +170,7 @@ namespace PoissonSoft.KuCoinApi.Transport.Rest
 
                     body = JsonConvert.SerializeObject(requestParameters.Parameters);
                     
-                    url = $"{requestParameters.UrlPath}{body}";
+                    url = $"{requestParameters.SpecialPath}{body}";
 
                     SignHttpWebRequest(requestParameters.Method.ToString(), url);
 
@@ -178,8 +178,8 @@ namespace PoissonSoft.KuCoinApi.Transport.Rest
                         new StringContent(body, Encoding.UTF8, "application/json"))
                     {
                         using (var result = requestParameters.Method == HttpMethod.Post
-                            ? httpClient.PostAsync(requestParameters.UrlPath, content).Result
-                            : httpClient.PutAsync(requestParameters.UrlPath, null).Result)
+                            ? httpClient.PostAsync(requestParameters.SpecialPath, content).Result
+                            : httpClient.PutAsync(requestParameters.SpecialPath, null).Result)
                         {
                             strResp = result.Content.ReadAsStringAsync().Result;
                             checkResponse(result, strResp);
@@ -192,21 +192,21 @@ namespace PoissonSoft.KuCoinApi.Transport.Rest
                 {
                     string body = "";
 
-                    if (RequestParameters.SpecialBuildUrl)
+                    if (RequestParameters.SpecialBuildPath)
                     {
                         body = requestParameters.Parameters["UrlString"] ?? string.Empty;
-                        RequestParameters.SpecialBuildUrl = false;
+                        RequestParameters.SpecialBuildPath = false;
                     }
 
                     if (body != string.Empty)
                     {
-                        url = $"{requestParameters.UrlPath}{($"/{body}")}";
+                        url = $"{requestParameters.SpecialPath}{($"/{body}")}";
                     }
                     else
                     {
                         string queryString = BuildQueryString(requestParameters.Parameters);
                         url =
-                            $"{requestParameters.UrlPath}{(string.IsNullOrEmpty(queryString) ? string.Empty : $"?{queryString}")}";
+                            $"{requestParameters.SpecialPath}{(string.IsNullOrEmpty(queryString) ? string.Empty : $"?{queryString}")}";
                     }
 
                     SignHttpWebRequest(requestParameters.Method.ToString(), url);
@@ -314,12 +314,12 @@ namespace PoissonSoft.KuCoinApi.Transport.Rest
         /// <summary>
         /// Особое построение строки запроса
         /// </summary>
-        public static bool SpecialBuildUrl { get; set; }
+        public static bool SpecialBuildPath { get; set; }
 
         /// <summary>
         /// Путь к ресурсу (без базового адреса эндпоинта)
         /// </summary>
-        public string UrlPath { get; }
+        public string SpecialPath { get; }
 
         /// <summary>
         /// Вес запроса в баллах
@@ -346,10 +346,10 @@ namespace PoissonSoft.KuCoinApi.Transport.Rest
         /// </summary>
         public Dictionary<string, string> Parameters { get; set; }
 
-        public RequestParameters(HttpMethod method, string urlPath, int requestWeight)
+        public RequestParameters(HttpMethod method, string specialPath, int requestWeight)
         {
             Method = method;
-            UrlPath = urlPath;
+            SpecialPath = specialPath;
             RequestWeight = requestWeight;
         }
 
@@ -364,8 +364,8 @@ namespace PoissonSoft.KuCoinApi.Transport.Rest
             if (obj == null) return null;
             try
             {
-                if (obj is Url)
-                    SpecialBuildUrl = true;
+                if (obj is SpecialBuildQuery)
+                    SpecialBuildPath = true;
 
                 jsonSerializerSettings.Converters.Add
                     (new Newtonsoft.Json.Converters.StringEnumConverter());

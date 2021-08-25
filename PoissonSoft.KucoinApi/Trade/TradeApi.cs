@@ -57,7 +57,7 @@ namespace PoissonSoft.KuCoinApi.Trade
             });
         }
 
-        public NewOrderRequest CancelOrder(Url request)
+        public NewOrderRequest CancelOrder(SpecialBuildQuery request)
         {
             return client.MakeRequest<NewOrderRequest>(new RequestParameters(HttpMethod.Delete, "orders", 60 / 3)
             {
@@ -67,7 +67,7 @@ namespace PoissonSoft.KuCoinApi.Trade
             });
         }
 
-        public NewOrderRequest CancelSingleOrderByClientOid(Url request)
+        public NewOrderRequest CancelSingleOrderByClientOid(SpecialBuildQuery request)
         {
             return client.MakeRequest<NewOrderRequest>(new RequestParameters(HttpMethod.Delete, "order/client-order", 0)
             {
@@ -110,7 +110,7 @@ namespace PoissonSoft.KuCoinApi.Trade
             return client.MakeRequest<OrdersList>(new RequestParameters(HttpMethod.Get, "limit/orders", 0));
         }
 
-        public OrderList GetOrder(Url request)
+        public OrderList GetOrder(SpecialBuildQuery request)
         {
             return client.MakeRequest<OrderList>(
                 new RequestParameters(HttpMethod.Get, "orders", 0)
@@ -119,7 +119,7 @@ namespace PoissonSoft.KuCoinApi.Trade
                 });
         }
 
-        public OrderList GetSingleActiveOrderByClientOid(Url request)
+        public OrderList GetSingleActiveOrderByClientOid(SpecialBuildQuery request)
         {
             return client.MakeRequest<OrderList>(
                 new RequestParameters(HttpMethod.Get, "order/client-order", 0)
@@ -160,7 +160,7 @@ namespace PoissonSoft.KuCoinApi.Trade
             });
         }
 
-        public NewOrderRequest CancelStopOrder(Url request)
+        public NewOrderRequest CancelStopOrder(SpecialBuildQuery request)
         {
             return client.MakeRequest<NewOrderRequest>(new RequestParameters(HttpMethod.Delete, "stop-order", 0)
             {
@@ -180,7 +180,7 @@ namespace PoissonSoft.KuCoinApi.Trade
             });
         }
 
-        public NewOrderRequest GetStopSingleOrderInfo(Url request)
+        public NewOrderRequest GetStopSingleOrderInfo(SpecialBuildQuery request)
         {
             return client.MakeRequest<NewOrderRequest>(new RequestParameters(HttpMethod.Get, "stop-order", 0)
             {

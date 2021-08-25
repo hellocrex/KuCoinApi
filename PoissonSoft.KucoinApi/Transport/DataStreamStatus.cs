@@ -1,4 +1,4 @@
-﻿namespace PoissonSoft.BinanceApi.Transport
+﻿namespace PoissonSoft.KuCoinApi.Transport
 {
     /// <summary>
     /// Текущее состояние Data Stream

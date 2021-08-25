@@ -128,7 +128,7 @@ namespace PoissonSoft.KuCoinApi.MarkerData
             return client.MakeRequest<CurrencyList>(new RequestParameters(HttpMethod.Get, "currencies", 0));
         }
 
-        public CurrencyDetail GetCurrencyDetail(Url request)
+        public CurrencyDetail GetCurrencyDetail(SpecialBuildQuery request)
         {
             return client.MakeRequest<CurrencyDetail>(
                 new RequestParameters(HttpMethod.Get, "currencies", 0)

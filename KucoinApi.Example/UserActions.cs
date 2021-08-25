@@ -8,7 +8,6 @@ using PoissonSoft.KuCoinApi.Contracts.MarketData;
 using PoissonSoft.KuCoinApi.Contracts.MarketData.Request;
 using PoissonSoft.KuCoinApi.Contracts.Trade.Request;
 using PoissonSoft.KuCoinApi.Contracts.User;
-using PoissonSoft.KuCoinApi.Contracts.User.Account.Request;
 using PoissonSoft.KuCoinApi.Contracts.User.Request;
 
 namespace KuCoinApi.Example
@@ -52,11 +51,11 @@ namespace KuCoinApi.Example
                 case ConsoleKey.B: // Create an Account
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.CreateAccount(new AccountC
+                        var data = apiClient.UserApi.CreateAccount(new ReqAccount
                         {
-                            AccountType = InputHelper.GetEnum<AccountType>("AccountType"),
-                            Currency = InputHelper.GetString("Ticker: ")
-                            
+                            Currency = InputHelper.GetString("Ticker: "),
+                            AccountType = InputHelper.GetEnum<AccountType>("AccountType")
+
                         });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });
@@ -65,7 +64,7 @@ namespace KuCoinApi.Example
                 case ConsoleKey.C: // List Accounts
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.GetListAccounts(new AccountC
+                        var data = apiClient.UserApi.GetListAccounts(new ReqAccount
                         {
                             Currency = InputHelper.GetString("Currency: "),
                             AccountType = InputHelper.GetEnum<AccountType>("AccountType")
@@ -77,9 +76,9 @@ namespace KuCoinApi.Example
                 case ConsoleKey.D: // Create an Account
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.GetAccount(new Url
+                        var data = apiClient.UserApi.GetAccount(new SpecialBuildQuery
                         {
-                            UrlString = InputHelper.GetString("ID of the account: ")
+                            Parameter = InputHelper.GetString("ID of the account: ")
                         });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });
@@ -116,11 +115,12 @@ namespace KuCoinApi.Example
                 case ConsoleKey.E: // List Accounts
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.GetAccountLedgersDeprecated(new LedgersDeprecatedReq
+                        var data = apiClient.UserApi.GetAccountLedgersDeprecated(new ReqLedgersDeprecated
                         {
                             AccountId = InputHelper.GetString("AccountId: "),
-                            //Direction = InputHelper.GetEnum<Direction>("Direction: "),
-                            //BusinesType = InputHelper.GetEnum<BusinessType>("Business type: ")
+                            Direction = InputHelper.GetEnum<Direction>("Direction: "),
+                            BusinesType = InputHelper.GetEnum<BusinessType>("Business type: ")
+
                         });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });
@@ -129,7 +129,7 @@ namespace KuCoinApi.Example
                 case ConsoleKey.F: // List Accounts
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.GetAccountLedgers(new LedgersReq
+                        var data = apiClient.UserApi.GetAccountLedgers(new ReqLedgers
                         {
                             Currency = InputHelper.GetString("Currency: "),
                             StartAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - DateTimeOffset.UtcNow.AddDays(-1).ToUnixTimeMilliseconds()
@@ -143,9 +143,9 @@ namespace KuCoinApi.Example
                 case ConsoleKey.G: // Get Account Balance of a Sub-Account
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.GetAccountBalanceOfSubAccount(new Url
+                        var data = apiClient.UserApi.GetAccountBalanceOfSubAccount(new SpecialBuildQuery
                         {
-                            UrlString = InputHelper.GetString("The user ID of a sub-account: "),
+                            Parameter = InputHelper.GetString("The user ID of a sub-account: "),
                         });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });
@@ -162,7 +162,7 @@ namespace KuCoinApi.Example
                 case ConsoleKey.I: // Get the Aggregated Balance of all Sub-Accounts
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.GetTransferable(new AccountC
+                        var data = apiClient.UserApi.GetTransferable(new ReqAccount
                         {
                             Currency = InputHelper.GetString("The user ID of a sub-account: "),
                             AccountType = InputHelper.GetEnum<AccountType>("")
@@ -182,7 +182,7 @@ namespace KuCoinApi.Example
                 case ConsoleKey.M: // Get the Aggregated Balance of all Sub-Accounts
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.ActualFeeRateTradingPair(new TradePairs
+                        var data = apiClient.UserApi.ActualFeeRateTradingPair(new ReqInstruments
                         {
                             Symbols = InputHelper.GetString("Trading pair (optional, you can inquire fee rates of 10 trading pairs each time at most): ")
                         });

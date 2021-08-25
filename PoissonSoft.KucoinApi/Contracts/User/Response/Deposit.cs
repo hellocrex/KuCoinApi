@@ -54,7 +54,7 @@ namespace PoissonSoft.KuCoinApi.Contracts.User.Response
         /// Status
         /// </summary>
         [JsonProperty("status")]
-        public string Status { get; set; }
+        public DepositStatus Status { get; set; }
 
         /// <summary>
         /// Remark

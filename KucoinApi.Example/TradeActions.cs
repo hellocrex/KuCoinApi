@@ -112,9 +112,9 @@ namespace KuCoinApi.Example
                     SafeCall(() =>
                     {
                         var order = apiClient.TradeApi.CancelOrder(
-                            new Url
+                            new SpecialBuildQuery
                             {
-                                UrlString = Guid.NewGuid().ToString()
+                                Parameter = Guid.NewGuid().ToString()
                             }
                         );
                         Console.WriteLine(JsonConvert.SerializeObject(order, Formatting.Indented));
@@ -125,9 +125,9 @@ namespace KuCoinApi.Example
                     SafeCall(() =>
                     {
                         var order = apiClient.TradeApi.CancelSingleOrderByClientOid(
-                            new Url
+                            new SpecialBuildQuery
                             {
-                                UrlString = Guid.NewGuid().ToString()
+                                Parameter = Guid.NewGuid().ToString()
                             }
                         );
                         Console.WriteLine(JsonConvert.SerializeObject(order, Formatting.Indented));
@@ -212,9 +212,9 @@ namespace KuCoinApi.Example
                     SafeCall(() =>
                     {
                         var data = apiClient.TradeApi.GetOrder(
-                            new Url
+                            new SpecialBuildQuery
                             {
-                                UrlString = InputHelper.GetString("Order ID: ")
+                                Parameter = InputHelper.GetString("Order ID: ")
                             });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });
@@ -224,9 +224,9 @@ namespace KuCoinApi.Example
                     SafeCall(() =>
                     {
                         var data = apiClient.TradeApi.GetSingleActiveOrderByClientOid(
-                            new Url
+                            new SpecialBuildQuery
                             {
-                                UrlString = InputHelper.GetString("clientOid: ")
+                                Parameter = InputHelper.GetString("clientOid: ")
                             });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });
@@ -251,9 +251,9 @@ namespace KuCoinApi.Example
                     SafeCall(() =>
                     {
                         var data = apiClient.TradeApi.CancelStopOrder(
-                            new Url
+                            new SpecialBuildQuery
                             {
-                                UrlString = InputHelper.GetString("unique ID of the order: ")
+                                Parameter = InputHelper.GetString("unique ID of the order: ")
                             });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });
@@ -277,9 +277,9 @@ namespace KuCoinApi.Example
                     SafeCall(() =>
                     {
                         var data = apiClient.TradeApi.GetStopSingleOrderInfo(
-                            new Url
+                            new SpecialBuildQuery
                             {
-                                UrlString = InputHelper.GetString("Order ID: ")
+                                Parameter = InputHelper.GetString("Order ID: ")
                             });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });

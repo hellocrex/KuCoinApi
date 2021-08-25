@@ -4,10 +4,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using PoissonSoft.CommonUtils.ConsoleUtils;
+using PoissonSoft.KuCoinApi.Contracts;
 using PoissonSoft.KuCoinApi.Contracts.Enums;
 using PoissonSoft.KuCoinApi.Contracts.MarketData.Request;
 using PoissonSoft.KuCoinApi.Contracts.User;
-using PoissonSoft.KuCoinApi.Contracts.User.Account.Request;
 using PoissonSoft.KuCoinApi.Contracts.User.Request;
 
 namespace KuCoinApi.Example
@@ -46,13 +46,12 @@ namespace KuCoinApi.Example
                     });
                     return true;
 
-                case ConsoleKey.A: // Create an Account
+                case ConsoleKey.A: // Create Deposit Address V1
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.CreateDepositAddressV1(new CurrencyReq
+                        var data = apiClient.UserApi.CreateDepositAddressV1(new ReqDepositAddress
                         {
                             Symbol = InputHelper.GetString("Ticker: ")
-
                         });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });
@@ -61,7 +60,7 @@ namespace KuCoinApi.Example
                 case ConsoleKey.B: // Create an Account
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.GetDepositAddressV2(new CurrencyReq
+                        var data = apiClient.UserApi.GetDepositAddressV2(new ReqDepositAddress
                         {
                             Symbol = InputHelper.GetString("Ticker: ")
 
@@ -73,7 +72,7 @@ namespace KuCoinApi.Example
                 case ConsoleKey.C: // Create an Account
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.GetDepositAddress(new CurrencyReq
+                        var data = apiClient.UserApi.GetDepositAddress(new ReqDepositAddress
                         {
                             Symbol = InputHelper.GetString("Ticker: ")
 
@@ -111,9 +110,9 @@ namespace KuCoinApi.Example
 
                             Console.WriteLine($"{i}_{DateTimeOffset.UtcNow}");
                             data = apiClient.UserApi.GetDepositList(
-                                new CurrencyReq
+                                new ReqDepositList
                                 {
-                                    Symbol = "BTC"//InputHelper.GetString("Currency: ")
+                                    Currency = "BTC"//InputHelper.GetString("Currency: ")
                                 });
                             // Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                         }
@@ -133,7 +132,7 @@ namespace KuCoinApi.Example
                 case ConsoleKey.E: // Get V1 Historical Deposits List
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.GetV1HistoricalDepositsList(new DepositReq
+                        var data = apiClient.UserApi.GetV1HistoricalDepositsList(new ReqDepositList
                         {
                             Currency = InputHelper.GetString("Currency: ")
                         });
@@ -144,7 +143,7 @@ namespace KuCoinApi.Example
                 case ConsoleKey.F: // Get Withdrawals List
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.GetWithdrawalsList(new DepositReq
+                        var data = apiClient.UserApi.GetWithdrawalsList(new ReqDepositList
                         {
                             Currency = InputHelper.GetString("Currency: ")
                         });
@@ -155,7 +154,7 @@ namespace KuCoinApi.Example
                 case ConsoleKey.G: // Get V1 Historical Withdrawals List
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.GetV1HistoricalWithdrawList(new HistoricalWithdrawList
+                        var data = apiClient.UserApi.GetV1HistoricalWithdrawList(new ReqDepositList
                         {
                             Currency = InputHelper.GetString("Currency: "),
                             CurrentPage = Convert.ToInt32(InputHelper.GetString("The current page: ")),
@@ -168,7 +167,7 @@ namespace KuCoinApi.Example
                 case ConsoleKey.H: // Get Withdrawal Quotas
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.GetWithdrawalQuotas(new WithdrawQuota
+                        var data = apiClient.UserApi.GetWithdrawalQuotas(new ReqAccount
                         {
                             Currency = InputHelper.GetString("Currency: ")
                         });
@@ -179,7 +178,7 @@ namespace KuCoinApi.Example
                 case ConsoleKey.I: // Apply Withdraw
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.ApplyWithdraw(new WithdrawReq
+                        var data = apiClient.UserApi.ApplyWithdraw(new ReqWithdraw
                         {
                             Currency = InputHelper.GetString("Currency: "),
                             Address = InputHelper.GetString("Withdrawal address: "),
@@ -192,9 +191,9 @@ namespace KuCoinApi.Example
                 case ConsoleKey.J: // Cancel Withdrawal
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.CancelWithdrawal(new Url
+                        var data = apiClient.UserApi.CancelWithdrawal(new SpecialBuildQuery
                         {
-                            UrlString = InputHelper.GetString("Path parameter, a unique ID for a withdrawal order: ")
+                            Parameter = InputHelper.GetString("Path parameter, a unique ID for a withdrawal order: ")
                         });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });
@@ -204,7 +203,7 @@ namespace KuCoinApi.Example
                 case ConsoleKey.Z: // List Accounts
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.GetAccountLedgers(new LedgersReq
+                        var data = apiClient.UserApi.GetAccountLedgers(new ReqLedgers
                         {
                             Currency = InputHelper.GetString("Ticker: "),
                             Direction = InputHelper.GetEnum<Direction>("Direction: "),
@@ -215,15 +214,6 @@ namespace KuCoinApi.Example
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });
                     return true;
-
-                //case ConsoleKey.L: // Deposit Address (supporting network)
-                //    SafeCall(() =>
-                //    {
-                //        var data = apiClient.WalletApi.DepositAddress(
-                //            InputHelper.GetString("Coin to deposit: "));
-                //        Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
-                //    });
-                //    return true;
 
                 case ConsoleKey.Escape:
                     return false;

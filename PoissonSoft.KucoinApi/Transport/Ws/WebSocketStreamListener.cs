@@ -10,7 +10,6 @@ using Newtonsoft.Json;
 using NLog;
 using PoissonSoft.BinanceApi.Contracts.Serialization;
 using PoissonSoft.BinanceApi.Contracts.UserDataStream;
-using PoissonSoft.BinanceApi.Transport;
 using PoissonSoft.KuCoinApi.Contracts.DataStream;
 using PoissonSoft.KuCoinApi.Contracts.Exceptions;
 using PoissonSoft.KuCoinApi.Contracts.Serialization;

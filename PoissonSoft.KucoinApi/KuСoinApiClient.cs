@@ -8,6 +8,7 @@ using PoissonSoft.KuCoinApi.MarkerData;
 using PoissonSoft.KuCoinApi.PublicWebSocket;
 using PoissonSoft.KuCoinApi.Trade;
 using PoissonSoft.KuCoinApi.Transport;
+using PoissonSoft.KuCoinApi.UserDataStream;
 
 namespace PoissonSoft.KuCoinApi
 {
@@ -31,7 +32,7 @@ namespace PoissonSoft.KuCoinApi
             userApi = new UserApi(this, credentials, logger);
             marketDataApi = new MarketDataApi(this, credentials, logger);
             tradeApi = new TradeApi(this, credentials, logger);
-
+            //dataStream = new UserDataStream.UserDataStream(this, credentials);
             webSocketPublicChannel = new PublicChannel(this, credentials);
         }
 
@@ -53,7 +54,13 @@ namespace PoissonSoft.KuCoinApi
         /// </summary>
         public ITradeApi TradeApi => tradeApi;
         private readonly TradeApi tradeApi;
-        
+
+        /// <summary>
+        /// User Data Stream
+        /// </summary>
+        //public IUserDataStream UserDataStream => dataStream;
+        //private readonly UserDataStream.UserDataStream dataStream;
+
         /// <summary>
         /// WebSocketFeed
         /// </summary>

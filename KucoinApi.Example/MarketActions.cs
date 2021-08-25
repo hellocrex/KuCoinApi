@@ -125,9 +125,9 @@ namespace KuCoinApi.Example
                     SafeCall(() =>
                     {
                         var data = apiClient.MarketDataApi.GetCurrencyDetail(
-                            new Url
+                            new SpecialBuildQuery
                             {
-                                UrlString = InputHelper.GetString("Currency: ")
+                                Parameter = InputHelper.GetString("Currency: ")
                             });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });
