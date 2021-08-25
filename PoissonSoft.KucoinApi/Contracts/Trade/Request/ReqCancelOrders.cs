@@ -8,18 +8,24 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade.Request
     /// Example
     /// DELETE /api/v1/orders? symbol = ETH - BTC & tradeType = TRADE
     /// </summary>
-    public class CancelOrders
+    public class ReqCancelOrders
     {
         /// <summary>
         /// [Optional] symbol, cancel the orders for the specified trade pair.
         /// </summary>
-        [JsonProperty("symbol")]
+        [JsonProperty("symbol", NullValueHandling = NullValueHandling.Ignore)]
         public string Symbol { get; set; }
 
         /// <summary>
         /// [Optional] the type of trading, cancel the orders for the specified trading type, and the default is to cancel the spot trading order (TRADE).
         /// </summary>
-        [JsonProperty("tradeType")]
-        public TradeType TradeType { get; set; }
+        [JsonProperty("tradeType", NullValueHandling = NullValueHandling.Ignore)]
+        public TradeType? TradeType { get; set; }
+
+        /// <summary>
+        /// [Optional] Comma seperated order IDs.
+        /// </summary>
+        [JsonProperty("orderIds", NullValueHandling = NullValueHandling.Ignore)]
+        public string OrderIds { get; set; }
     }
 }

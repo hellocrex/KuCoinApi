@@ -6,7 +6,7 @@ using PoissonSoft.KuCoinApi.Contracts.Enums;
 
 namespace PoissonSoft.KuCoinApi.Contracts.Trade.Request
 {
-    public class BulkOrder
+    public class ReqBulkOrder
     {
         /// <summary>
         /// Unique order id created by users to identify their orders, e.g. UUID.
@@ -29,37 +29,37 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade.Request
         /// <summary>
         /// [Optional] limit, market, limit_stop or market_stop
         /// </summary>
-        [JsonProperty("type")]
-        public OrderType Type { get; set; }
+        [JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
+        public OrderType? Type { get; set; }
 
         /// <summary>
         /// [Optional] remark for the order, length cannot exceed 100 utf8 characters
         /// </summary>
-        [JsonProperty("remark")]
+        [JsonProperty("remark", NullValueHandling = NullValueHandling.Ignore)]
         public string Remark { get; set; }
 
         /// <summary>
         /// The type of trading : TRADE（Spot Trading）, MARGIN_TRADE (Margin Trading)
         /// </summary>
-        [JsonProperty("tradeType")]
-        public TradeType TradeType { get; set; }
+        [JsonProperty("tradeType", NullValueHandling = NullValueHandling.Ignore)]
+        public TradeType? TradeType { get; set; }
 
         /// <summary>
         /// [Optional] self trade prevention , CN, CO, CB or DC
         /// </summary>
-        [JsonProperty("stp")]
-        public STP STP { get; set; }
+        [JsonProperty("stp", NullValueHandling = NullValueHandling.Ignore)]
+        public STP? STP { get; set; }
 
         /// <summary>
         /// [Optional] Either loss or entry. Requires stopPrice to be defined
         /// </summary>
-        [JsonProperty("stop")]
+        [JsonProperty("stop", NullValueHandling = NullValueHandling.Ignore)]
         public string Stop { get; set; }
 
         /// <summary>
         /// [Optional] Need to be defined if stop is specified.
         /// </summary>
-        [JsonProperty("stopPrice")]
+        [JsonProperty("stopPrice", NullValueHandling = NullValueHandling.Ignore)]
         public string StopPrice { get; set; }
 
         /// <summary>
@@ -77,37 +77,37 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade.Request
         /// <summary>
         /// [Optional] active or done(done as default), Only list orders with a specific status
         /// </summary>
-        [JsonProperty("timeInForce")]
-        public TimeInForce TimeInForce { get; set; }
+        [JsonProperty("timeInForce", NullValueHandling = NullValueHandling.Ignore)]
+        public TimeInForce? TimeInForce { get; set; }
 
         /// <summary>
         /// [Optional] cancel after n seconds, requires timeInForce to be GTT
         /// </summary>
-        [JsonProperty("cancelAfter")]
-        public long CancelAfter { get; set; }
+        [JsonProperty("cancelAfter", NullValueHandling = NullValueHandling.Ignore)]
+        public long? CancelAfter { get; set; }
 
         /// <summary>
         /// [Optional] Post only flag, invalid when timeInForce is IOC or FOK
         /// </summary>
-        [JsonProperty("postOnly")]
-        public bool PostOnly { get; set; }
+        [JsonProperty("postOnly", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? PostOnly { get; set; }
 
         /// <summary>
         /// [Optional] Order will not be displayed in the order book
         /// </summary>
-        [JsonProperty("hidden")]
-        public bool Hidden { get; set; }
+        [JsonProperty("hidden", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Hidden { get; set; }
 
         /// <summary>
         /// [Optional] Only aportion of the order is displayed in the order book
         /// </summary>
-        [JsonProperty("iceberg")]
-        public bool Iceberg { get; set; }
+        [JsonProperty("iceberg", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? Iceberg { get; set; }
 
         /// <summary>
         /// [Optional] The maximum visible size of an iceberg order
         /// </summary>
-        [JsonProperty("visibleSize")]
+        [JsonProperty("visibleSize", NullValueHandling = NullValueHandling.Ignore)]
         public string VisibleSize { get; set; }
     }
 }

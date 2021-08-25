@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 using PoissonSoft.KuCoinApi.Contracts.Enums;
-using PoissonSoft.KuCoinApi.Contracts.Trade.Request;
 
 namespace PoissonSoft.KuCoinApi.Contracts.Trade.Request
 {
-    public class NewOrderRequest : OrderParameters
+    public class ReqNewStopOrder
     {
         /// <summary>
-        /// ‎Уникальный идентификатор заказа, созданный пользователями для идентификации заказов, например, UUID‎
+        /// Unique order id created by users to identify their orders, e.g. UUID.
         /// </summary>
         [JsonProperty("clientOid")]
-        public string ClientId { get; set; }
+        public string ClientOid { get; set; }
 
         /// <summary>
         /// buy or sell
@@ -30,25 +29,37 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade.Request
         /// <summary>
         /// ‎[Необязательно]‎‎ ‎‎лимит‎‎ или ‎‎рынок‎‎ (по умолчанию ‎‎— лимит‎)
         /// </summary>
-        [JsonProperty("type")]
-        public OrderType Type { get; set; }
+        [JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
+        public OrderType? Type { get; set; }
 
         /// <summary>
         /// ‎[Необязательно]‎‎ замечание для заказа, длина не может превышать 100 символов utf8‎
         /// </summary>
-        [JsonProperty("remark")]
+        [JsonProperty("remark", NullValueHandling = NullValueHandling.Ignore)]
         public string Comment { get; set; }
 
         /// <summary>
-        /// ‎[Необязательно]‎‎ предотвращение самоторговли, ‎‎CN,‎‎ ‎‎CO,‎‎ ‎‎CB‎‎ или ‎‎DC‎
+        /// [Optional] Either loss or entry, the default is loss. Requires stopPrice to be defined.
         /// </summary>
-        [JsonProperty("stp")]
-        public STP STP { get; set; }
+        [JsonProperty("stop", NullValueHandling = NullValueHandling.Ignore)]
+        public string Stop { get; set; }
+
+        /// <summary>
+        /// Need to be defined if stop is specified.
+        /// </summary>
+        [JsonProperty("stopPrice")]
+        public string StopPrice { get; set; }
+
+        /// <summary>
+        /// ‎[Optional] self trade prevention , CN, CO, CB , DC (limit order does not support DC)
+        /// </summary>
+        [JsonProperty("stp", NullValueHandling = NullValueHandling.Ignore)]
+        public STP? STP { get; set; }
 
         /// <summary>
         /// [Необязательно]‎‎ Вид торговли: ‎‎TRADE (Spot‎‎Trade), ‎‎MARGIN_TRADE‎‎ (Margin Trade). По умолчанию используется ‎‎значение TRADE.‎‎
         /// </summary>
-        [JsonProperty("tradeType")]
-        public TradeType TradeType { get; set; }
+        [JsonProperty("tradeType", NullValueHandling = NullValueHandling.Ignore)]
+        public TradeType? TradeType { get; set; }
     }
 }

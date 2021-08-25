@@ -6,7 +6,7 @@ using PoissonSoft.KuCoinApi.Contracts.Trade.Response;
 
 namespace PoissonSoft.KuCoinApi.Contracts.Trade
 {
-    public class FillsList
+    public class RespFillsList
     {
         /// <summary>
         /// System error codes

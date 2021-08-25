@@ -6,7 +6,7 @@ using PoissonSoft.KuCoinApi.Contracts.Trade.Response;
 
 namespace PoissonSoft.KuCoinApi.Contracts.Trade
 {
-    public class OrderIdResp
+    public class RespCancelByClientOid
     {
         /// <summary>
         /// System error codes
@@ -18,6 +18,6 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade
         /// data
         /// </summary>
         [JsonProperty("data")]
-        public NewOrder Data { get; set; }
+        public CancelOrderByClientOid Data { get; set; }
     }
 }

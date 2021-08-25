@@ -6,7 +6,7 @@ using PoissonSoft.KuCoinApi.Contracts.Enums;
 
 namespace PoissonSoft.KuCoinApi.Contracts.Trade.Request
 {
-    public class SingleOrderByClientOId
+    public class ReqOrderByClientOId
     {
         /// <summary>
         /// Unique order id created by users to identify their orders
@@ -17,7 +17,7 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade.Request
         /// <summary>
         /// [Optional] Unique order id created by users to identify their orders
         /// </summary>
-        [JsonProperty("symbol")]
+        [JsonProperty("symbol", NullValueHandling = NullValueHandling.Ignore)]
         public string Symbol { get; set; }
     }
 }

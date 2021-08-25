@@ -6,7 +6,7 @@ using PoissonSoft.KuCoinApi.Contracts.Trade.Request;
 using PoissonSoft.KuCoinApi.Contracts.Trade.Response;
 using PoissonSoft.KuCoinApi.Transport;
 using PoissonSoft.KuCoinApi.Transport.Rest;
-using OrdersList = PoissonSoft.KuCoinApi.Contracts.Trade.OrdersList;
+using RespOrdersList = PoissonSoft.KuCoinApi.Contracts.Trade.RespOrdersList;
 
 namespace PoissonSoft.KuCoinApi.Trade
 {
@@ -26,9 +26,9 @@ namespace PoissonSoft.KuCoinApi.Trade
 
         #region Orders
 
-        public OrderIdResp NewOrder(NewOrderRequest request, bool isHighPriority)
+        public RespOrderId NewOrder(ReqNewOrder request, bool isHighPriority)
         {
-            return client.MakeRequest<OrderIdResp>(new RequestParameters(HttpMethod.Post, "orders", 45 / 3)
+            return client.MakeRequest<RespOrderId>(new RequestParameters(HttpMethod.Post, "orders", 45 / 3)
             {
                 IsHighPriority = isHighPriority,
                 IsOrderRequest = true,
@@ -37,9 +37,19 @@ namespace PoissonSoft.KuCoinApi.Trade
             });
         }
 
-        public NewOrderRequest NewMarginOrder(NewMargin request)
+        public RespMarginOrderInfo NewMarginOrder(ReqNewMarginOrder request)
         {
-            return client.MakeRequest<NewOrderRequest>(new RequestParameters(HttpMethod.Post, "margin/order", 0)
+            return client.MakeRequest<RespMarginOrderInfo>(new RequestParameters(HttpMethod.Post, "margin/order", 0)
+            {
+                IsOrderRequest = true,
+                PassAllParametersInQueryString = true,
+                Parameters = RequestParameters.GenerateParametersFromObject(request)
+            });
+        }
+        // 
+        public RespBulkOrdersInfo PlaceBulkOrders(ReqBulkOrder request)
+        {
+            return client.MakeRequest<RespBulkOrdersInfo>(new RequestParameters(HttpMethod.Post, "orders/multi", 3 / 3)
             {
                 IsOrderRequest = true,
                 PassAllParametersInQueryString = true,
@@ -47,9 +57,9 @@ namespace PoissonSoft.KuCoinApi.Trade
             });
         }
 
-        public NewOrderRequest PlaceBulkOrders(BulkOrder request)
+        public RespCancelAnOrder CancelOrder(SpecialBuildQuery request)
         {
-            return client.MakeRequest<NewOrderRequest>(new RequestParameters(HttpMethod.Post, "orders/multi", 3 / 3)
+            return client.MakeRequest<RespCancelAnOrder>(new RequestParameters(HttpMethod.Delete, "orders", 60 / 3)
             {
                 IsOrderRequest = true,
                 PassAllParametersInQueryString = true,
@@ -57,9 +67,9 @@ namespace PoissonSoft.KuCoinApi.Trade
             });
         }
 
-        public NewOrderRequest CancelOrder(SpecialBuildQuery request)
+        public RespCancelByClientOid CancelSingleOrderByClientOid(SpecialBuildQuery request)
         {
-            return client.MakeRequest<NewOrderRequest>(new RequestParameters(HttpMethod.Delete, "orders", 60 / 3)
+            return client.MakeRequest<RespCancelByClientOid>(new RequestParameters(HttpMethod.Delete, "order/client-order", 0)
             {
                 IsOrderRequest = true,
                 PassAllParametersInQueryString = true,
@@ -67,9 +77,9 @@ namespace PoissonSoft.KuCoinApi.Trade
             });
         }
 
-        public NewOrderRequest CancelSingleOrderByClientOid(SpecialBuildQuery request)
+        public RespCancelAnOrder CancelAllOrders(ReqCancelOrders request)
         {
-            return client.MakeRequest<NewOrderRequest>(new RequestParameters(HttpMethod.Delete, "order/client-order", 0)
+            return client.MakeRequest<RespCancelAnOrder>(new RequestParameters(HttpMethod.Delete, "orders", 3 / 3)
             {
                 IsOrderRequest = true,
                 PassAllParametersInQueryString = true,
@@ -77,17 +87,7 @@ namespace PoissonSoft.KuCoinApi.Trade
             });
         }
 
-        public CancelAllOrders CancelAllOrders(CancelOrders request)
-        {
-            return client.MakeRequest<CancelAllOrders>(new RequestParameters(HttpMethod.Delete, "orders", 3 / 3)
-            {
-                IsOrderRequest = true,
-                PassAllParametersInQueryString = true,
-                Parameters = RequestParameters.GenerateParametersFromObject(request)
-            });
-        }
-
-        public PageOrdersList ListOrders(OrderReq request)
+        public PageOrdersList ListOrders(ReqOrderList request)
         {
             return client.MakeRequest<PageOrdersList>(
                 new RequestParameters(HttpMethod.Get, "orders", 30 / 3)
@@ -96,32 +96,32 @@ namespace PoissonSoft.KuCoinApi.Trade
                 });
         }
 
-        public HistoricalOrder GetHistoricalOrdersList(HistoricalOrderReq request)
+        public RespHistoricalOrdersList GetHistoricalOrdersList(ReqHistoricalOrder request)
         {
-            return client.MakeRequest<HistoricalOrder>(
+            return client.MakeRequest<RespHistoricalOrdersList>(
                 new RequestParameters(HttpMethod.Get, "hist-orders", 0)
                 {
                     Parameters = RequestParameters.GenerateParametersFromObject(request)
                 });
         }
 
-        public OrdersList RecentOrders()
+        public RespOrdersList RecentOrders()
         {
-            return client.MakeRequest<OrdersList>(new RequestParameters(HttpMethod.Get, "limit/orders", 0));
+            return client.MakeRequest<RespOrdersList>(new RequestParameters(HttpMethod.Get, "limit/orders", 0));
         }
 
-        public OrderList GetOrder(SpecialBuildQuery request)
+        public RespOrderList GetOrder(SpecialBuildQuery request)
         {
-            return client.MakeRequest<OrderList>(
+            return client.MakeRequest<RespOrderList>(
                 new RequestParameters(HttpMethod.Get, "orders", 0)
                 {
                     Parameters = RequestParameters.GenerateParametersFromObject(request)
                 });
         }
 
-        public OrderList GetSingleActiveOrderByClientOid(SpecialBuildQuery request)
+        public RespOrderList GetSingleActiveOrderByClientOid(SpecialBuildQuery request)
         {
-            return client.MakeRequest<OrderList>(
+            return client.MakeRequest<RespOrderList>(
                 new RequestParameters(HttpMethod.Get, "order/client-order", 0)
                 {
                     Parameters = RequestParameters.GenerateParametersFromObject(request)
@@ -132,27 +132,27 @@ namespace PoissonSoft.KuCoinApi.Trade
 
         #region Fills
 
-        public FillsList ListFills(FillsReq request)
+        public RespFillsList ListFills(ReqFills request)
         {
-            return client.MakeRequest<FillsList>(
+            return client.MakeRequest<RespFillsList>(
                 new RequestParameters(HttpMethod.Get, "fills", 9 / 3)
                 {
                     Parameters = RequestParameters.GenerateParametersFromObject(request)
                 });
         }
 
-        public FillsList RecentFills()
+        public RespFillsList RecentFills()
         {
-            return client.MakeRequest<FillsList>(new RequestParameters(HttpMethod.Get, "limit/fills", 0));
+            return client.MakeRequest<RespFillsList>(new RequestParameters(HttpMethod.Get, "limit/fills", 0));
         }
 
         #endregion
 
 
         #region Stop Order
-        public NewOrderRequest PlaceNewStopOrder(NewStopOrder request)
+        public RespOrderId PlaceNewStopOrder(ReqNewOrder request)
         {
-            return client.MakeRequest<NewOrderRequest>(new RequestParameters(HttpMethod.Post, "stop-order", 0)
+            return client.MakeRequest<RespOrderId>(new RequestParameters(HttpMethod.Post, "stop-order", 0)
             {
                 IsOrderRequest = true,
                 PassAllParametersInQueryString = true,
@@ -160,9 +160,19 @@ namespace PoissonSoft.KuCoinApi.Trade
             });
         }
 
-        public NewOrderRequest CancelStopOrder(SpecialBuildQuery request)
+        public RespCancelAnOrder CancelStopOrder(SpecialBuildQuery request)
         {
-            return client.MakeRequest<NewOrderRequest>(new RequestParameters(HttpMethod.Delete, "stop-order", 0)
+            return client.MakeRequest<RespCancelAnOrder>(new RequestParameters(HttpMethod.Delete, "stop-order", 0)
+            {
+                IsOrderRequest = true,
+                PassAllParametersInQueryString = true,
+                Parameters = RequestParameters.GenerateParametersFromObject(request)
+            });
+        }
+        // множественное удаление: orderId,orderId
+        public RespCancelAnOrder CancelStopOrders(ReqCancelOrders request)
+        {
+            return client.MakeRequest<RespCancelAnOrder>(new RequestParameters(HttpMethod.Delete, "stop-order/cancel", 0)
             {
                 IsOrderRequest = true,
                 PassAllParametersInQueryString = true,
@@ -170,9 +180,19 @@ namespace PoissonSoft.KuCoinApi.Trade
             });
         }
 
-        public NewOrderRequest CancelStopOrders(CancelStopOrder request)
+        public RespStopOrderInfo GetStopSingleOrderInfo(SpecialBuildQuery request)
         {
-            return client.MakeRequest<NewOrderRequest>(new RequestParameters(HttpMethod.Delete, "stop-order/cancel", 0)
+            return client.MakeRequest<RespStopOrderInfo>(new RequestParameters(HttpMethod.Get, "stop-order", 0)
+            {
+                IsOrderRequest = true,
+                PassAllParametersInQueryString = true,
+                Parameters = RequestParameters.GenerateParametersFromObject(request)
+            });
+        }
+        //Many select
+        public RespStopOrdersList ListStopOrders(ReqListStopOrder request)
+        {
+            return client.MakeRequest<RespStopOrdersList>(new RequestParameters(HttpMethod.Get, "stop-order", 0)
             {
                 IsOrderRequest = true,
                 PassAllParametersInQueryString = true,
@@ -180,9 +200,9 @@ namespace PoissonSoft.KuCoinApi.Trade
             });
         }
 
-        public NewOrderRequest GetStopSingleOrderInfo(SpecialBuildQuery request)
+        public RespStopOrdersInfo GetStopSingleOrderByClientOId(ReqOrderByClientOId request)
         {
-            return client.MakeRequest<NewOrderRequest>(new RequestParameters(HttpMethod.Get, "stop-order", 0)
+            return client.MakeRequest<RespStopOrdersInfo>(new RequestParameters(HttpMethod.Get, "stop-order/queryOrderByClientOid", 0)
             {
                 IsOrderRequest = true,
                 PassAllParametersInQueryString = true,
@@ -190,29 +210,9 @@ namespace PoissonSoft.KuCoinApi.Trade
             });
         }
 
-        public NewOrderRequest ListStopOrders(ListStopOrder request)
+        public RespCancelByClientOid CancelStopSingleOrderByClientOId(ReqOrderByClientOId request)
         {
-            return client.MakeRequest<NewOrderRequest>(new RequestParameters(HttpMethod.Get, "stop-order", 0)
-            {
-                IsOrderRequest = true,
-                PassAllParametersInQueryString = true,
-                Parameters = RequestParameters.GenerateParametersFromObject(request)
-            });
-        }
-
-        public NewOrderRequest GetStopSingleOrderByClientOId(SingleOrderByClientOId request)
-        {
-            return client.MakeRequest<NewOrderRequest>(new RequestParameters(HttpMethod.Get, "stop-order/queryOrderByClientOid", 0)
-            {
-                IsOrderRequest = true,
-                PassAllParametersInQueryString = true,
-                Parameters = RequestParameters.GenerateParametersFromObject(request)
-            });
-        }
-
-        public NewOrderRequest CancelStopSingleOrderByClientOId(SingleOrderByClientOId request)
-        {
-            return client.MakeRequest<NewOrderRequest>(new RequestParameters(HttpMethod.Delete, "stop-order/cancelOrderByClientOid", 0)
+            return client.MakeRequest<RespCancelByClientOid>(new RequestParameters(HttpMethod.Delete, "stop-order/cancelOrderByClientOid", 0)
             {
                 IsOrderRequest = true,
                 PassAllParametersInQueryString = true,

@@ -194,7 +194,7 @@ namespace PoissonSoft.KuCoinApi.Transport.Rest
 
                     if (RequestParameters.SpecialBuildPath)
                     {
-                        body = requestParameters.Parameters["UrlString"] ?? string.Empty;
+                        body = requestParameters.Parameters["Parameter"] ?? string.Empty;
                         RequestParameters.SpecialBuildPath = false;
                     }
 

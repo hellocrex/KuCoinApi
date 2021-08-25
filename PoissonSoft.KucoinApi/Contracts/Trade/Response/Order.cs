@@ -7,7 +7,7 @@ using PoissonSoft.KuCoinApi.Contracts.Trade.Request;
 
 namespace PoissonSoft.KuCoinApi.Contracts.Trade.Response
 {
-    public class Order : OrderReq
+    public class Order : ReqOrderList
     {
         /// <summary>
         /// Order ID, the ID of an order.

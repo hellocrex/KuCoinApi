@@ -6,7 +6,41 @@ using PoissonSoft.KuCoinApi.Contracts.Enums;
 
 namespace PoissonSoft.KuCoinApi.Contracts.Trade.Response
 {
-    public class HistoricalOrder
+    public class HistoricalPage
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("currentPage")]
+        public int CurrentPage { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("pageSize")]
+        public int PageSize { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("totalNum")]
+        public int TotalNum { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("totalPage")]
+        public int TotalPage { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [JsonProperty("items")]
+        HistoricalOrder[] Items { get; set; }
+
+    }
+
+    class HistoricalOrder
     {
         /// <summary>
         /// symbol
@@ -15,43 +49,43 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade.Response
         public string Ticker { get; set; }
 
         /// <summary>
-        /// symbol
+        /// Filled price
         /// </summary>
         [JsonProperty("dealPrice")]
         public string DealPrice { get; set; }
 
         /// <summary>
-        /// symbol
+        /// Executed size of funds
         /// </summary>
         [JsonProperty("dealValue")]
         public string DealValue { get; set; }
 
         /// <summary>
-        /// symbol
+        /// transaction direction,include buy and sell
         /// </summary>
         [JsonProperty("side")]
         public Direction Side { get; set; }
 
         /// <summary>
-        /// symbol
+        /// Executed quantity
         /// </summary>
         [JsonProperty("amount")]
         public decimal Amount { get; set; }
 
         /// <summary>
-        /// symbol
+        /// Order quantity
         /// </summary>
         [JsonProperty("size")]
         public decimal size { get; set; }
 
         /// <summary>
-        /// symbol
+        /// Fee
         /// </summary>
         [JsonProperty("fee")]
         public string Fee { get; set; }
 
         /// <summary>
-        /// symbol
+        /// Create time
         /// </summary>
         [JsonProperty("createdAt")]
         public long CreatedAt { get; set; }

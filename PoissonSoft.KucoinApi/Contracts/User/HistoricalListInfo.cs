@@ -1,12 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json;
-using PoissonSoft.KuCoinApi.Contracts.Trade.Response;
+﻿using Newtonsoft.Json;
+using PoissonSoft.KuCoinApi.Contracts.User.Response;
 
-namespace PoissonSoft.KuCoinApi.Contracts.Trade
+namespace PoissonSoft.KuCoinApi.Contracts.User
 {
-    public class FillsPage
+    public class HistoricalListInfo
+    {
+        /// <summary>
+        /// Код http ответа
+        /// </summary>
+        [JsonProperty("code")]
+        public int SystemCode { get; set; }
+
+        /// <summary>
+        /// Account info
+        /// </summary>
+        [JsonProperty("data")]
+        public HistoricalWithdrawPage Data { get; set; }
+    }
+
+    public class HistoricalWithdrawPage
     {
         /// <summary>
         /// 
@@ -36,6 +48,7 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade
         /// 
         /// </summary>
         [JsonProperty("items")]
-        public Fills[] Items { get; set; }
+        public HistoricalList[] Items { get; set; }
     }
+
 }
