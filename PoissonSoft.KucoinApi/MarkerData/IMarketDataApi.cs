@@ -2,7 +2,7 @@
 using PoissonSoft.KuCoinApi.Contracts.MarketData;
 using PoissonSoft.KuCoinApi.Contracts.MarketData.Request;
 using PoissonSoft.KuCoinApi.Contracts.MarketData.Response;
-using PoissonSoft.KuCoinApi.Contracts.MarketData.Response.GetMarketList;
+using PoissonSoft.KuCoinApi.Contracts.User.Request;
 
 namespace PoissonSoft.KuCoinApi.MarkerData
 {
@@ -15,18 +15,20 @@ namespace PoissonSoft.KuCoinApi.MarkerData
         /// полученных в течение указанного количества секунд назад. Если кешированные данные отсутствуют
         /// или были получены ранее указанного времени, то будут загружены актуальные данные</param>
         /// <returns></returns>
-        ExchangeInfo GetSymbolsList(int cacheValidityIntervalSec = 30 * 60);
-        TradePairInfo GetTicker(TradePair request);
-        StatisticTickerPair Get24hrStats(TradePair request);
+        // ExchangeInfo GetSymbolsList(int cacheValidityIntervalSec = 30 * 60);
+
+        ExchangeInfo GetSymbolsList(ReqSymbolList request);
+        TradePairInfo GetTicker(ReqTradeInstrument request);
+        StatisticTickerPair Get24hrStats(ReqTradeInstrument request);
         AllMarketTickers GetAllTicker(int cacheValidityIntervalSec = 30 * 60);
         MarketList GetMarketList();
-        TradeHistory GetTradeHistories(TradePair request);
-        CandleData GetKlines(Candle request);
+        TradeHistory GetTradeHistories(ReqTradeInstrument request);
+        CandleData GetKlines(ReqCandles request);
         CurrencyList GetCurrencies();
         CurrencyDetail GetCurrencyDetail(SpecialBuildQuery request);
-        FiatPriceList GetFiatPrice(FiatPrice request);
-        OrderBook GetPartOrderBook(TradePair request, byte count);
-        OrderBook GetFullOrderBook(TradePair request);
-        OrderBook GetFullOrderBookDeprecated(TradePair request);
+        FiatPriceList GetFiatPrice(ReqFiatPrices request);
+        OrderBook GetPartOrderBook(ReqTradeInstrument request, byte count);
+        OrderBook GetFullOrderBook(ReqTradeInstrument request);
+        OrderBook GetFullOrderBookDeprecated(ReqTradeInstrument request);
     }
 }

@@ -5,7 +5,7 @@ using PoissonSoft.KuCoinApi.Contracts;
 using PoissonSoft.KuCoinApi.Contracts.MarketData;
 using PoissonSoft.KuCoinApi.Contracts.MarketData.Request;
 using PoissonSoft.KuCoinApi.Contracts.MarketData.Response;
-using PoissonSoft.KuCoinApi.Contracts.MarketData.Response.GetMarketList;
+using PoissonSoft.KuCoinApi.Contracts.User.Request;
 using PoissonSoft.KuCoinApi.Transport;
 using PoissonSoft.KuCoinApi.Transport.Rest;
 using PoissonSoft.KuCoinApi.Utils;
@@ -35,7 +35,16 @@ namespace PoissonSoft.KuCoinApi.MarkerData
             return exchangeInfoCache.GetValue(TimeSpan.FromSeconds(cacheValidityIntervalSec));
         }
 
-        public TradePairInfo GetTicker(TradePair request)
+        public ExchangeInfo GetSymbolsList(ReqSymbolList request)
+        {
+            return client.MakeRequest<ExchangeInfo>(
+                new RequestParameters(HttpMethod.Get, "symbols", 0)
+                {
+                    Parameters = RequestParameters.GenerateParametersFromObject(request)
+                });
+        }
+
+        public TradePairInfo GetTicker(ReqTradeInstrument request)
         {
             return client.MakeRequest<TradePairInfo>(
                 new RequestParameters(HttpMethod.Get, "market/orderbook/level1", 0)
@@ -44,7 +53,7 @@ namespace PoissonSoft.KuCoinApi.MarkerData
                 });
         }
 
-        public StatisticTickerPair Get24hrStats(TradePair request)
+        public StatisticTickerPair Get24hrStats(ReqTradeInstrument request)
         {
             return client.MakeRequest<StatisticTickerPair>(
                 new RequestParameters(HttpMethod.Get, "market/stats", 0)
@@ -70,7 +79,7 @@ namespace PoissonSoft.KuCoinApi.MarkerData
         #endregion
 
         #region Order Book
-        public OrderBook GetPartOrderBook(TradePair request, byte count)
+        public OrderBook GetPartOrderBook(ReqTradeInstrument request, byte count)
         {
             return client.MakeRequest<OrderBook>(
                 new RequestParameters(HttpMethod.Get, $"market/orderbook/level2_{count}", 0)
@@ -79,7 +88,7 @@ namespace PoissonSoft.KuCoinApi.MarkerData
                 });
         }
 
-        public OrderBook GetFullOrderBookDeprecated(TradePair request)
+        public OrderBook GetFullOrderBookDeprecated(ReqTradeInstrument request)
         {
             return client.MakeRequest<OrderBook>(
                 new RequestParameters(HttpMethod.Get, "market/orderbook/level2", 0)
@@ -88,7 +97,7 @@ namespace PoissonSoft.KuCoinApi.MarkerData
                 });
         }
 
-        public OrderBook GetFullOrderBook(TradePair request)
+        public OrderBook GetFullOrderBook(ReqTradeInstrument request)
         {
             return client.MakeRequest<OrderBook>(
                 new RequestParameters(HttpMethod.Get, "market/orderbook/level2", 30 / 3)
@@ -101,7 +110,7 @@ namespace PoissonSoft.KuCoinApi.MarkerData
         
         #region Histories
 
-        public TradeHistory GetTradeHistories(TradePair request)
+        public TradeHistory GetTradeHistories(ReqTradeInstrument request)
         {
             return client.MakeRequest<TradeHistory>(
                 new RequestParameters(HttpMethod.Get, "market/histories", 0)
@@ -110,7 +119,7 @@ namespace PoissonSoft.KuCoinApi.MarkerData
                 });
         }
 
-        public CandleData GetKlines(Candle request)
+        public CandleData GetKlines(ReqCandles request)
         {
             return client.MakeRequest<CandleData>(
                 new RequestParameters(HttpMethod.Get, "market/candles", 0)
@@ -127,7 +136,8 @@ namespace PoissonSoft.KuCoinApi.MarkerData
         {
             return client.MakeRequest<CurrencyList>(new RequestParameters(HttpMethod.Get, "currencies", 0));
         }
-
+        //SpecialBuildQuery
+        //ReqCurrencyInfo
         public CurrencyDetail GetCurrencyDetail(SpecialBuildQuery request)
         {
             return client.MakeRequest<CurrencyDetail>(
@@ -137,7 +147,7 @@ namespace PoissonSoft.KuCoinApi.MarkerData
                 });
         }
 
-        public FiatPriceList GetFiatPrice(FiatPrice request)
+        public FiatPriceList GetFiatPrice(ReqFiatPrices request)
         {
             return client.MakeRequest<FiatPriceList>(
                 new RequestParameters(HttpMethod.Get, "prices", 0)

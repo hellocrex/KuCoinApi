@@ -5,18 +5,18 @@ using Newtonsoft.Json;
 
 namespace PoissonSoft.KuCoinApi.Contracts.MarketData.Request
 {
-    public class FiatPrice
+    public class ReqFiatPrices
     {
         /// <summary>
         /// [Optional] Ticker symbol of a base currency,eg.USD,EUR.
         /// </summary>
-        [JsonProperty("base")]
+        [JsonProperty("base", NullValueHandling = NullValueHandling.Ignore)]
         public string BaseCurrency { get; set; }
 
         /// <summary>
         /// [Optional] Comma-separated cryptocurrencies to be converted into fiat, e.g.: BTC,ETH, etc.
         /// </summary>
-        [JsonProperty("currencies")]
+        [JsonProperty("currencies", NullValueHandling = NullValueHandling.Ignore)]
         public string Currencies { get; set; }
     }
 }

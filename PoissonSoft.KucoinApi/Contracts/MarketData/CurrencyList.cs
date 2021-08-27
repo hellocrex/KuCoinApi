@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using PoissonSoft.KuCoinApi.Contracts.MarketData.Response;
 
-namespace PoissonSoft.KuCoinApi.Contracts.MarketData.Response
+namespace PoissonSoft.KuCoinApi.Contracts.MarketData
 {
     public class CurrencyList
     {

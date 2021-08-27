@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace PoissonSoft.KuCoinApi.Contracts.MarketData
+namespace PoissonSoft.KuCoinApi.Contracts.MarketData.Response
 {
     public class MarketTickers
     {

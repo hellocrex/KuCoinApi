@@ -19,80 +19,79 @@ namespace PoissonSoft.KuCoinApi.Contracts.Enums
         /// <summary>
         /// Main
         /// </summary>
-        /// [EnumMember(Value = "1min")]
-        [Description("1min")]
+        [EnumMember(Value = "1min")]
         Min,
 
         /// <summary>
         /// Main
         /// </summary>
-        [Description("3min")]
+        [EnumMember(Value = "3min")]
         Min3,
 
         /// <summary>
         /// Main
         /// </summary>
-        [Description("5min")]
+        [EnumMember(Value = "5min")]
         Min5,
 
         /// <summary>
         /// Main
         /// </summary>
-        [Description("15min")]
+        [EnumMember(Value = "15min")]
         Min15,
 
         /// <summary>
         /// Main
         /// </summary>
-        [Description("30min")]
+        [EnumMember(Value = "30min")]
         Min30,
 
         /// <summary>
         /// Main
         /// </summary>
-        [Description("1hour")]
+        [EnumMember(Value = "1hour")]
         Hour1,
 
         /// <summary>
         /// Main
         /// </summary>
-        [Description("2hour")]
+        [EnumMember(Value = "2hour")]
         Hour2,
 
         /// <summary>
         /// Main
         /// </summary>
-        [Description("4hour")]
+        [EnumMember(Value = "4hour")]
         Hour4,
 
         /// <summary>
         /// Main
         /// </summary>
-        [Description("6hour")]
+        [EnumMember(Value = "6hour")]
         Hour6,
 
         /// <summary>
         /// Main
         /// </summary>
-        [Description("8hour")]
+        [EnumMember(Value = "8hour")]
         Hour8,
 
         /// <summary>
         /// Main
         /// </summary>
-        [Description("12hour")]
+        [EnumMember(Value = "12hour")]
         HalfDay,
 
         /// <summary>
         /// Main
         /// </summary>
-        [Description("1day")]
+        [EnumMember(Value = "1day")]
         Day,
 
         /// <summary>
         /// Main
         /// </summary>
-        [Description("1week")]
+        [EnumMember(Value = "1week")]
         Week
     }
 }

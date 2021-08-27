@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Newtonsoft.Json;
+using PoissonSoft.KuCoinApi.Contracts.MarketData.Response;
 
 namespace PoissonSoft.KuCoinApi.Contracts.MarketData
 {
@@ -16,7 +17,7 @@ namespace PoissonSoft.KuCoinApi.Contracts.MarketData
         public int SystemCode { get; set; }
 
         /// <summary>
-        /// Серверное время
+        /// 
         /// </summary>
         [JsonProperty("data")]
         public MarketTickers Data { get; set; }

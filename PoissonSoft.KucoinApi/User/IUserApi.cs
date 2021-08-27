@@ -40,8 +40,9 @@ namespace PoissonSoft.KuCoinApi.User
         FeeList ActualFeeRateTradingPair(ReqInstruments request);
         WithdrawListInfo GetWithdrawalsList(ReqDepositList request);
         HistoricalListInfo GetV1HistoricalWithdrawList(ReqDepositList request);
-        WithdrawQuotaInfo GetWithdrawalQuotas(ReqAccount request);
-        
+        WithdrawQuotaInfo GetWithdrawalQuotas(ReqCurrencyInfo request);
+
+
         FeeList ApplyWithdraw(ReqWithdraw request);
         FeeList CancelWithdrawal(SpecialBuildQuery request);
 

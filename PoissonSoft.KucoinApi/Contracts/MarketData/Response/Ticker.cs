@@ -1,26 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 
-namespace PoissonSoft.KuCoinApi.Contracts.MarketData.Response.Get24hrStats
+namespace PoissonSoft.KuCoinApi.Contracts.MarketData.Response
 {
-    /// <summary>
-    /// Код http ответа
-    /// </summary>
-    public class StatisticInfoTicker
+    public class Ticker : ICloneable
     {
-        /// <summary>
-        /// Время
-        /// </summary>
-        [JsonProperty("time")]
-        public long Time { get; set; }
-
         /// <summary>
         /// Символ
         /// </summary>
         [JsonProperty("symbol")]
         public string Symbol { get; set; }
+
+        /// <summary>
+        /// ‎Название торговых пар,
+        /// оно будет меняться после переименования‎
+        /// </summary>
+        [JsonProperty("symbolName")]
+        public string Name { get; set; }
 
         /// <summary>
         /// Лучшая цена предложения‎
@@ -105,6 +101,29 @@ namespace PoissonSoft.KuCoinApi.Contracts.MarketData.Response.Get24hrStats
         /// </summary>
         [JsonProperty("makerCoefficient")]
         public string MakerCoefficient { get; set; }
+
+        public object Clone()
+        {
+            return new Ticker()
+            {
+                Symbol = Symbol,
+                Name = Name,
+                BestPriceBuy = BestPriceBuy,
+                BestPriceSell = BestPriceSell,
+                ChangeRate = ChangeRate,
+                ChangePrice = ChangePrice,
+                HighPrice = HighPrice,
+                LowPrice = LowPrice,
+                VolBaseCurrency = VolBaseCurrency,
+                TotalVol = TotalVol,
+                LastPrice = LastPrice,
+                AveragePrice = AveragePrice,
+                TakerFeeRate = TakerFeeRate,
+                MakerFeeRate = MakerFeeRate,
+                TakerCoefficient = TakerCoefficient,
+                MakerCoefficient = MakerCoefficient
+            };
+        }
+
     }
-    
 }

@@ -7,6 +7,7 @@ using PoissonSoft.CommonUtils.ConsoleUtils;
 using PoissonSoft.KuCoinApi.Contracts.Enums;
 using PoissonSoft.KuCoinApi.Contracts.MarketData;
 using PoissonSoft.KuCoinApi.Contracts.MarketData.Request;
+using PoissonSoft.KuCoinApi.Contracts.User.Request;
 using PoissonSoft.KuCoinApi.Contracts.UserDataStream;
 
 namespace KuCoinApi.Example
@@ -21,7 +22,7 @@ namespace KuCoinApi.Example
                 [ConsoleKey.B] = "Get Ticker",
                 [ConsoleKey.C] = "Get All Tickers",
                 [ConsoleKey.D] = "Get 24hr Stats",
-                [ConsoleKey.I] = "Get Market List",
+                [ConsoleKey.E] = "Get Market List",
                 [ConsoleKey.F] = "Get Trade Histories",
                 [ConsoleKey.G] = "Get Klines",
                 [ConsoleKey.H] = "Get Currencies",
@@ -41,7 +42,11 @@ namespace KuCoinApi.Example
                 case ConsoleKey.A: // Get Symbols List' Information
                     SafeCall(() =>
                     {
-                        var data = apiClient.MarketDataApi.GetSymbolsList();
+                        var data = apiClient.MarketDataApi.GetSymbolsList(
+                            new ReqSymbolList
+                            {
+                                Market = InputHelper.GetString("Market: ")
+                            });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });
                     return true;
@@ -50,7 +55,7 @@ namespace KuCoinApi.Example
                     SafeCall(() =>
                     {
                         var data = apiClient.MarketDataApi.GetTicker(
-                            new TradePair
+                            new ReqTradeInstrument
                             {
                                 Symbol = InputHelper.GetString("Trade instrument symbol: ")
                             });
@@ -58,11 +63,11 @@ namespace KuCoinApi.Example
                     });
                     return true;
 
-                case ConsoleKey.C: // Get Ticker Information
+                case ConsoleKey.D: // Get Ticker Information
                     SafeCall(() =>
                     {
                         var data = apiClient.MarketDataApi.Get24hrStats(
-                            new TradePair
+                            new ReqTradeInstrument
                             {
                                 Symbol = InputHelper.GetString("Trade instrument symbol: ")
                             });
@@ -70,7 +75,7 @@ namespace KuCoinApi.Example
                     });
                     return true;
 
-                case ConsoleKey.D: // Get All Tickers' Information
+                case ConsoleKey.C: // Get All Tickers' Information
                     SafeCall(() =>
                     {
                         var data = apiClient.MarketDataApi.GetAllTicker();
@@ -90,7 +95,7 @@ namespace KuCoinApi.Example
                     SafeCall(() =>
                     {
                         var data = apiClient.MarketDataApi.GetTradeHistories(
-                            new TradePair
+                            new ReqTradeInstrument
                             {
                                 Symbol = InputHelper.GetString("Trade instrument symbol: ")
                             });
@@ -102,11 +107,9 @@ namespace KuCoinApi.Example
                     SafeCall(() =>
                     {
                         var data = apiClient.MarketDataApi.GetKlines(
-                            new Candle
+                            new ReqCandles
                             {
                                 Symbol = InputHelper.GetString("Trade instrument symbol: "),
-                                StartTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds(),
-                                EndTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - 1000000,
                                 CandlestickPattern = InputHelper.GetEnum<CandlestickPattern>("Candle Pattern")
                             });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
@@ -127,7 +130,8 @@ namespace KuCoinApi.Example
                         var data = apiClient.MarketDataApi.GetCurrencyDetail(
                             new SpecialBuildQuery
                             {
-                                Parameter = InputHelper.GetString("Currency: ")
+                                Parameter = InputHelper.GetString("Currency: "),
+                                // Chain = InputHelper.GetString("Chain: ")
                             });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });
@@ -137,7 +141,7 @@ namespace KuCoinApi.Example
                     SafeCall(() =>
                     {
                         var data = apiClient.MarketDataApi.GetFiatPrice(
-                            new FiatPrice
+                            new ReqFiatPrices
                             {
                                 BaseCurrency = InputHelper.GetString("Currency: "),
                                 Currencies = InputHelper.GetString("Currencies, eg.:BTC,ETH: ")
@@ -150,7 +154,7 @@ namespace KuCoinApi.Example
                     SafeCall(() =>
                     {
                         var data = apiClient.MarketDataApi.GetPartOrderBook(
-                            new TradePair
+                            new ReqTradeInstrument
                             {
                                 Symbol = InputHelper.GetString("Trade instrument symbol: ")
                             }, 100);
@@ -162,7 +166,7 @@ namespace KuCoinApi.Example
                     SafeCall(() =>
                     {
                         var data = apiClient.MarketDataApi.GetFullOrderBookDeprecated(
-                            new TradePair
+                            new ReqTradeInstrument
                             {
                                 Symbol = InputHelper.GetString("Trade instrument symbol: ")
                             });
@@ -174,7 +178,7 @@ namespace KuCoinApi.Example
                     SafeCall(() =>
                     {
                         var data = apiClient.MarketDataApi.GetFullOrderBook(
-                            new TradePair
+                            new ReqTradeInstrument
                             {
                                 Symbol = InputHelper.GetString("Trade instrument symbol: ")
                             });

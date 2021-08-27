@@ -3,7 +3,7 @@ using PoissonSoft.KuCoinApi.Contracts.Enums;
 
 namespace PoissonSoft.KuCoinApi.Contracts.MarketData.Request
 {
-    public class Candle
+    public class ReqCandles
     {
         /// <summary>
         /// Filled side. The filled side is set to the taker by default
@@ -14,14 +14,14 @@ namespace PoissonSoft.KuCoinApi.Contracts.MarketData.Request
         /// <summary>
         /// Filled side. The filled side is set to the taker by default
         /// </summary>
-        [JsonProperty("startAt")]
-        public long StartTime { get; set; }
+        [JsonProperty("startAt", NullValueHandling = NullValueHandling.Ignore)]
+        public long? StartTime { get; set; }
 
         /// <summary>
         /// Filled side. The filled side is set to the taker by default
         /// </summary>
-        [JsonProperty("endAt")]
-        public long EndTime { get; set; }
+        [JsonProperty("endAt", NullValueHandling = NullValueHandling.Ignore)]
+        public long? EndTime { get; set; }
 
         /// <summary>
         /// Filled side. The filled side is set to the taker by default

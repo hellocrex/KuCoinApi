@@ -167,7 +167,7 @@ namespace KuCoinApi.Example
                 case ConsoleKey.H: // Get Withdrawal Quotas
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.GetWithdrawalQuotas(new ReqAccount
+                        var data = apiClient.UserApi.GetWithdrawalQuotas(new ReqCurrencyInfo
                         {
                             Currency = InputHelper.GetString("Currency: ")
                         });

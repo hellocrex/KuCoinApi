@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
-using PoissonSoft.KuCoinApi.Contracts.MarketData.Response.Get24hrStats;
+using PoissonSoft.KuCoinApi.Contracts.MarketData.Response;
 
 namespace PoissonSoft.KuCoinApi.Contracts.MarketData
 {

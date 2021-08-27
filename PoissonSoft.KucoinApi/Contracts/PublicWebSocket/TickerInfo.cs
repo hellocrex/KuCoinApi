@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using PoissonSoft.KuCoinApi.Contracts.MarketData.Response;
 
 namespace PoissonSoft.KuCoinApi.Contracts.PublicWebSocket
 {
@@ -17,7 +18,7 @@ namespace PoissonSoft.KuCoinApi.Contracts.PublicWebSocket
         public string Subject { get; set; }
 
         [JsonProperty("data")]
-        public MarketData.MarketData Data { get; set; }
+        public TickerMarketData Data { get; set; }
         
     }
 }

@@ -193,7 +193,7 @@ namespace PoissonSoft.KuCoinApi.User
                 });
         }
 
-        public WithdrawQuotaInfo GetWithdrawalQuotas(ReqAccount request)
+        public WithdrawQuotaInfo GetWithdrawalQuotas(ReqCurrencyInfo request)
         {
             return sApiClient.MakeRequest<WithdrawQuotaInfo>(
                 new RequestParameters(HttpMethod.Get, "withdrawals/quotas", 1)

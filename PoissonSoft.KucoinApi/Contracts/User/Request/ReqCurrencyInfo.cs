@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace PoissonSoft.KuCoinApi.Contracts.User.Request
 {
-    public class WithdrawQuota
+    public class ReqCurrencyInfo
     {
         /// <summary>
         /// currency. e.g. BTC
@@ -16,7 +16,7 @@ namespace PoissonSoft.KuCoinApi.Contracts.User.Request
         /// <summary>
         /// [Optional] The chain name of currency, e.g. The available value for USDT are OMNI, ERC20, TRC20, default is ERC20.
         /// </summary>
-        [JsonProperty("chain")]
+        [JsonProperty("chain", NullValueHandling = NullValueHandling.Ignore)]
         public string Chain { get; set; }
     }
 }
