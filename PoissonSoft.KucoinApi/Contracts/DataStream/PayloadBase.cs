@@ -4,7 +4,7 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace PoissonSoft.BinanceApi.Contracts.UserDataStream
+namespace PoissonSoft.KuCoinApi.Contracts.DataStream
 {
     /// <summary>
     /// Base class of User Data Payload

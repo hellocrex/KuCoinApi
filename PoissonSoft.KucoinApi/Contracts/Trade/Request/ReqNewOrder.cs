@@ -25,7 +25,7 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade.Request
         /// ‎действительный код торгового символа. например, ETH-BTC‎
         /// </summary>
         [JsonProperty("symbol")]
-        public string Symbol { get; set; }
+        public string Instrument { get; set; }
 
         /// <summary>
         /// ‎[Необязательно]‎‎ ‎‎лимит‎‎ или ‎‎рынок‎‎ (по умолчанию ‎‎— лимит‎)
@@ -49,13 +49,13 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade.Request
         /// Need to be defined if stop is specified.
         /// </summary>
         [JsonProperty("stopPrice", NullValueHandling = NullValueHandling.Ignore)]
-        public string StopPrice { get; set; }
+        public decimal? StopPrice { get; set; }
 
         /// <summary>
         /// ‎[Необязательно]‎‎ предотвращение самоторговли, ‎‎CN,‎‎ ‎‎CO,‎‎ ‎‎CB‎‎ или ‎‎DC‎
         /// </summary>
         [JsonProperty("stp", NullValueHandling = NullValueHandling.Ignore)]
-        public STP STP { get; set; }
+        public STP? STP { get; set; }
 
         /// <summary>
         /// [Необязательно]‎‎ Вид торговли: ‎‎TRADE (Spot‎‎Trade), ‎‎MARGIN_TRADE‎‎ (Margin Trade). По умолчанию используется ‎‎значение TRADE.‎‎
@@ -68,14 +68,14 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade.Request
         /// <summary>
         /// price per base currency
         /// </summary>
-        [JsonProperty("price")]
-        public string Price { get; set; }
+        [JsonProperty("price",NullValueHandling = NullValueHandling.Ignore)]
+        public decimal? Price { get; set; }
 
         /// <summary>
         /// amount of base currency to buy or sell
         /// </summary>
         [JsonProperty("size")]
-        public string Size { get; set; }
+        public decimal Size { get; set; }
 
         /// <summary>
         /// [Optional] GTC, GTT, IOC, or FOK (default is GTC)

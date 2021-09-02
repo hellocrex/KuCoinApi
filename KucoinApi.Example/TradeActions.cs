@@ -55,13 +55,14 @@ namespace KuCoinApi.Example
                             new ReqNewOrder
                             {
                                 ClientOid = Guid.NewGuid().ToString(),
-                                Symbol = InputHelper.GetString("Trade instrument symbol: "),
+                                Instrument = InputHelper.GetString("Trade instrument symbol: "),
                                 Side = InputHelper.GetEnum<OrderSide>("Side"),
-                                Type = InputHelper.GetEnum<OrderType>("Type"),
+                                //Type = InputHelper.GetEnum<OrderType>("Type"),
                                 TradeType = InputHelper.GetEnum<TradeType>("Trade type"),
-                                STP = InputHelper.GetEnum<STP>("STP: "),
-                                Price = InputHelper.GetString("Price per base currency: "),
-                                Size = InputHelper.GetString("Amount of base currency to buy or sell: ")
+                               // STP = InputHelper.GetEnum<STP>("STP: "),
+                                Price = InputHelper.GetDecimal("Price per base currency: "),
+                               // Funds = InputHelper.GetString("The desired amount of quote currency to use: "),
+                                Size = InputHelper.GetDecimal("Amount of base currency to buy or sell: ")
 
                             },
                             true
@@ -82,7 +83,7 @@ namespace KuCoinApi.Example
                                 Type = InputHelper.GetEnum<OrderType>("Type"),
                                 STP = InputHelper.GetEnum<STP>("STP: "),
                                 Price = InputHelper.GetString("Price per base currency: "),
-                                size = InputHelper.GetString("Amount of base currency to buy or sell: ")
+                                Size = InputHelper.GetString("Amount of base currency to buy or sell: ")
                             }
                         );
                         Console.WriteLine(JsonConvert.SerializeObject(order, Formatting.Indented));
@@ -154,8 +155,9 @@ namespace KuCoinApi.Example
                         var data = apiClient.TradeApi.ListOrders(
                             new ReqOrderList
                             {
+                               // Symbol = InputHelper.GetString("Instruments: "),
                                 StatusOrder = InputHelper.GetEnum<StatusOrder>("active or done: "),
-                                Side = InputHelper.GetEnum<OrderSide>(""),
+                               // Side = InputHelper.GetEnum<OrderSide>(""),
                                 TypeTrade = InputHelper.GetEnum<TradeType>("The type of trading: ")
                             });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
@@ -169,7 +171,7 @@ namespace KuCoinApi.Example
                             new ReqHistoricalOrder()
                             {
                                 Symbol = InputHelper.GetString("Symbol: "),
-                                PageSize = Convert.ToInt32(InputHelper.GetString("PageSize: "))
+                               // PageSize = Convert.ToInt32(InputHelper.GetString("PageSize: "))
                             });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });
@@ -238,10 +240,10 @@ namespace KuCoinApi.Example
                             {
                                 ClientOid = Guid.NewGuid().ToString(),
                                 Side = InputHelper.GetEnum<OrderSide>(""),
-                                Symbol = InputHelper.GetString("A valid trading symbol code. e.g. ETH-BTC: "),
-                                StopPrice = InputHelper.GetString("Stop price: "),
-                                Price = InputHelper.GetString("Price: "),
-                                Size = InputHelper.GetString("Size: ")
+                                Instrument = InputHelper.GetString("A valid trading symbol code. e.g. ETH-BTC: "),
+                                StopPrice = InputHelper.GetDecimal("Stop price: "),
+                                Price = InputHelper.GetDecimal("Price: "),
+                                Size = InputHelper.GetDecimal("Size: ")
                                 
                             });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));

@@ -27,7 +27,7 @@
 
 using Newtonsoft.Json;
 
-namespace PoissonSoft.BinanceApi.Contracts.UserDataStream
+namespace PoissonSoft.KuCoinApi.Contracts.DataStream
 {
     /// <summary>
     /// Is sent any time an account balance has changed and contains the assets that

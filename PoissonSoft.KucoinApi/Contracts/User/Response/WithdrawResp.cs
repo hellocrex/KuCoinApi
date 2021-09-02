@@ -11,6 +11,6 @@ namespace PoissonSoft.KuCoinApi.Contracts.User.Response
         /// Код http ответа
         /// </summary>
         [JsonProperty("withdrawalId")]
-        public int WithdrawalId { get; set; }
+        public string WithdrawalId { get; set; }
     }
 }

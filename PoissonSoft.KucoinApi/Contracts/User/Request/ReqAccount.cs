@@ -19,5 +19,6 @@ namespace PoissonSoft.KuCoinApi.Contracts.User.Request
         /// </summary>
         [JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
         public AccountType? AccountType { get; set; }
+       
     }
 }

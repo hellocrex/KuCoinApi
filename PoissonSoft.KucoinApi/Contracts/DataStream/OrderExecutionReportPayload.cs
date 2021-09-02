@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using PoissonSoft.KuCoinApi.Contracts.Enums;
 
-namespace PoissonSoft.BinanceApi.Contracts.UserDataStream
+namespace PoissonSoft.KuCoinApi.Contracts.DataStream
 {
     /// <summary>
     /// Событие, информирующее об изменении ордера

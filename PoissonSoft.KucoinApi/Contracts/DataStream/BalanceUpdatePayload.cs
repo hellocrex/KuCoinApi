@@ -28,7 +28,7 @@
 
 using Newtonsoft.Json;
 
-namespace PoissonSoft.BinanceApi.Contracts.UserDataStream
+namespace PoissonSoft.KuCoinApi.Contracts.DataStream
 {
     /// <summary>
     /// Balance Update occurs during the following:

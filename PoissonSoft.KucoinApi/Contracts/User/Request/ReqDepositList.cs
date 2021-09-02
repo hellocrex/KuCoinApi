@@ -23,7 +23,7 @@ namespace PoissonSoft.KuCoinApi.Contracts.User.Request
         /// [Optional] Currency
         /// </summary>
         [JsonProperty("currency", NullValueHandling = NullValueHandling.Ignore)]
-        public string Currency { get; set; }
+        public string Coin { get; set; }
 
         /// <summary>
         /// [Optional] Start time (millisecond)

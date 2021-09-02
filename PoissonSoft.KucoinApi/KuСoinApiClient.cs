@@ -8,7 +8,7 @@ using PoissonSoft.KuCoinApi.MarkerData;
 using PoissonSoft.KuCoinApi.PublicWebSocket;
 using PoissonSoft.KuCoinApi.Trade;
 using PoissonSoft.KuCoinApi.Transport;
-using PoissonSoft.KuCoinApi.UserDataStream;
+using PoissonSoft.KuCoinApi.DataStream;
 
 namespace PoissonSoft.KuCoinApi
 {
@@ -29,11 +29,21 @@ namespace PoissonSoft.KuCoinApi
             this.credentials = credentials;
             Throttler = new Throttler(this);
 
+
+            //var credential = new KuCoinApiClientCredentials
+            //{
+            //    ApiKey = "610ab077bc85c200065a674a",
+            //    SecretKey = "b628fabb-8834-460f-bbc4-82cf3df4a418",
+            //    PassPhrase = "mivit9g9AZ$"
+            //};
+
             userApi = new UserApi(this, credentials, logger);
             marketDataApi = new MarketDataApi(this, credentials, logger);
             tradeApi = new TradeApi(this, credentials, logger);
-            //dataStream = new UserDataStream.UserDataStream(this, credentials);
+            dataStream = new UserDataStream(this, credentials);
+            userDataCollector = new UserDataCollector(this);
             webSocketPublicChannel = new PublicChannel(this, credentials);
+
         }
 
         public bool IsDebug { get; set; } = false;
@@ -56,16 +66,43 @@ namespace PoissonSoft.KuCoinApi
         private readonly TradeApi tradeApi;
 
         /// <summary>
-        /// User Data Stream
+        /// Data Stream
         /// </summary>
-        //public IUserDataStream UserDataStream => dataStream;
-        //private readonly UserDataStream.UserDataStream dataStream;
+        public IUserDataStream UserDataStream => dataStream;
+        private readonly UserDataStream dataStream;
+
+        /// <summary>
+        /// Сборщик актуальных данных по аккаунту
+        /// (балансы, ордеры, трейды)
+        /// </summary>
+        public IUserDataCollector UserDataCollector => userDataCollector;
+        private readonly UserDataCollector userDataCollector;
 
         /// <summary>
         /// WebSocketFeed
         /// </summary>
         public IPublicChannel PublicChannel => webSocketPublicChannel;
         private readonly PublicChannel webSocketPublicChannel;
+
+        /// <inheritdoc />
+        public void Dispose()
+        {
+
+            //if (userDataCollector?.IsStarted == true) userDataCollector.Stop();
+            //userDataCollector?.Dispose();
+
+            //if (dataStream?.Status == DataStreamStatus.Active) dataStream.Close();
+            //dataStream?.Dispose();
+
+            //marketStreamsManager?.Dispose();
+
+            //marketDataApi?.Dispose();
+            //spotAccountApi?.Dispose();
+            //walletApi?.Dispose();
+
+            Throttler?.Dispose();
+        }
     }
+
 
 }

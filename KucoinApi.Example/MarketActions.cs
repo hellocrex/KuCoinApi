@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
-using PoissonSoft.BinanceApi.Contracts.UserDataStream;
 using PoissonSoft.CommonUtils.ConsoleUtils;
+using PoissonSoft.KuCoinApi.Contracts.DataStream;
 using PoissonSoft.KuCoinApi.Contracts.Enums;
 using PoissonSoft.KuCoinApi.Contracts.MarketData;
 using PoissonSoft.KuCoinApi.Contracts.MarketData.Request;
 using PoissonSoft.KuCoinApi.Contracts.User.Request;
-using PoissonSoft.KuCoinApi.Contracts.UserDataStream;
 
 namespace KuCoinApi.Example
 {
@@ -131,6 +130,7 @@ namespace KuCoinApi.Example
                             new SpecialBuildQuery
                             {
                                 Parameter = InputHelper.GetString("Currency: "),
+
                                 // Chain = InputHelper.GetString("Chain: ")
                             });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
@@ -320,7 +320,14 @@ namespace KuCoinApi.Example
                         Console.WriteLine($"Unsubscribe result = {result}");
                     });
                     return true;
-                    
+
+                case ConsoleKey.U:
+                    SafeCall(() =>
+                    {
+                        OpenSpotUserDataStream();
+                    });
+                    return true;
+
 
                 case ConsoleKey.Escape:
                     return false;
@@ -339,7 +346,12 @@ namespace KuCoinApi.Example
         {
             try
             {
-               
+            //    apiClient.UserDataStream.OnAccountUpdate += SpotDataStreamOnAccountUpdate;
+            //    apiClient.UserDataStream.OnBalanceUpdate += SpotDataStreamOnBalanceUpdate;
+            //    apiClient.UserDataStream.OnOrderExecuteEvent += SpotDataStreamOnOrderExecuteEvent;
+            //    apiClient.UserDataStream.OnOrderListStatusEvent += SpotDataStreamOnOrderListStatusEvent;
+               // apiClient.UserDataStream.Open();
+                apiClient.UserDataCollector.Start();
             }
             catch (Exception e)
             {

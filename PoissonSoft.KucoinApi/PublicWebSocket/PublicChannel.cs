@@ -24,7 +24,7 @@ namespace PoissonSoft.KuCoinApi.PublicWebSocket
         //private const string WS_ENDPOINT = "wss://push1-v2.kucoin.com/endpoint";
         
         private readonly KuCoinApiClient apiClient;
-        private readonly WebSocketStreamListener streamListener;
+        private readonly WebSocketStreamListener2 streamListener;
 
         private readonly ConcurrentDictionary<string, ConcurrentDictionary<long, SubscriptionWrap>> subscriptions =
             new ConcurrentDictionary<string, ConcurrentDictionary<long, SubscriptionWrap>>();
@@ -39,7 +39,7 @@ namespace PoissonSoft.KuCoinApi.PublicWebSocket
         {
             this.apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
 
-            streamListener = new WebSocketStreamListener(apiClient, credentials);
+            streamListener = new WebSocketStreamListener2(apiClient, credentials);
             streamListener.OnConnected += OnConnectToWs;
             streamListener.OnConnectionClosed += OnDisconnect;
             streamListener.OnMessage += OnStreamMessage;

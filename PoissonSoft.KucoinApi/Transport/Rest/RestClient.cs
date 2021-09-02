@@ -196,6 +196,7 @@ namespace PoissonSoft.KuCoinApi.Transport.Rest
                     {
                         body = requestParameters.Parameters["Parameter"] ?? string.Empty;
                         RequestParameters.SpecialBuildPath = false;
+                       // url = "currencies/XMR?chain=ERC20";
                     }
 
                     if (body != string.Empty)
@@ -207,6 +208,7 @@ namespace PoissonSoft.KuCoinApi.Transport.Rest
                         string queryString = BuildQueryString(requestParameters.Parameters);
                         url =
                             $"{requestParameters.SpecialPath}{(string.IsNullOrEmpty(queryString) ? string.Empty : $"?{queryString}")}";
+                        //url = "currencies/XMR?chain=ERC20";
                     }
 
                     SignHttpWebRequest(requestParameters.Method.ToString(), url);

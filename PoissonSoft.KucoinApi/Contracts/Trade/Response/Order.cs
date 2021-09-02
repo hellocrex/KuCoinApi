@@ -31,7 +31,7 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade.Response
         /// order quantity
         /// </summary>
         [JsonProperty("size")]
-        public string Size { get; set; }
+        public decimal Size { get; set; }
 
         /// <summary>
         /// order funds
@@ -55,19 +55,19 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade.Response
         /// fee
         /// </summary>
         [JsonProperty("fee")]
-        public string Fee { get; set; }
+        public string Commission { get; set; }
 
         /// <summary>
         /// charge fee currency
         /// </summary>
         [JsonProperty("feeCurrency")]
-        public string FeeCurrency { get; set; }
+        public string CommissionAsset { get; set; }
 
         /// <summary>
         /// self trade prevention,include CN,CO,DC,CB
         /// </summary>
         [JsonProperty("stp")]
-        public STP STP { get; set; }
+        public STP? STP { get; set; }
 
         /// <summary>
         /// stop type, include entry and loss
@@ -79,7 +79,7 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade.Response
         /// stop order is triggered or not
         /// </summary>
         [JsonProperty("stopTriggered")]
-        public string StopTriggered { get; set; }
+        public bool StopTriggered { get; set; }
 
         /// <summary>
         /// stop price
@@ -97,25 +97,25 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade.Response
         /// postOnly
         /// </summary>
         [JsonProperty("postOnly")]
-        public string PostOnly { get; set; }
+        public bool PostOnly { get; set; }
 
         /// <summary>
         /// hidden order
         /// </summary>
         [JsonProperty("hidden")]
-        public string Hidden { get; set; }
+        public bool Hidden { get; set; }
 
         /// <summary>
         /// iceberg order
         /// </summary>
         [JsonProperty("iceberg")]
-        public string Iceberg { get; set; }
+        public bool Iceberg { get; set; }
 
         /// <summary>
         /// displayed quantity for iceberg order
         /// </summary>
         [JsonProperty("visibleSize")]
-        public decimal VisibleSize { get; set; }
+        public decimal? VisibleSize { get; set; }
 
         /// <summary>
         /// cancel orders time，requires timeInForce to be GTT
@@ -151,13 +151,13 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade.Response
         /// order status, true and false. If true, the order is active, if false, the order is fillled or cancelled
         /// </summary>
         [JsonProperty("isActive")]
-        public string isActive { get; set; }
+        public bool isActive { get; set; }
 
         /// <summary>
         /// order cancellation transaction record
         /// </summary>
         [JsonProperty("cancelExist")]
-        public string CancelExist { get; set; }
+        public bool CancelExist { get; set; }
 
         /// <summary>
         /// create time

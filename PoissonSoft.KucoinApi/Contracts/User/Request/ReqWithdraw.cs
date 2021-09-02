@@ -11,7 +11,7 @@ namespace PoissonSoft.KuCoinApi.Contracts.User.Request
         /// Currency
         /// </summary>
         [JsonProperty("currency")]
-        public string Currency { get; set; }
+        public string Coin { get; set; }
 
         /// <summary>
         /// Withdrawal address
@@ -23,7 +23,7 @@ namespace PoissonSoft.KuCoinApi.Contracts.User.Request
         /// Withdrawal amount, a positive number which is a multiple of the amount precision (fees excluded)
         /// </summary>
         [JsonProperty("amount")]
-        public string Amount { get; set; }
+        public decimal Amount { get; set; }
 
         /// <summary>
         /// [Optional] Address remark. If there’s no remark, it is empty.
@@ -47,6 +47,6 @@ namespace PoissonSoft.KuCoinApi.Contracts.User.Request
         /// [Optional] The chain name of currency, e.g. The available value for USDT are OMNI, ERC20, TRC20, default is ERC20.
         /// </summary>
         [JsonProperty("chain", NullValueHandling = NullValueHandling.Ignore)]
-        public string Chain { get; set; }
+        public string Network { get; set; }
     }
 }

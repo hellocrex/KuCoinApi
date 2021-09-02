@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using Newtonsoft.Json;
-using PoissonSoft.KuCoinApi.Contracts.User.Account.Response;
+using PoissonSoft.KuCoinApi.Contracts.User.Response;
 
 namespace PoissonSoft.KuCoinApi.Contracts.User
 {
-    public class AccountsList : ICloneable
+    public class Withdraw
     {
         /// <summary>
         /// Код http ответа
@@ -13,17 +15,9 @@ namespace PoissonSoft.KuCoinApi.Contracts.User
         public int SystemCode { get; set; }
 
         /// <summary>
-        /// Account info
+        /// WithdrawalId
         /// </summary>
         [JsonProperty("data")]
-        public AccountInfo[] Data { get; set; }
-
-        public object Clone()
-        {
-            return new AccountsList
-            {
-                Data = Data
-            };
-        }
+        public WithdrawResp Data { get; set; }
     }
 }

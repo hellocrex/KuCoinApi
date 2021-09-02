@@ -25,15 +25,27 @@ namespace PoissonSoft.KuCoinApi.Contracts.Enums
         Sell,
 
         /// <summary>
-        /// SELL
+        /// Transaction
         /// </summary>
         [EnumMember(Value = "transaction")]
         Transaction,
 
         /// <summary>
-        /// SELL
+        /// Direction
         /// </summary>
         [EnumMember(Value = "direction")]
         Direction,
+
+        /// <summary>
+        /// In
+        /// </summary>
+        [EnumMember(Value = "in")]
+        In,
+
+        /// <summary>
+        /// Out
+        /// </summary>
+        [EnumMember(Value = "out")]
+        Out,
     }
 }

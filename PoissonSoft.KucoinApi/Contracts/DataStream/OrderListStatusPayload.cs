@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-namespace PoissonSoft.KuCoinApi.Contracts.UserDataStream
+namespace PoissonSoft.KuCoinApi.Contracts.DataStream
 {
     /// <summary>
     /// If the order is an OCO, an event will be displayed named ListStatus in addition to the executionReport event.

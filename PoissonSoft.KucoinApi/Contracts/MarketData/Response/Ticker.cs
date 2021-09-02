@@ -40,19 +40,19 @@ namespace PoissonSoft.KuCoinApi.Contracts.MarketData.Response
         /// Изменение цены‎ за 24ч
         /// </summary>
         [JsonProperty("changePrice")]
-        public decimal ChangePrice { get; set; }
+        public decimal? ChangePrice { get; set; }
 
         /// <summary>
         /// ‎Самая высокая цена за 24ч‎
         /// </summary>
         [JsonProperty("high")]
-        public decimal HighPrice { get; set; }
+        public decimal? HighPrice { get; set; }
 
         /// <summary>
         /// ‎Самая низкая цена за 24ч‎
         /// </summary>
         [JsonProperty("low")]
-        public decimal LowPrice { get; set; }
+        public decimal? LowPrice { get; set; }
 
         /// <summary>
         /// ‎24-х ч объем, выполненный на основе базовой валюты‎
@@ -76,7 +76,7 @@ namespace PoissonSoft.KuCoinApi.Contracts.MarketData.Response
         /// Средняя торговая цена за последние 24 часа‎
         /// </summary>
         [JsonProperty("averagePrice")]
-        public decimal AveragePrice { get; set; }
+        public decimal? AveragePrice { get; set; }
 
         /// <summary>
         /// ‎‎Базовый сбор‎

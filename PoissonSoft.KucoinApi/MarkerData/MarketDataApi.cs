@@ -141,10 +141,11 @@ namespace PoissonSoft.KuCoinApi.MarkerData
         public CurrencyDetail GetCurrencyDetail(SpecialBuildQuery request)
         {
             return client.MakeRequest<CurrencyDetail>(
-                new RequestParameters(HttpMethod.Get, "currencies", 0)
-                {
-                    Parameters = RequestParameters.GenerateParametersFromObject(request)
-                });
+                new RequestParameters(HttpMethod.Get, $"currencies/{request.Parameter}", 0)
+                //{
+                //    Parameters = RequestParameters.GenerateParametersFromObject(request)
+                //}
+                );
         }
 
         public FiatPriceList GetFiatPrice(ReqFiatPrices request)

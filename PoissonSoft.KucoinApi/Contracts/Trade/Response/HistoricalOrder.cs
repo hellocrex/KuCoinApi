@@ -36,11 +36,11 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade.Response
         /// 
         /// </summary>
         [JsonProperty("items")]
-        HistoricalOrder[] Items { get; set; }
+        public HistoricalOrder[] Items { get; set; }
 
     }
 
-    class HistoricalOrder
+    public class HistoricalOrder
     {
         /// <summary>
         /// symbol

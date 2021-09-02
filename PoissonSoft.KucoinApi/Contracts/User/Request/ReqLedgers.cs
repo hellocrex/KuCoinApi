@@ -11,8 +11,8 @@ namespace PoissonSoft.KuCoinApi.Contracts.User.Request
         /// <summary>
         /// [Optional] Account type: main, trade, margin or pool
         /// </summary>
-        [JsonProperty("currency", NullValueHandling = NullValueHandling.Ignore)]
-        public string Currency { get; set; }
+        [JsonProperty("accountId", NullValueHandling = NullValueHandling.Ignore)]
+        public string AccountId { get; set; }
 
         /// <summary>
         /// [Optional] Account type: main, trade, margin or pool

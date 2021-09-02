@@ -66,8 +66,9 @@ namespace KuCoinApi.Example
                     {
                         var data = apiClient.UserApi.GetListAccounts(new ReqAccount
                         {
-                            Currency = InputHelper.GetString("Currency: "),
-                            AccountType = InputHelper.GetEnum<AccountType>("AccountType")
+                            Currency = null,//InputHelper.GetString("Currency: "),
+                            AccountType = InputHelper.GetEnum<AccountType>("AccountType: ")
+                                            
                         });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });
@@ -131,8 +132,8 @@ namespace KuCoinApi.Example
                     {
                         var data = apiClient.UserApi.GetAccountLedgers(new ReqLedgers
                         {
-                            Currency = InputHelper.GetString("Currency: "),
-                            StartAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - DateTimeOffset.UtcNow.AddDays(-1).ToUnixTimeMilliseconds()
+                            AccountId = InputHelper.GetString("AccountId: "),
+                            //StartAt = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() - DateTimeOffset.UtcNow.AddDays(-1).ToUnixTimeMilliseconds()
                             //Direction = InputHelper.GetEnum<Direction>("Direction: "),
                             //BusinesType = InputHelper.GetEnum<BusinessType>("Business type: ")
                         });
@@ -165,8 +166,23 @@ namespace KuCoinApi.Example
                         var data = apiClient.UserApi.GetTransferable(new ReqAccount
                         {
                             Currency = InputHelper.GetString("The user ID of a sub-account: "),
-                            AccountType = InputHelper.GetEnum<AccountType>("")
+                          //  AccountType = InputHelper.GetEnum<AccountType>("")
                         });
+                        Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
+                    });
+                    return true;
+
+                case ConsoleKey.K: // Get the Aggregated Balance of all Sub-Accounts
+                    SafeCall(() =>
+                    {
+                        var Currency = InputHelper.GetString("Currency: ");
+                        var From = InputHelper.GetEnum<AccountType>(
+                            "Account type of payer: main, trade, margin or pool: ");
+                        var To = InputHelper.GetEnum<AccountType>(
+                            "Account type of payee: main, trade, margin , contract or pool: ");
+                        var Amount = InputHelper.GetDecimal("Transfer amount: ");
+
+                        var data = apiClient.UserApi.InnerTransfer(Currency, AccountType.Main, AccountType.Trade, Amount);
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });
                     return true;

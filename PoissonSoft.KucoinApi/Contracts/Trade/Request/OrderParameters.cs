@@ -20,7 +20,7 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade.Request
         /// amount of base currency to buy or sell
         /// </summary>
         [JsonProperty("size")]
-        public string size { get; set; }
+        public string Size { get; set; }
 
         /// <summary>
         /// [Optional] GTC, GTT, IOC, or FOK (default is GTC)
