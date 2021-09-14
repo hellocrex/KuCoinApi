@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text;
 using Newtonsoft.Json;
+using PoissonSoft.KuCoinApi.Contracts.Enums;
 
 namespace PoissonSoft.KuCoinApi.Contracts.User.Request
 {
@@ -42,27 +43,7 @@ namespace PoissonSoft.KuCoinApi.Contracts.User.Request
         /// [Optional] Status. Available value: PROCESSING, SUCCESS, and FAILURE
         /// </summary>
         [JsonProperty("status")]
-        public WithdrawStatus Status { get; set; }
+        public DepositAndWithdrawStatus Status { get; set; }
     }
 
-    public enum WithdrawStatus
-    {
-        /// <summary>
-        /// PROCESSING
-        /// </summary>
-        [EnumMember(Value = "PROCESSING")]
-        Processing,
-
-        /// <summary>
-        /// SUCCESS
-        /// </summary>
-        [EnumMember(Value = "SUCCESS")]
-        Success,
-
-        /// <summary>
-        /// FAILURE
-        /// </summary>
-        [EnumMember(Value = "FAILURE")]
-        Failure
-    }
 }

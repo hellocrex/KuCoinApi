@@ -21,7 +21,7 @@ namespace PoissonSoft.KuCoinApi.MarkerData
         {
 
             this.apiClient = apiClient ?? throw new ArgumentNullException(nameof(apiClient));
-            client = new RestClient(logger, "https://api.kucoin.com/api/v1",
+            client = new RestClient(logger, "https://api.kucoin.com/api",
                 new[] { EndpointSecurityType.Trade }, credentials, this.apiClient.Throttler);
 
             exchangeInfoCache = new SimpleCache<ExchangeInfo>(LoadExchangeInfo, logger);
@@ -38,7 +38,7 @@ namespace PoissonSoft.KuCoinApi.MarkerData
         public ExchangeInfo GetSymbolsList(ReqSymbolList request)
         {
             return client.MakeRequest<ExchangeInfo>(
-                new RequestParameters(HttpMethod.Get, "symbols", 0)
+                new RequestParameters(HttpMethod.Get, "v1/symbols", 0)
                 {
                     Parameters = RequestParameters.GenerateParametersFromObject(request)
                 });
@@ -47,7 +47,7 @@ namespace PoissonSoft.KuCoinApi.MarkerData
         public TradePairInfo GetTicker(ReqTradeInstrument request)
         {
             return client.MakeRequest<TradePairInfo>(
-                new RequestParameters(HttpMethod.Get, "market/orderbook/level1", 0)
+                new RequestParameters(HttpMethod.Get, "v1/market/orderbook/level1", 0)
                 {
                     Parameters = RequestParameters.GenerateParametersFromObject(request)
                 });
@@ -56,7 +56,7 @@ namespace PoissonSoft.KuCoinApi.MarkerData
         public StatisticTickerPair Get24hrStats(ReqTradeInstrument request)
         {
             return client.MakeRequest<StatisticTickerPair>(
-                new RequestParameters(HttpMethod.Get, "market/stats", 0)
+                new RequestParameters(HttpMethod.Get, "v1/market/stats", 0)
                 {
                     Parameters = RequestParameters.GenerateParametersFromObject(request)
                 });
@@ -64,7 +64,7 @@ namespace PoissonSoft.KuCoinApi.MarkerData
 
         public AllMarketTickers GetAllTicker(int cacheValidityIntervalSec = 1800)
         {
-            return client.MakeRequest<AllMarketTickers>(new RequestParameters(HttpMethod.Get, "market/allTickers", 0));
+            return client.MakeRequest<AllMarketTickers>(new RequestParameters(HttpMethod.Get, "v1/market/allTickers", 0));
         }
         private ExchangeInfo LoadExchangeInfo()
         {
@@ -73,7 +73,7 @@ namespace PoissonSoft.KuCoinApi.MarkerData
 
         public MarketList GetMarketList()
         {
-            return client.MakeRequest<MarketList>(new RequestParameters(HttpMethod.Get, "markets", 0));
+            return client.MakeRequest<MarketList>(new RequestParameters(HttpMethod.Get, "v1/markets", 0));
         }
 
         #endregion
@@ -82,16 +82,7 @@ namespace PoissonSoft.KuCoinApi.MarkerData
         public OrderBook GetPartOrderBook(ReqTradeInstrument request, byte count)
         {
             return client.MakeRequest<OrderBook>(
-                new RequestParameters(HttpMethod.Get, $"market/orderbook/level2_{count}", 0)
-                {
-                    Parameters = RequestParameters.GenerateParametersFromObject(request)
-                });
-        }
-
-        public OrderBook GetFullOrderBookDeprecated(ReqTradeInstrument request)
-        {
-            return client.MakeRequest<OrderBook>(
-                new RequestParameters(HttpMethod.Get, "market/orderbook/level2", 0)
+                new RequestParameters(HttpMethod.Get, $"v1/market/orderbook/level2_{count}", 0)
                 {
                     Parameters = RequestParameters.GenerateParametersFromObject(request)
                 });
@@ -100,7 +91,7 @@ namespace PoissonSoft.KuCoinApi.MarkerData
         public OrderBook GetFullOrderBook(ReqTradeInstrument request)
         {
             return client.MakeRequest<OrderBook>(
-                new RequestParameters(HttpMethod.Get, "market/orderbook/level2", 30 / 3)
+                new RequestParameters(HttpMethod.Get, "v3/market/orderbook/level2", 30 / 3)
                 {
                     Parameters = RequestParameters.GenerateParametersFromObject(request)
                 });

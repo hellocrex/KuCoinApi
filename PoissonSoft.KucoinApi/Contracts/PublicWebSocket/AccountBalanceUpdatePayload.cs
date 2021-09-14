@@ -6,7 +6,7 @@ using PoissonSoft.KuCoinApi.Contracts.PublicWebSocket.Response;
 
 namespace PoissonSoft.KuCoinApi.Contracts.PublicWebSocket
 {
-    public class AccountBalance
+    public class AccountBalanceUpdatePayload
     {
         [JsonProperty("type")]
         public string Message { get; set; }
@@ -15,7 +15,7 @@ namespace PoissonSoft.KuCoinApi.Contracts.PublicWebSocket
         public string Topic { get; set; }
 
         [JsonProperty("subject")]
-        public string Instrument { get; set; }
+        public string EventType { get; set; }
 
         [JsonProperty("data")]
         public AccountBalanceData Data { get; set; }

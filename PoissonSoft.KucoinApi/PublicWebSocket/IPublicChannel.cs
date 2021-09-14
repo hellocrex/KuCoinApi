@@ -27,7 +27,7 @@ namespace PoissonSoft.KuCoinApi.PublicWebSocket
         SubscriptionInfo SubscribeMarkPrice(string instrument, Action<IndexPrice> callbackAction);
         SubscriptionInfo SubscribeOrderBookChange(string ticker, Action<FundingBook> callbackAction);
         SubscriptionInfo SubscribePrivateOrderChangeEvents(Action<OrderChangeEvent> callbackAction);
-        SubscriptionInfo SubscribeAccountBalance(Action<AccountBalance> callbackAction);
+        SubscriptionInfo SubscribeAccountBalance(Action<AccountBalanceUpdatePayload> callbackAction);
         SubscriptionInfo SubscribeDebtRatioChange(Action<DeptRatio> callbackAction);
         SubscriptionInfo SubscribePositionStatusChangeEvent(Action<PositionStatusEvent> callbackAction);
         SubscriptionInfo SubscribeMarginTradeOrderEntersEvent(string ticker, Action<MarginTradeOrderEvent> callbackAction);

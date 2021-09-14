@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using PoissonSoft.KuCoinApi.Contracts.Enums;
-using PoissonSoft.KuCoinApi.PublicWebSocket;
 
-namespace PoissonSoft.BinanceApi.MarketDataStreams
+namespace PoissonSoft.KuCoinApi.PublicWebSocket
 {
     /// <summary>
     /// Subscription information

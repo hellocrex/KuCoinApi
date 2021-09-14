@@ -26,6 +26,12 @@ namespace PoissonSoft.KuCoinApi.Contracts.WebSocketStream
         /// Unsubscribe stream
         /// </summary>
         [EnumMember(Value = "unsubscribe")]
-        Unsubscribe
+        Unsubscribe,
+
+        /// <summary>
+        /// Ping
+        /// </summary>
+        [EnumMember(Value = "ping")]
+        Ping
     }
 }

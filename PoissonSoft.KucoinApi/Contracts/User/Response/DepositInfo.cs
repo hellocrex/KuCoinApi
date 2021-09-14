@@ -6,7 +6,7 @@ using PoissonSoft.KuCoinApi.Contracts.Enums;
 
 namespace PoissonSoft.KuCoinApi.Contracts.User.Response
 {
-    public class Deposit
+    public class DepositInfo
     {
         /// <summary>
         /// Deposit address
@@ -36,7 +36,7 @@ namespace PoissonSoft.KuCoinApi.Contracts.User.Response
         /// Currency
         /// </summary>
         [JsonProperty("currency")]
-        public string Currency { get; set; }
+        public string Coin { get; set; }
 
         /// <summary>
         /// Internal deposit or not
@@ -54,7 +54,7 @@ namespace PoissonSoft.KuCoinApi.Contracts.User.Response
         /// Status
         /// </summary>
         [JsonProperty("status")]
-        public DepositStatus Status { get; set; }
+        public DepositAndWithdrawStatus Status { get; set; }
 
         /// <summary>
         /// Remark

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using PoissonSoft.KuCoinApi.Contracts.DataStream;
+using PoissonSoft.KuCoinApi.Contracts.PublicWebSocket;
 using PoissonSoft.KuCoinApi.Transport;
 
 namespace PoissonSoft.KuCoinApi.DataStream
@@ -36,7 +37,7 @@ namespace PoissonSoft.KuCoinApi.DataStream
         /// <summary>
         /// Событие обновления балансов аккаунта
         /// </summary>
-        event EventHandler<AccountUpdatePayload> OnAccountUpdate;
+        event EventHandler<AccountBalanceUpdatePayload> OnAccountUpdate;
 
         /// <summary>
         /// Событие обновления балансов аккаунта в результате ввода/вывода или внутреннего перевода

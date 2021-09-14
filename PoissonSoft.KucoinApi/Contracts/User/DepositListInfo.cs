@@ -7,6 +7,22 @@ using PoissonSoft.KuCoinApi.Contracts.User.Response;
 
 namespace PoissonSoft.KuCoinApi.Contracts.User
 {
+
+    public class DepositListInfo
+    {
+        /// <summary>
+        /// Код http ответа
+        /// </summary>
+        [JsonProperty("code")]
+        public int SystemCode { get; set; }
+
+        /// <summary>
+        /// Account info
+        /// </summary>
+        [JsonProperty("data")]
+        public DepositList Data { get; set; }
+    }
+
     public class DepositList
     {
         /// <summary>
@@ -37,6 +53,6 @@ namespace PoissonSoft.KuCoinApi.Contracts.User
         /// 
         /// </summary>
         [JsonProperty("items")]
-        public Deposit[] Items { get; set; }
+        public DepositInfo[] Items { get; set; }
     }
 }

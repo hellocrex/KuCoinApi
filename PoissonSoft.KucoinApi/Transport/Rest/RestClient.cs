@@ -224,6 +224,7 @@ namespace PoissonSoft.KuCoinApi.Transport.Rest
                         {
                             checkResponse(result, strResp);
                         }
+                        
                         checkResponse(result, strResp);
                     }
                 }
@@ -274,7 +275,7 @@ namespace PoissonSoft.KuCoinApi.Transport.Rest
         private void SignHttpWebRequest(string method, string urlPath)
         {
             var nonce = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            var msg = Encoding.UTF8.GetBytes($"{nonce}{method}/api/v1/{urlPath}");
+            var msg = Encoding.UTF8.GetBytes($"{nonce}{method}/api/{urlPath}");
 
             httpClient.DefaultRequestHeaders.Clear();
             httpClient.DefaultRequestHeaders.Add("KC-API-KEY", Credentials.ApiKey);

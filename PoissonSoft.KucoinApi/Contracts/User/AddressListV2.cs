@@ -6,7 +6,7 @@ using PoissonSoft.KuCoinApi.Contracts.User.Response;
 
 namespace PoissonSoft.KuCoinApi.Contracts.User
 {
-    public class AddressList
+    public class AddressListV2
     {
         /// <summary>
         /// Код http ответа
@@ -18,6 +18,6 @@ namespace PoissonSoft.KuCoinApi.Contracts.User
         /// Deposit Addresses info
         /// </summary>
         [JsonProperty("data")]
-        public DepositAddress Data { get; set; }
+        public DepositAddress[] Data { get; set; }
     }
 }

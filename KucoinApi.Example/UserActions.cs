@@ -85,16 +85,16 @@ namespace KuCoinApi.Example
                     });
                     return true;
 
-                case ConsoleKey.Z: // Deposit History (supporting network)
-                    SafeCall(() =>
-                    {
-                        var data = apiClient.UserApi.DepositHistory(new DepositHistoryRequest
-                        {
-                            Coin = InputHelper.GetString("Coin: "),
-                        });
-                        //Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
-                    });
-                    return true;
+                //case ConsoleKey.Z: // Deposit History (supporting network)
+                //    SafeCall(() =>
+                //    {
+                //        var data = apiClient.UserApi.DepositHistory(new DepositHistoryRequest
+                //        {
+                //            Coin = InputHelper.GetString("Coin: "),
+                //        });
+                //        //Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
+                //    });
+                //    return true;
 
 
                 case ConsoleKey.A: // "Get User Info of all Sub-Accounts

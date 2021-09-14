@@ -30,8 +30,8 @@ using Newtonsoft.Json;
 namespace PoissonSoft.KuCoinApi.Contracts.DataStream
 {
     /// <summary>
-    /// Is sent any time an account balance has changed and contains the assets that
-    /// were possibly changed by the event that generated the balance change.
+    /// IYou will receive this message when an account balance changes.
+    /// The message contains the details of the change.
     /// </summary>
     public class AccountUpdatePayload
     {

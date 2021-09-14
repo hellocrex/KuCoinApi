@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using PoissonSoft.KuCoinApi.Contracts.Enums;
+using PoissonSoft.KuCoinApi.Contracts.User.Request;
 
 namespace PoissonSoft.KuCoinApi.Contracts.User.Response
 {
@@ -37,7 +39,7 @@ namespace PoissonSoft.KuCoinApi.Contracts.User.Response
         /// Currency
         /// </summary>
         [JsonProperty("currency")]
-        public string Currency { get; set; }
+        public string Coin { get; set; }
 
         /// <summary>
         /// Internal withdrawal or not
@@ -55,13 +57,13 @@ namespace PoissonSoft.KuCoinApi.Contracts.User.Response
         /// Status
         /// </summary>
         [JsonProperty("status")]
-        public string Status { get; set; }
+        public DepositAndWithdrawStatus Status { get; set; }
 
         /// <summary>
         /// Remark
         /// </summary>
         [JsonProperty("remark")]
-        public string Remark { get; set; }
+        public string Description { get; set; }
 
         /// <summary>
         /// Creation time of the database record

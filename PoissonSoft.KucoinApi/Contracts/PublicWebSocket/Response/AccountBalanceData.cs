@@ -62,7 +62,7 @@ namespace PoissonSoft.KuCoinApi.Contracts.PublicWebSocket.Response
         /// timestamp
         /// </summary>
         [JsonProperty("time")]
-        public long Time { get; set; }
+        public long EventTime { get; set; }
     }
 
     public class RelationContext

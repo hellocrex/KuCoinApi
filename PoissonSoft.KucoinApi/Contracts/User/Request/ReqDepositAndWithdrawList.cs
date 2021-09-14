@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using PoissonSoft.KuCoinApi.Contracts.Enums;
 
 namespace PoissonSoft.KuCoinApi.Contracts.User.Request
 {
-    public class ReqDepositList
+    public class ReqDepositAndWithdrawList
     {
         /// <summary>
         /// [Optional] The current page.
@@ -41,6 +42,6 @@ namespace PoissonSoft.KuCoinApi.Contracts.User.Request
         /// [Optional] Status. Available value: PROCESSING, SUCCESS, and FAILURE
         /// </summary>
         [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
-        public DepositStatus? Status { get; set; }
+        public DepositAndWithdrawStatus? Status { get; set; }
     }
 }

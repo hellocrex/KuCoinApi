@@ -36,7 +36,7 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade.Request
         /// The type of trading : TRADE（Spot Trading）, MARGIN_TRADE (Margin Trading)
         /// </summary>
         [JsonProperty("tradeType")]
-        public TradeType TradeType { get; set; }
+        public TradeType? TradeType { get; set; }
 
         /// <summary>
         /// ‎[Optional] Start time (milisecond)

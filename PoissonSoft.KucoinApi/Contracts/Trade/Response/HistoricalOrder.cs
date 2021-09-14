@@ -82,7 +82,7 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade.Response
         /// Fee
         /// </summary>
         [JsonProperty("fee")]
-        public string Fee { get; set; }
+        public decimal Fee { get; set; }
 
         /// <summary>
         /// Create time

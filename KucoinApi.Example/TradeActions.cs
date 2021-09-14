@@ -57,8 +57,8 @@ namespace KuCoinApi.Example
                                 ClientOid = Guid.NewGuid().ToString(),
                                 Instrument = InputHelper.GetString("Trade instrument symbol: "),
                                 Side = InputHelper.GetEnum<OrderSide>("Side"),
-                                //Type = InputHelper.GetEnum<OrderType>("Type"),
-                                TradeType = InputHelper.GetEnum<TradeType>("Trade type"),
+                                Type = InputHelper.GetEnum<OrderType>("Type"),
+                               // TradeType = InputHelper.GetEnum<TradeType>("Trade type"),
                                // STP = InputHelper.GetEnum<STP>("STP: "),
                                 Price = InputHelper.GetDecimal("Price per base currency: "),
                                // Funds = InputHelper.GetString("The desired amount of quote currency to use: "),
@@ -80,8 +80,8 @@ namespace KuCoinApi.Example
                                 ClientOid = Guid.NewGuid().ToString(),
                                 Symbol = InputHelper.GetString("Trade instrument symbol: "),
                                 Side = InputHelper.GetEnum<OrderSide>("Side"),
-                                Type = InputHelper.GetEnum<OrderType>("Type"),
-                                STP = InputHelper.GetEnum<STP>("STP: "),
+                                Type = InputHelper.GetEnum<OrderType>("Type"), 
+                                //STP = InputHelper.GetEnum<STP>("STP: "),
                                 Price = InputHelper.GetString("Price per base currency: "),
                                 Size = InputHelper.GetString("Amount of base currency to buy or sell: ")
                             }
@@ -155,10 +155,11 @@ namespace KuCoinApi.Example
                         var data = apiClient.TradeApi.ListOrders(
                             new ReqOrderList
                             {
-                               // Symbol = InputHelper.GetString("Instruments: "),
-                                StatusOrder = InputHelper.GetEnum<StatusOrder>("active or done: "),
+                                Instrument = InputHelper.GetString("Instruments: "),
+                                //StatusOrder = InputHelper.GetEnum<StatusOrder>("active or done: "),
+                                StartTime = 1630847139978,
                                // Side = InputHelper.GetEnum<OrderSide>(""),
-                                TypeTrade = InputHelper.GetEnum<TradeType>("The type of trading: ")
+                                TypeTrade = TradeType.Trade//InputHelper.GetEnum<TradeType>("The type of trading: ")
                             });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });
@@ -171,7 +172,9 @@ namespace KuCoinApi.Example
                             new ReqHistoricalOrder()
                             {
                                 Symbol = InputHelper.GetString("Symbol: "),
-                               // PageSize = Convert.ToInt32(InputHelper.GetString("PageSize: "))
+                                Side = InputHelper.GetEnum<OrderSide>("Side: ")
+                               // StartTime = 1628154187000
+                                // PageSize = Convert.ToInt32(InputHelper.GetString("PageSize: "))
                             });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });
@@ -215,10 +218,12 @@ namespace KuCoinApi.Example
                         var data = apiClient.TradeApi.ListFills(
                             new ReqFills
                             {
-                                TradeType = InputHelper.GetEnum<TradeType>("The type of trading : TRADE（Spot Trading）, MARGIN_TRADE (Margin Trading): "),
-                                Symbol = InputHelper.GetString("Symbol: "),
+                                OrderId = InputHelper.GetString("OrderId: ")
+                              //  TradeType = InputHelper.GetEnum<TradeType>("The type of trading : TRADE（Spot Trading）, MARGIN_TRADE (Margin Trading): "),
+                              //  Symbol = InputHelper.GetString("Symbol: "),
                                // Type = InputHelper.GetEnum<OrderType>(""),
-                                Side = InputHelper.GetEnum<OrderSide>("")
+                               // Side = InputHelper.GetEnum<OrderSide>(""),
+                               // StartTime = 1630851083730
                             });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });
@@ -295,7 +300,7 @@ namespace KuCoinApi.Example
                             new ReqListStopOrder
                             {
                                 //StatusOrder = InputHelper.GetEnum<StatusOrder>("active or done: "),
-                                Symbol = InputHelper.GetString("Symbol: "),
+                                Instrument = InputHelper.GetString("Symbol: "),
                                 TypeTrade = InputHelper.GetEnum<TradeType>("Type trade: "),
                                 //Side = InputHelper.GetEnum<OrderSide>(""),
                             });

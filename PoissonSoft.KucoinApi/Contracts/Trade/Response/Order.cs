@@ -19,7 +19,7 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade.Response
         /// Operation type: DEAL
         /// </summary>
         [JsonProperty("opType")]
-        public string OpType { get; set; }
+        public OperationType OpType { get; set; }
 
         /// <summary>
         /// order price
@@ -55,7 +55,7 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade.Response
         /// fee
         /// </summary>
         [JsonProperty("fee")]
-        public string Commission { get; set; }
+        public decimal Commission { get; set; }
 
         /// <summary>
         /// charge fee currency

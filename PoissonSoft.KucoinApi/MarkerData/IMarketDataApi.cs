@@ -29,6 +29,5 @@ namespace PoissonSoft.KuCoinApi.MarkerData
         FiatPriceList GetFiatPrice(ReqFiatPrices request);
         OrderBook GetPartOrderBook(ReqTradeInstrument request, byte count);
         OrderBook GetFullOrderBook(ReqTradeInstrument request);
-        OrderBook GetFullOrderBookDeprecated(ReqTradeInstrument request);
     }
 }

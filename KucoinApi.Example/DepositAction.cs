@@ -107,7 +107,7 @@ namespace KuCoinApi.Example
 
                          //   Console.WriteLine($"{i}_{DateTimeOffset.UtcNow}");
                             var data = apiClient.UserApi.GetDepositList(
-                                new ReqDepositList
+                                new ReqDepositAndWithdrawList
                                 {
                                     Coin = InputHelper.GetString("Currency: ")
                                 });
@@ -129,7 +129,7 @@ namespace KuCoinApi.Example
                 case ConsoleKey.E: // Get V1 Historical Deposits List
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.GetHistoricalDepositsList(new ReqDepositList
+                        var data = apiClient.UserApi.GetHistoricalDepositsList(new ReqDepositAndWithdrawList
                         {
                             Coin = InputHelper.GetString("Currency: ")
                         });
@@ -140,7 +140,7 @@ namespace KuCoinApi.Example
                 case ConsoleKey.F: // Get Withdrawals List
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.GetWithdrawalsList(new ReqDepositList
+                        var data = apiClient.UserApi.GetWithdrawalsList(new ReqDepositAndWithdrawList
                         {
                             Coin = InputHelper.GetString("Currency: ")
                         });
@@ -151,7 +151,7 @@ namespace KuCoinApi.Example
                 case ConsoleKey.G: // Get V1 Historical Withdrawals List
                     SafeCall(() =>
                     {
-                        var data = apiClient.UserApi.GetHistoricalWithdrawList(new ReqDepositList
+                        var data = apiClient.UserApi.GetHistoricalWithdrawList(new ReqDepositAndWithdrawList
                         {
                             Coin = InputHelper.GetString("Currency: "),
                            // CurrentPage = Convert.ToInt32(InputHelper.GetString("The current page: ")),

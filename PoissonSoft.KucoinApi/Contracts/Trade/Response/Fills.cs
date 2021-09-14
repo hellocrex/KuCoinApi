@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using PoissonSoft.KuCoinApi.Contracts.Enums;
 
 namespace PoissonSoft.KuCoinApi.Contracts.Trade.Response
 {
@@ -35,19 +36,19 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade.Response
         /// ‎transaction direction,include buy and sell
         /// </summary>
         [JsonProperty("side")]
-        public string Side { get; set; }
+        public OrderSide Side { get; set; }
 
         /// <summary>
         /// order price
         /// </summary>
         [JsonProperty("price")]
-        public string Price { get; set; }
+        public decimal Price { get; set; }
 
         /// <summary>
         /// ‎order quantity
         /// </summary>
         [JsonProperty("size")]
-        public string Size { get; set; }
+        public decimal Size { get; set; }
 
         /// <summary>
         /// order funds
@@ -59,13 +60,13 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade.Response
         /// order type,e.g. limit,market,stop_limit
         /// </summary>
         [JsonProperty("type")]
-        public string Type { get; set; }
+        public OrderType Type { get; set; }
 
         /// <summary>
         /// fee
         /// </summary>
         [JsonProperty("fee")]
-        public string Fee { get; set; }
+        public decimal Commission { get; set; }
 
         /// <summary>
         /// charge fee currency
@@ -95,12 +96,12 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade.Response
         /// ‎create time
         /// </summary>
         [JsonProperty("createdAt")]
-        public string CreatedTime { get; set; }
+        public long CreatedTime { get; set; }
 
         /// <summary>
         /// ‎The type of trading : TRADE（Spot Trading）, MARGIN_TRADE (Margin Trading)
         /// </summary>
         [JsonProperty("tradeType")]
-        public string TradeType { get; set; }
+        public TradeType TradeType { get; set; }
     }
 }

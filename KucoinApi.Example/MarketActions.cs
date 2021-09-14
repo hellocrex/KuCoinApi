@@ -28,7 +28,6 @@ namespace KuCoinApi.Example
                 [ConsoleKey.I] = "Get Currency Detail",
                 [ConsoleKey.J] = "Get Fiat Price",
                 [ConsoleKey.K] = "Get Part Order Book",
-                [ConsoleKey.L] = "Get Full Order Book [Deprecated]",
                 [ConsoleKey.M] = "Get Full Order Book",
 
                 [ConsoleKey.Escape] = "Go back"
@@ -158,18 +157,6 @@ namespace KuCoinApi.Example
                             {
                                 Symbol = InputHelper.GetString("Trade instrument symbol: ")
                             }, 100);
-                        Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
-                    });
-                    return true;
-
-                case ConsoleKey.L: // Get Full Order Book Deprecated
-                    SafeCall(() =>
-                    {
-                        var data = apiClient.MarketDataApi.GetFullOrderBookDeprecated(
-                            new ReqTradeInstrument
-                            {
-                                Symbol = InputHelper.GetString("Trade instrument symbol: ")
-                            });
                         Console.WriteLine(JsonConvert.SerializeObject(data, Formatting.Indented));
                     });
                     return true;

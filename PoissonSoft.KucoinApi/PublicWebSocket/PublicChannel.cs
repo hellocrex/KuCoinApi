@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using Humanizer;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -15,14 +16,15 @@ using PoissonSoft.KuCoinApi.Contracts.PublicWebSocket;
 using PoissonSoft.KuCoinApi.Contracts.WebSocketStream;
 using PoissonSoft.KuCoinApi.Transport;
 using PoissonSoft.KuCoinApi.Transport.Ws;
-
+using Timer = System.Timers.Timer;
 
 namespace PoissonSoft.KuCoinApi.PublicWebSocket
 {
     public class PublicChannel: IPublicChannel, IDisposable
     {
         //private const string WS_ENDPOINT = "wss://push1-v2.kucoin.com/endpoint";
-        
+        private Timer pingTimer;
+
         private readonly KuCoinApiClient apiClient;
         private readonly WebSocketStreamListener2 streamListener;
 
@@ -88,6 +90,15 @@ namespace PoissonSoft.KuCoinApi.PublicWebSocket
             WsConnectionStatus = DataStreamStatus.Active;
             reconnectTimeout = TimeSpan.Zero;
             apiClient.Logger.Info($"{userFriendlyName}. Successfully connected to stream!");
+            // тут просто для теста ставлю таймер и запускаем пинг
+            pingTimer = new Timer(TimeSpan.FromMinutes(1).TotalMilliseconds) { AutoReset = true };
+            pingTimer.Elapsed += OnPingTimer;
+            pingTimer.Enabled = true;
+        }
+
+        private void OnPingTimer(object sender, ElapsedEventArgs e)
+        {
+            Ping();
         }
 
         private void OnDisconnect(object sender, (WebSocketCloseStatus? CloseStatus, string CloseStatusDescription) e)
@@ -121,6 +132,25 @@ namespace PoissonSoft.KuCoinApi.PublicWebSocket
                 Topic = topicString,
                 Privatechanel = true,
                 Responce = true
+            };
+
+            return ProcessRequest<object>(request);
+
+        }
+
+        private CommandResponse<object> Ping()
+        {
+            while (!disposed && WsConnectionStatus != DataStreamStatus.Active)
+            {
+                streamListener.Open();
+                if (WsConnectionStatus != DataStreamStatus.Active)
+                    Thread.Sleep(500);
+            }
+
+            CommandRequest request = new CommandRequest
+            {
+                RequestId = GenerateUniqueId(),
+                Type = CommandRequestMethod.Ping
             };
 
             return ProcessRequest<object>(request);
@@ -333,9 +363,9 @@ namespace PoissonSoft.KuCoinApi.PublicWebSocket
                 case Topic.AccountBalance:
                     activeSubscriptions.ForEach(sw =>
                     {
-                        if (sw.CallbackAction is Action<AccountBalance> callback)
+                        if (sw.CallbackAction is Action<AccountBalanceUpdatePayload> callback)
                         {
-                            callback(streamData?.ToObject<AccountBalance>());
+                            callback(streamData?.ToObject<AccountBalanceUpdatePayload>());
                         }
                     });
                     break;
@@ -432,6 +462,7 @@ namespace PoissonSoft.KuCoinApi.PublicWebSocket
                 {
                     case CommandRequestMethod.Subscribe:
                     case CommandRequestMethod.Unsubscribe:
+                    case CommandRequestMethod.Ping:
                         cmdResp.Data = null;
                         break;
                     default:
@@ -591,12 +622,12 @@ namespace PoissonSoft.KuCoinApi.PublicWebSocket
             }
 
             if (!requestWasProcessed)
-            {
+            {// TODO : и тут ошибка при ping
                 return new CommandResponse<T>
                 {
                     Success = false,
                     ErrorDescription = "Incorrect data in Response: " +
-                                       $"{(waiter.Response.Data == null ? "NULL" : waiter.Response.Data.GetType().Name)}"
+                                       $"{(waiter.Response?.Data == null ? "NULL" : waiter.Response.Data.GetType().Name)}"
                 };
             }
 
@@ -1040,7 +1071,7 @@ namespace PoissonSoft.KuCoinApi.PublicWebSocket
             return subscriptionInfo;
         }
 
-        public SubscriptionInfo SubscribeAccountBalance(Action<AccountBalance> callbackAction)
+        public SubscriptionInfo SubscribeAccountBalance(Action<AccountBalanceUpdatePayload> callbackAction)
         {
             var subscriptionInfo = new SubscriptionInfo
             {

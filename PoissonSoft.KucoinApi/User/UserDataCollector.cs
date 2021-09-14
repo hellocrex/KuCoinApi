@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using NLog;
 using PoissonSoft.KuCoinApi.Contracts.DataStream;
 using PoissonSoft.KuCoinApi.Contracts.Enums;
+using PoissonSoft.KuCoinApi.Contracts.PublicWebSocket;
 using PoissonSoft.KuCoinApi.Contracts.User;
 using PoissonSoft.KuCoinApi.Contracts.User.Request;
 using PoissonSoft.KuCoinApi.Transport;
@@ -24,7 +25,7 @@ namespace PoissonSoft.KuCoinApi.User
         private AccountsList AccountInformation;
         private AccountsList aInformation;
         private long lastUpdateTimestamp;
-        private readonly ConcurrentQueue<AccountUpdatePayload> accountUpdatesQueue = new ConcurrentQueue<AccountUpdatePayload>();
+        private readonly ConcurrentQueue<AccountBalanceUpdatePayload> accountUpdatesQueue = new ConcurrentQueue<AccountBalanceUpdatePayload>();
         private CancellationTokenSource cancellationTokenSource;
         private Thread queueDispatchingThread;
 
@@ -100,7 +101,6 @@ namespace PoissonSoft.KuCoinApi.User
         private void TryStart()
         {
             var timeout = TimeSpan.Zero;
-
             apiClient.UserDataStream.OnAccountUpdate += OnAccountUpdate;
 
             // Включение SpotDataStream
@@ -165,7 +165,7 @@ namespace PoissonSoft.KuCoinApi.User
 
                 if (DateTimeOffset.UtcNow > nextProblemInform)
                 {
-                   // apiClient.Logger.Warn($"{userFriendlyName}. Проблема инициализации: Не удаётся загрузить стартовый снапшот {nameof(AccountInformation)}");
+                    apiClient.Logger.Warn($"{userFriendlyName}. Проблема инициализации: Не удаётся загрузить стартовый снапшот {nameof(AccountInformation)}");
                     nextProblemInform = DateTimeOffset.UtcNow.AddMinutes(1);
                 }
             }
@@ -212,10 +212,10 @@ namespace PoissonSoft.KuCoinApi.User
 
         private void ProcessUpdates()
         {
-            var updates = new List<AccountUpdatePayload>(accountUpdatesQueue.Count);
+            var updates = new List<AccountBalanceUpdatePayload>(accountUpdatesQueue.Count);
             while (accountUpdatesQueue.TryDequeue(out var update))
             {
-                if (update.LastAccountUpdateTime > lastUpdateTimestamp)
+                if (update.Data.EventTime > lastUpdateTimestamp)
                 {
                     updates.Add(update);
                 }
@@ -252,7 +252,7 @@ namespace PoissonSoft.KuCoinApi.User
             //AccountInformation = snapshot;
         }
 
-        private void OnAccountUpdate(object sender, AccountUpdatePayload update)
+        private void OnAccountUpdate(object sender, AccountBalanceUpdatePayload update)
         {
             accountUpdatesQueue.Enqueue(update);
         }

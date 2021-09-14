@@ -22,7 +22,6 @@ namespace PoissonSoft.KuCoinApi.User
         /// Fetch deposit history.
         /// </summary>
         /// <returns></returns>
-        DepositInfo[] DepositHistory(DepositHistoryRequest request);
 
         AccountsList GetListAccounts(ReqAccount request);
         SubAccountsList UserInfo();
@@ -35,15 +34,15 @@ namespace PoissonSoft.KuCoinApi.User
         RespOrderId TransferBetweenAccounts(ReqTransferBetweenAcc request);
         RespOrderId InnerTransfer(string currency, AccountType fromAcc, AccountType toAcc, decimal amount);
         AddressList CreateDepositAddressV1(ReqDepositAddress request);
-        DepositAddress GetDepositAddressV2(ReqDepositAddress request);
+        AddressListV2 GetDepositAddressV2(ReqDepositAddress request);
         AddressList GetDepositAddress(string coin, string chain = null);
-        DepositList GetDepositList(ReqDepositList request);
-        HistoricalListInfo GetHistoricalDepositsList(ReqDepositList request);
+        DepositListInfo GetDepositList(ReqDepositAndWithdrawList request);
+        HistoricalListInfo GetHistoricalDepositsList(ReqDepositAndWithdrawList request);
         AccountList GetAccount(SpecialBuildQuery request);
         FeeInfo GetBasicUserFee();
         FeeList ActualFeeRateTradingPair(ReqInstruments request);
-        WithdrawListInfo GetWithdrawalsList(ReqDepositList request);
-        HistoricalListInfo GetHistoricalWithdrawList(ReqDepositList request);
+        WithdrawListInfo GetWithdrawalsList(ReqDepositAndWithdrawList request);
+        HistoricalListInfo GetHistoricalWithdrawList(ReqDepositAndWithdrawList request);
         WithdrawQuotaInfo GetWithdrawalQuotas(ReqCurrencyInfo request);
 
 

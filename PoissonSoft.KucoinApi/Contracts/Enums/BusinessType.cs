@@ -8,6 +8,11 @@ namespace PoissonSoft.KuCoinApi.Contracts.Enums
     public enum BusinessType
     {
         /// <summary>
+        /// Unknown (erroneous) type
+        /// </summary>
+        Unknown,
+
+        /// <summary>
         /// DEPOSIT
         /// </summary>
         [EnumMember(Value = "Deposit")]

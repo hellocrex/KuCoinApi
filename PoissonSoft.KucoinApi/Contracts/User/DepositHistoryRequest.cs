@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using PoissonSoft.KuCoinApi.Contracts.Enums;
 
 namespace PoissonSoft.KuCoinApi.Contracts.User
 {
@@ -18,10 +19,9 @@ namespace PoissonSoft.KuCoinApi.Contracts.User
 
         /// <summary>
         /// Deposit status (optional)
-        /// 0: pending, 6: credited but cannot withdraw, 1: success
         /// </summary>
         [JsonProperty("status")]
-        public DepositStatus? Status { get; set; }
+        public DepositAndWithdrawStatus? Status { get; set; }
 
         /// <summary>
         /// Start time timestamp in ms (optional)

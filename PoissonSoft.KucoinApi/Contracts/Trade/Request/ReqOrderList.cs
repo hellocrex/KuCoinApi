@@ -23,7 +23,7 @@ namespace PoissonSoft.KuCoinApi.Contracts.Trade.Request
         /// [Optional] Only list orders for a specific symbol
         /// </summary>
         [JsonProperty("symbol", NullValueHandling = NullValueHandling.Ignore)]
-        public string Symbol { get; set; }
+        public string Instrument { get; set; }
 
         /// <summary>
         /// [Optional] buy or sell
